@@ -1,0 +1,12 @@
+[2026-04-08 10:56:47] INFO: MongoDB Connected: localhost
+[2026-04-08 10:56:47] INFO: Server running in development mode on port 5000
+[2026-04-08 11:33:41] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\services\auth.service.js:44:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\controllers\auth.controller.js:17:18)
+[2026-04-08 11:34:05] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\services\auth.service.js:44:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\controllers\auth.controller.js:17:18)
