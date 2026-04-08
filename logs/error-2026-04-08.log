@@ -8,3 +8,23 @@ Error: Invalid mobile number or password.
     at Object.login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\services\auth.service.js:44:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async login (D:\Desktop\Projects\Tanker-FIlling-Station\backend\src\controllers\auth.controller.js:17:18)
+[2026-04-08 15:02:50] ERROR: MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+MongoServerError: Transaction numbers are only allowed on a replica set member or mongos
+    at Connection.sendCommand (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\cmap\connection.js:306:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Connection.command (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\cmap\connection.js:334:26)
+    at async Server.command (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\sdam\server.js:194:29)
+    at async tryOperation (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:213:32)
+    at async executeOperation (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.findOneAndUpdate (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongodb\lib\collection.js:544:16)
+    at async model.Query._findOneAndUpdate (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongoose\lib\query.js:3536:13)
+    at async model.Query.exec (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\mongoose\lib\query.js:4627:63)
+    at async Object.assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\queue.service.js:54:21)
+[2026-04-08 15:03:58] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-08 15:04:51] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)

@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "D:\\DarchTech_PVT_LLP\\WaterTranker Project\\watertanker-backend\\logs\\.d5b1fcd7c4d936c3bb3b619f2b9124ae6dc4fc8b-audit.json",
+    "files": [
+        {
+            "date": 1775634297777,
+            "name": "D:\\DarchTech_PVT_LLP\\WaterTranker Project\\watertanker-backend\\logs\\error-2026-04-08.log",
+            "hash": "25487514c5f82caa8628ae161cc8e7bb1d9581adae21ca6e0ce63b25df63ef1a"
+        }
+    ],
+    "hashType": "sha256"
+}
