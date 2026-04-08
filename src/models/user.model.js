@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
-const { ROLES } = require('../config/constants');
+const mongoose = require("mongoose");
+const { ROLES } = require("../config/constants");
 
 const profileSchema = new mongoose.Schema(
   {
@@ -17,14 +17,14 @@ const userSchema = new mongoose.Schema(
   {
     mobileNumber: {
       type: String,
-      required: [true, 'Mobile number is required'],
+      required: [true, "Mobile number is required"],
       unique: true,
       trim: true,
-      match: [/^\d{10}$/, 'Mobile number must be 10 digits'],
+      match: [/^\d{10}$/, "Mobile number must be 10 digits"],
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: [true, "Password is required"],
       minlength: 6,
       select: false,
     },
@@ -43,7 +43,6 @@ const userSchema = new mongoose.Schema(
   },
 );
 
-userSchema.index({ mobileNumber: 1 });
 userSchema.index({ role: 1 });
 
 userSchema.methods.toPublicJSON = function () {
@@ -52,4 +51,4 @@ userSchema.methods.toPublicJSON = function () {
   return obj;
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

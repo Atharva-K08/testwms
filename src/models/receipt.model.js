@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const receiptSchema = new mongoose.Schema(
   {
@@ -12,7 +12,7 @@ const receiptSchema = new mongoose.Schema(
     },
     requestId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Request',
+      ref: "Request",
       required: true,
       unique: true, // One receipt per request
     },
@@ -29,7 +29,7 @@ const receiptSchema = new mongoose.Schema(
 
     generatedBy: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     generatedAt: { type: Date, default: Date.now },
@@ -42,8 +42,6 @@ const receiptSchema = new mongoose.Schema(
   },
 );
 
-receiptSchema.index({ receiptNumber: 1 });
-receiptSchema.index({ requestId: 1 });
 receiptSchema.index({ generatedAt: -1 });
 
-module.exports = mongoose.model('Receipt', receiptSchema);
+module.exports = mongoose.model("Receipt", receiptSchema);
