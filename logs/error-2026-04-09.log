@@ -1,0 +1,62 @@
+[2026-04-09 10:55:24] ERROR: MongoDB connection failed: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+[2026-04-09 11:24:35] ERROR: TypeError: logger.error is not a function
+TypeError: logger.error is not a function
+    at Object.recordDieselFilling (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\dieselFilling.service.js:97:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async recordDieselFilling (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\dieselFilling.controller.js:18:24)
+[2026-04-09 11:28:40] ERROR: Error: User not found or deactivated.
+Error: User not found or deactivated.
+    at Object.refreshToken (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\auth.service.js:75:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async refresh (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\auth.controller.js:26:18)
+[2026-04-09 11:29:23] ERROR: Error: User not found or deactivated.
+Error: User not found or deactivated.
+    at Object.refreshToken (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\auth.service.js:75:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async refresh (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\auth.controller.js:26:18)
+[2026-04-09 11:30:01] ERROR: Error: Invalid or expired refresh token.
+Error: Invalid or expired refresh token.
+    at Object.refreshToken (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\auth.service.js:70:11)
+    at refresh (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\auth.controller.js:26:36)
+    at newFn (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express-async-errors\index.js:16:20)
+    at Layer.handle [as handle_request] (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express\lib\router\route.js:149:13)
+    at validate (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\middlewares\validate.middleware.js:25:3)
+    at newFn (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express-async-errors\index.js:16:20)
+    at Layer.handle [as handle_request] (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express\lib\router\route.js:149:13)
+    at middleware (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\node_modules\express-validator\lib\middlewares\check.js:16:13)
+[2026-04-09 11:31:30] ERROR: Error: Request not found.
+Error: Request not found.
+    at Object.getRequestById (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\request.service.js:35:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async getRequestById (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\request.controller.js:41:19)
+[2026-04-09 11:53:12] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 11:53:27] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 11:53:36] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 11:53:54] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 11:54:53] ERROR: Error: Request could not be assigned. It may already be assigned or does not exist.
+Error: Request could not be assigned. It may already be assigned or does not exist.
+    at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 11:56:22] ERROR: Error: Request not found or not in assigned state.
+Error: Request not found or not in assigned state.
+    at completeRequest (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:56:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-09 13:20:45] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.createManagerOrFuelManager (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\auth.service.js:129:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async createManager (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\auth.controller.js:44:18)

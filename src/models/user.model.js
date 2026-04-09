@@ -5,10 +5,10 @@ const { ROLES } = require("../config/constants");
 
 const profileSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, trim: true, maxlength: 100 },
-    societyName: { type: String, required: true, trim: true, maxlength: 150 },
-    address: { type: String, required: true, trim: true, maxlength: 300 },
-    contactPerson: { type: String, required: true, trim: true, maxlength: 100 },
+    name: { type: String, trim: true, maxlength: 100 },
+    societyName: { type: String, trim: true, maxlength: 150 },
+    address: { type: String, trim: true, maxlength: 300 },
+    contactPerson: { type: String, trim: true, maxlength: 100 },
   },
   { _id: false },
 );
@@ -17,10 +17,14 @@ const userSchema = new mongoose.Schema(
   {
     mobileNumber: {
       type: String,
-      required: [true, "Mobile number is required"],
-      unique: true,
       trim: true,
       match: [/^\d{10}$/, "Mobile number must be 10 digits"],
+    },
+    username: {
+      type: String,
+      trim: true,
+      unique: true,
+      sparse: true,
     },
     password: {
       type: String,
@@ -33,7 +37,7 @@ const userSchema = new mongoose.Schema(
       enum: Object.values(ROLES),
       default: ROLES.MEMBER,
     },
-    profile: { type: profileSchema, required: true },
+    profile: { type: profileSchema },
     isActive: { type: Boolean, default: true },
     lastLoginAt: { type: Date, default: null },
   },
@@ -44,6 +48,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.index({ role: 1 });
+userSchema.index({ username: 1 });
 
 userSchema.methods.toPublicJSON = function () {
   const obj = this.toObject();

@@ -40,3 +40,10 @@ Error: Request could not be assigned. It may already be assigned or does not exi
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
 [2026-04-08 15:05:26] INFO: MongoDB Connected: localhost
 [2026-04-08 15:05:26] INFO: Server running in development mode on port 5000
+[2026-04-08 15:44:19] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-08 15:44:19] INFO: Server running on development mode on port 5000
+[2026-04-08 16:31:49] INFO: MongoDB reconnected.
+[2026-04-08 17:24:30] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-08 17:25:52] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-02.juh27ms.mongodb.net
+[2026-04-08 17:26:12] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-08 17:26:12] INFO: Server running on development mode on port 5000

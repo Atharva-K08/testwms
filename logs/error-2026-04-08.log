@@ -28,3 +28,5 @@ Error: Request could not be assigned. It may already be assigned or does not exi
 Error: Request could not be assigned. It may already be assigned or does not exist.
     at assignTanker (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\queue.controller.js:41:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2026-04-08 17:24:30] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000
+[2026-04-08 17:25:52] ERROR: Uncaught Exception: listen EADDRINUSE: address already in use :::5000

@@ -1,21 +1,28 @@
-'use strict';
+"use strict";
 
 module.exports = {
   ROLES: Object.freeze({
-    MEMBER: 'member',
-    MANAGER: 'manager',
+    SUPER_ADMIN: "superAdmin",
+    MEMBER: "member",
+    MANAGER: "manager",
+    FUEL_MANAGER: "fuelManager",
+  }),
+
+  SUPER_ADMIN_CREDENTIALS: Object.freeze({
+    USERNAME: "admin",
+    PASSWORD: "root",
   }),
 
   REQUEST_STATUS: Object.freeze({
-    PENDING: 'pending',
-    ASSIGNED: 'assigned',
-    COMPLETED: 'completed',
-    CANCELLED: 'cancelled',
+    PENDING: "pending",
+    ASSIGNED: "assigned",
+    COMPLETED: "completed",
+    CANCELLED: "cancelled",
   }),
 
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS) || 12,
 
-  RECEIPT_PREFIX: process.env.RECEIPT_PREFIX || 'WTR',
+  RECEIPT_PREFIX: process.env.RECEIPT_PREFIX || "WTR",
 
   PAGINATION: Object.freeze({
     DEFAULT_PAGE: 1,
