@@ -31,9 +31,9 @@ const generateReceipt = async ({ requestId, managerId }) => {
   const request = await Request.findById(requestId);
   if (!request) throw new AppError("Request not found.", 404);
 
-  if (request.status !== "completed") {
+  if (request.status !== "pending" && request.status !== "completed") {
     throw new AppError(
-      "Receipt can only be generated for completed requests.",
+      "Receipt can only be generated for pending or completed requests.",
       422,
     );
   }
