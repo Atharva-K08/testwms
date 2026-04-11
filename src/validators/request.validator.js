@@ -21,16 +21,14 @@ const assignTankerValidator = [
     .withMessage("Tanker number must not exceed 20 characters."),
 
   body("driverName")
+    .optional()
     .trim()
-    .notEmpty()
-    .withMessage("Driver name is required.")
     .isLength({ max: 100 })
     .withMessage("Driver name must not exceed 100 characters."),
 
   body("driverMobile")
+    .optional()
     .trim()
-    .notEmpty()
-    .withMessage("Driver mobile number is required.")
     .isLength({ min: 10, max: 10 })
     .withMessage("Driver mobile number must be exactly 10 digits.")
     .isNumeric()
@@ -53,8 +51,9 @@ const cancelRequestValidator = [
   param("id").isMongoId().withMessage("Invalid request ID."),
 
   body("cancelReason")
-    .optional()
     .trim()
+    .notEmpty()
+    .withMessage("Cancel reason is required.")
     .isLength({ max: 300 })
     .withMessage("Cancel reason must not exceed 300 characters."),
 ];

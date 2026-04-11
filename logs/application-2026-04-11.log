@@ -1,0 +1,30 @@
+[2026-04-11 18:30:03] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 18:30:03] INFO: Server running on development mode on port 5000
+[2026-04-11 18:32:22] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 18:32:22] INFO: Server running on development mode on port 5000
+[2026-04-11 18:56:09] INFO: MongoDB reconnected.
+[2026-04-11 19:16:18] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 19:16:18] INFO: Server running on development mode on port 5000
+[2026-04-11 19:16:51] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 19:16:51] INFO: Server running on development mode on port 5000
+[2026-04-11 19:17:33] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-02.juh27ms.mongodb.net
+[2026-04-11 19:17:33] INFO: Server running on development mode on port 5000
+[2026-04-11 19:18:18] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 19:18:18] INFO: Server running on development mode on port 5000
+[2026-04-11 19:22:28] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-01.juh27ms.mongodb.net
+[2026-04-11 19:22:28] INFO: Server running on development mode on port 5000
+[2026-04-11 19:33:12] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 19:33:12] INFO: Server running on development mode on port 5000
+[2026-04-11 19:34:03] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-00.juh27ms.mongodb.net
+[2026-04-11 19:34:03] INFO: Server running on development mode on port 5000
+[2026-04-11 19:34:22] INFO: Diesel filling 69d7902db439907e125d3f10 marked as wrong by user 69d89bd4740e75300da5d1ad. Reason: Incorrect entry - wrong tanker number
+[2026-04-11 19:34:22] INFO: User 69d89bd4740e75300da5d1ad marked diesel filling 69d7902db439907e125d3f10 as wrong
+[2026-04-11 19:34:58] INFO: MongoDB Connected: ac-rhwz3uy-shard-00-01.juh27ms.mongodb.net
+[2026-04-11 19:34:58] INFO: Server running on development mode on port 5000
+[2026-04-11 19:35:03] ERROR: TypeError: AppError is not a constructor
+TypeError: AppError is not a constructor
+    at Object.markAsWrongEntry (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\dieselFilling.service.js:310:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async markAsWrongEntry (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\dieselFilling.controller.js:190:28)
+[2026-04-11 19:35:56] INFO: Diesel filling 69da49f25eca1dd9e39aae2a marked as wrong by user 69d89bd4740e75300da5d1ad. Reason: Incorrect entry - wrong tanker number
+[2026-04-11 19:35:56] INFO: User 69d89bd4740e75300da5d1ad marked diesel filling 69da49f25eca1dd9e39aae2a as wrong

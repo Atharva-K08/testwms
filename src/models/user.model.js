@@ -5,7 +5,6 @@ const { ROLES } = require("../config/constants");
 
 const profileSchema = new mongoose.Schema(
   {
-    name: { type: String, trim: true, maxlength: 100 },
     societyName: { type: String, trim: true, maxlength: 150 },
     address: { type: String, trim: true, maxlength: 300 },
     contactPerson: { type: String, trim: true, maxlength: 100 },

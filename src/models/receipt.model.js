@@ -23,8 +23,8 @@ const receiptSchema = new mongoose.Schema(
     contactPerson: { type: String, required: true },
     mobileNumber: { type: String, required: true },
     tankerNumber: { type: String, required: true },
-    driverName: { type: String, required: true },
-    driverMobile: { type: String, required: true },
+    driverName: { type: String, required: false, default: "" },
+    driverMobile: { type: String, required: false, default: "" },
     queuePosition: { type: Number, required: true },
 
     generatedBy: {

@@ -3,6 +3,7 @@ const Request = require("../models/request.model");
 const Receipt = require("../models/receipt.model");
 const AppError = require("../middlewares/error.middleware");
 const { logger } = require("../utils/logger.util");
+const { DIESEL_FILLING_STATUS } = require("../config/constants");
 
 /**
  * Calculate the number of trips completed by a tanker between two dates
@@ -294,6 +295,79 @@ const getTankerDieselSummary = async (tankerNumber) => {
   };
 };
 
+/**
+ * Mark a diesel filling entry as wrong
+ * This will update the status to 'wrong' and record who marked it and when
+ */
+const markAsWrongEntry = async (id, reason, userId) => {
+  const filling = await DieselFilling.findById(id);
+
+  if (!filling) {
+    throw new AppError("Diesel filling not found", 404);
+  }
+
+  if (filling.status === DIESEL_FILLING_STATUS.WRONG) {
+    throw new AppError("This entry is already marked as wrong", 400);
+  }
+
+  filling.status = DIESEL_FILLING_STATUS.WRONG;
+  filling.wrongReason = reason || "No reason provided";
+  filling.markedWrongBy = userId;
+  filling.markedWrongAt = new Date();
+
+  await filling.save();
+
+  logger.info(
+    `Diesel filling ${id} marked as wrong by user ${userId}. Reason: ${reason}`,
+  );
+
+  return filling;
+};
+
+/**
+ * Get all wrong entries for super admin
+ * Includes pagination and filters
+ */
+const getWrongEntries = async (page = 1, limit = 20, filters = {}) => {
+  const query = {
+    status: DIESEL_FILLING_STATUS.WRONG,
+  };
+
+  if (filters.tankerNumber) {
+    query.tankerNumber = filters.tankerNumber;
+  }
+
+  if (filters.startDate && filters.endDate) {
+    query.dateTime = {
+      $gte: new Date(filters.startDate),
+      $lte: new Date(filters.endDate),
+    };
+  }
+
+  const skip = (page - 1) * limit;
+
+  const [fillings, total] = await Promise.all([
+    DieselFilling.find(query)
+      .populate("filledBy", "mobileNumber role profile.name")
+      .populate("markedWrongBy", "mobileNumber role username")
+      .sort({ markedWrongAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean(),
+    DieselFilling.countDocuments(query),
+  ]);
+
+  return {
+    data: fillings,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
+
 module.exports = {
   recordDieselFilling,
   getAllDieselFillings,
@@ -304,4 +378,6 @@ module.exports = {
   getTankerDieselSummary,
   calculateTripsBetweenDates,
   getLastFillingByTanker,
+  markAsWrongEntry,
+  getWrongEntries,
 };

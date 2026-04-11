@@ -1,0 +1,5 @@
+[2026-04-11 19:35:03] ERROR: TypeError: AppError is not a constructor
+TypeError: AppError is not a constructor
+    at Object.markAsWrongEntry (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\services\dieselFilling.service.js:310:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async markAsWrongEntry (D:\DarchTech_PVT_LLP\WaterTranker Project\watertanker-backend\src\controllers\dieselFilling.controller.js:190:28)

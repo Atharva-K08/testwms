@@ -990,8 +990,8 @@ Content-Type: application/json
 **⚠️ Validation Rules:**
 
 - `tankerNumber`: Required, max 20 characters
-- `driverName`: Required, max 100 characters
-- `driverMobile`: Required, exactly 10 digits, numeric only
+- `driverName`: Optional, max 100 characters (if provided)
+- `driverMobile`: Optional, exactly 10 digits, numeric only (if provided)
 
 **Error Response (409):**
 
@@ -1763,7 +1763,7 @@ Authorization: Bearer <manager_token>
 ```bash
 PATCH /api/v1/queue/{requestId}/assign
 Authorization: Bearer <manager_token>
-Body: { "tankerNumber": "WT-1234", "driverName": "Mike", "driverMobile": "9876543210" }
+Body: { "tankerNumber": "WT-1234", "driverName": "Mike (optional)", "driverMobile": "9876543210 (optional)" }
 ```
 
 ### **Step 11: Complete Request**

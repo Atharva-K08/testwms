@@ -180,6 +180,64 @@ const getTankerDieselSummary = async (req, res, next) => {
   }
 };
 
+/**
+ * PUT /api/v1/diesel-fillings/:id/wrong
+ * Mark a diesel filling entry as wrong
+ */
+const markAsWrongEntry = async (req, res, next) => {
+  try {
+    const { reason } = req.body;
+    const updatedFilling = await dieselFillingService.markAsWrongEntry(
+      req.params.id,
+      reason,
+      req.user.id,
+    );
+
+    logger.info(
+      `User ${req.user.id} marked diesel filling ${req.params.id} as wrong`,
+    );
+
+    return sendSuccess(res, {
+      message: "Diesel filling marked as wrong successfully",
+      data: updatedFilling,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/**
+ * GET /api/v1/diesel-fillings/wrong-entries
+ * Get all wrong entries (for super admin)
+ */
+const getWrongEntries = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const filters = {
+      tankerNumber: req.query.tankerNumber,
+      startDate: req.query.startDate,
+      endDate: req.query.endDate,
+    };
+
+    const result = await dieselFillingService.getWrongEntries(
+      page,
+      limit,
+      filters,
+    );
+
+    return sendPaginated(res, {
+      message: "Wrong entries retrieved successfully",
+      data: result.data,
+      page: result.pagination.page,
+      limit: result.pagination.limit,
+      total: result.pagination.total,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   recordDieselFilling,
   getAllDieselFillings,
@@ -188,4 +246,6 @@ module.exports = {
   deleteDieselFilling,
   generateDieselReport,
   getTankerDieselSummary,
+  markAsWrongEntry,
+  getWrongEntries,
 };

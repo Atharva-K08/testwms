@@ -1,9 +1,9 @@
-'use strict';
+"use strict";
 
-const Request = require('../models/request.model');
-const { getNextQueuePosition } = require('./queue.service');
-const { REQUEST_STATUS } = require('../config/constants');
-const { AppError } = require('../middlewares/error.middleware');
+const Request = require("../models/request.model");
+const { getNextQueuePosition } = require("./queue.service");
+const { REQUEST_STATUS } = require("../config/constants");
+const { AppError } = require("../middlewares/error.middleware");
 
 const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
   const queuePosition = await getNextQueuePosition();
@@ -14,7 +14,7 @@ const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
     address: profile.address,
     contactPerson: profile.contactPerson,
     mobileNumber,
-    notes: notes || '',
+    notes: notes || "",
     queuePosition,
   });
 
@@ -24,19 +24,31 @@ const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
 const getMemberRequests = async ({ userId, page = 1, limit = 20 }) => {
   const skip = (page - 1) * limit;
   const [items, total] = await Promise.all([
-    Request.find({ userId }).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+    Request.find({ userId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .lean(),
     Request.countDocuments({ userId }),
   ]);
   return { items, total, page, limit };
 };
 
 const getRequestById = async (requestId) => {
-  const request = await Request.findById(requestId).populate('userId', 'mobileNumber profile');
-  if (!request) throw new AppError('Request not found.', 404);
+  const request = await Request.findById(requestId).populate(
+    "userId",
+    "mobileNumber profile",
+  );
+  if (!request) throw new AppError("Request not found.", 404);
   return request;
 };
 
-const cancelRequest = async ({ requestId, userId, isManager, cancelReason }) => {
+const cancelRequest = async ({
+  requestId,
+  userId,
+  isManager,
+  cancelReason,
+}) => {
   const query = { _id: requestId };
   if (!isManager) {
     query.userId = userId;
@@ -49,14 +61,14 @@ const cancelRequest = async ({ requestId, userId, isManager, cancelReason }) => 
       $set: {
         status: REQUEST_STATUS.CANCELLED,
         cancelledAt: new Date(),
-        cancelReason: cancelReason || '',
+        cancelReason,
       },
     },
     { new: true },
   );
 
   if (!request) {
-    throw new AppError('Request not found or cannot be cancelled.', 404);
+    throw new AppError("Request not found or cannot be cancelled.", 404);
   }
 
   return request;
@@ -72,12 +84,34 @@ const getAllRequests = async ({ status, page = 1, limit = 20 }) => {
       .sort({ queuePosition: 1, createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .populate('userId', 'mobileNumber profile')
-      .populate('assignedBy', 'mobileNumber profile')
+      .populate("userId", "mobileNumber profile")
+      .populate("assignedBy", "mobileNumber profile")
       .lean(),
     Request.countDocuments(filter),
   ]);
   return { items, total, page, limit };
 };
 
-module.exports = { submitRequest, getMemberRequests, getRequestById, cancelRequest, getAllRequests };
+const getCancelledRequests = async ({ page = 1, limit = 20 }) => {
+  const skip = (page - 1) * limit;
+  const [items, total] = await Promise.all([
+    Request.find({ status: REQUEST_STATUS.CANCELLED })
+      .sort({ cancelledAt: -1 })
+      .skip(skip)
+      .limit(limit)
+      .populate("userId", "mobileNumber profile")
+      .populate("assignedBy", "mobileNumber profile")
+      .lean(),
+    Request.countDocuments({ status: REQUEST_STATUS.CANCELLED }),
+  ]);
+  return { items, total, page, limit };
+};
+
+module.exports = {
+  submitRequest,
+  getMemberRequests,
+  getRequestById,
+  cancelRequest,
+  getAllRequests,
+  getCancelledRequests,
+};

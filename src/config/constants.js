@@ -15,9 +15,13 @@ module.exports = {
 
   REQUEST_STATUS: Object.freeze({
     PENDING: "pending",
-    ASSIGNED: "assigned",
     COMPLETED: "completed",
     CANCELLED: "cancelled",
+  }),
+
+  DIESEL_FILLING_STATUS: Object.freeze({
+    VALID: "valid",
+    WRONG: "wrong",
   }),
 
   BCRYPT_SALT_ROUNDS: parseInt(process.env.BCRYPT_SALT_ROUNDS) || 12,

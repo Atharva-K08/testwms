@@ -6,8 +6,8 @@ const { REQUEST_STATUS } = require("../config/constants");
 const tankerAssignmentSchema = new mongoose.Schema(
   {
     tankerNumber: { type: String, required: true, trim: true },
-    driverName: { type: String, required: true, trim: true },
-    driverMobile: { type: String, required: true, trim: true },
+    driverName: { type: String, required: false, trim: true, default: "" },
+    driverMobile: { type: String, required: false, trim: true, default: "" },
     dateTime: { type: Date, required: true },
   },
   { _id: false },
