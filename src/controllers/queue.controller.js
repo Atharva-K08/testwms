@@ -82,7 +82,13 @@ const getManagerReport = async (req, res) => {
 
   sendPaginated(res, {
     message: "Manager report generated successfully.",
-    data: report,
+    data: report.requests,
+    page,
+    limit,
+    total: report.summary.total,
+    meta: {
+      summary: report.summary,
+    },
   });
 };
 

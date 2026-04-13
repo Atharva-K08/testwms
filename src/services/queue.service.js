@@ -103,8 +103,18 @@ const getManagerReport = async ({
   // This gives a complete picture of all requests in that time period
   if (startDate || endDate) {
     matchConditions.createdAt = {};
-    if (startDate) matchConditions.createdAt.$gte = new Date(startDate);
-    if (endDate) matchConditions.createdAt.$lte = new Date(endDate);
+    if (startDate) {
+      // Set to start of day (00:00:00.000)
+      const startOfDay = new Date(startDate);
+      startOfDay.setUTCHours(0, 0, 0, 0);
+      matchConditions.createdAt.$gte = startOfDay;
+    }
+    if (endDate) {
+      // Set to end of day (23:59:59.999) to include the entire endDate
+      const endOfDay = new Date(endDate);
+      endOfDay.setUTCHours(23, 59, 59, 999);
+      matchConditions.createdAt.$lte = endOfDay;
+    }
   }
 
   // Get summary statistics - count ALL requests by status
@@ -134,7 +144,6 @@ const getManagerReport = async ({
   const summary = {
     total: totalRequests,
     pending: 0,
-    assigned: 0,
     completed: 0,
     cancelled: 0,
     byStatus: stats.reduce((acc, stat) => {

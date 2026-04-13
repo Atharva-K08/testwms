@@ -29,7 +29,7 @@ const sendCreated = (res, messageOrOpts, data) => {
 
 const sendPaginated = (
   res,
-  { message = "Success", data, page, limit, total } = {},
+  { message = "Success", data, page, limit, total, meta: extraMeta } = {},
 ) =>
   sendSuccess(res, {
     message,
@@ -39,6 +39,7 @@ const sendPaginated = (
       limit: parseInt(limit),
       total,
       totalPages: Math.ceil(total / limit),
+      ...extraMeta,
     },
   });
 
