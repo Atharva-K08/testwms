@@ -25,7 +25,7 @@ const recordDieselFilling = async (req, res, next) => {
     );
 
     logger.info(
-      `User ${req.user.id} recorded diesel filling for tanker ${fillingData.tankerNumber}`,
+      `User ${req.user.id} recorded diesel filling for the tanker ${fillingData.tankerNumber}`,
     );
 
     return sendCreated(res, {
