@@ -100,9 +100,16 @@ const driverListValidator = [
     .withMessage("Limit must be between 1 and 100."),
 ];
 
+const driverSerialNumberValidator = [
+  param("serialNumber")
+    .isInt({ min: 1 })
+    .withMessage("Serial number must be a positive integer."),
+];
+
 module.exports = {
   createDriverValidator,
   updateDriverValidator,
   driverIdValidator,
   driverListValidator,
+  driverSerialNumberValidator,
 };

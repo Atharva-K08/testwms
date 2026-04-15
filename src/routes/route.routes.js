@@ -11,6 +11,7 @@ const {
   getAllRoutes,
   updateRoute,
   deleteRoute,
+  getRouteByDestinationName,
 } = require("../controllers/route.controller");
 const {
   createRouteValidator,
@@ -25,5 +26,6 @@ router.post("/", createRouteValidator, validate, createRoute);
 router.get("/", getAllRoutes);
 router.put("/:id", updateRouteValidator, validate, updateRoute);
 router.delete("/:id", routeIdValidator, validate, deleteRoute);
+router.get("/destination/:destinationName", getRouteByDestinationName);
 
 module.exports = router;

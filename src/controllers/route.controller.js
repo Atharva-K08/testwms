@@ -62,4 +62,13 @@ const deleteRoute = async (req, res, next) => {
   }
 };
 
-module.exports = { createRoute, getAllRoutes, updateRoute, deleteRoute };
+const getRouteByDestinationName = async (req, res, next) => {
+  try {
+    const route = await routeService.getRouteByDestinationNameSrv(req.params.destinationName);
+    return sendSuccess(res, { message: "Route retrieved successfully", data: route });
+  } catch (error) {
+    next(error);
+  }
+}
+
+module.exports = { createRoute, getAllRoutes, updateRoute, deleteRoute, getRouteByDestinationName };

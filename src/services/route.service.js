@@ -36,4 +36,10 @@ const deleteRoute = async (id) => {
   return route;
 };
 
-module.exports = { createRoute, getAllRoutes, updateRoute, deleteRoute };
+const getRouteByDestinationNameSrv = async (destinationName) => {
+  const route = await Route.findOne({ destination: destinationName }).lean();
+  if (!route) throw new AppError("Route not found", 404);
+  return route;
+}
+
+module.exports = { createRoute, getAllRoutes, updateRoute, deleteRoute, getRouteByDestinationNameSrv };

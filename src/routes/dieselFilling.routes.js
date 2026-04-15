@@ -59,7 +59,7 @@ router.get(
 router.post(
   "/",
   protect,
-  authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  // authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   recordDieselFillingValidator,
   validate,
   recordDieselFilling,
