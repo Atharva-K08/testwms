@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 7
+    },
+    "auditLog": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\tanker_station_app\\watertanker-backend\\logs\\.7b5dd1252d224672944bbd384866f2ea99230753-audit.json",
+    "files": [
+        {
+            "date": 1776318362021,
+            "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\tanker_station_app\\watertanker-backend\\logs\\access-2026-04-16.log",
+            "hash": "31d759b5e7e69c62232aa6bac3ea460cdc64beec3caf7edc1add0aa21537eede"
+        }
+    ],
+    "hashType": "sha256"
+}

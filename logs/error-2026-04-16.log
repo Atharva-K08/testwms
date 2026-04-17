@@ -1,0 +1,14 @@
+[2026-04-16 11:16:02] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-04-16 11:21:19] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-04-16 11:23:54] ERROR: MongoDB connection failed: bad auth : authentication failed
+[2026-04-16 15:26:41] ERROR: Error: User not found or deactivated.
+Error: User not found or deactivated.
+    at Object.refreshToken (C:\Users\Atharva Kumbhar\StudioProjects\tanker_station_app\watertanker-backend\src\services\auth.service.js:157:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async refresh (C:\Users\Atharva Kumbhar\StudioProjects\tanker_station_app\watertanker-backend\src\controllers\auth.controller.js:30:18)
+[2026-04-16 15:27:18] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\tanker_station_app\watertanker-backend\src\services\auth.service.js:86:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\tanker_station_app\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-04-16 15:30:30] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
