@@ -19,6 +19,7 @@ const {
   updateDriverValidator,
   driverIdValidator,
   driverListValidator,
+  driverSerialNumberValidator,
 } = require("../validators/driver.validator");
 
 // All driver routes require authentication; managers and super admins can manage drivers
@@ -29,6 +30,6 @@ router.get("/", driverListValidator, validate, getAllDrivers);
 router.get("/:id", driverIdValidator, validate, getDriverById);
 router.put("/:id", updateDriverValidator, validate, updateDriver);
 router.delete("/:id", driverIdValidator, validate, deleteDriver);
-router.get("/serial/:serialNumber",driverIdValidator, validate, getDriverBySerialNumber);
+router.get("/serial/:serialNumber", driverSerialNumberValidator, validate, getDriverBySerialNumber);
 
 module.exports = router;

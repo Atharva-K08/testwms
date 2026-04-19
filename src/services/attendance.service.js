@@ -1,6 +1,7 @@
 "use strict";
 
 const Request = require("../models/request.model");
+const Driver = require("../models/driver.model");
 const { AppError } = require("../middlewares/error.middleware");
 
 /**
@@ -68,4 +69,14 @@ const getDriverAttendance = async (driverName) => {
   };
 };
 
-module.exports = { getDriverAttendance };
+/**
+ * Get attendance by driver ID.
+ * Looks up the driver's name, then delegates to getDriverAttendance.
+ */
+const getDriverAttendanceById = async (driverId) => {
+  const driver = await Driver.findOne({ _id: driverId, isDeleted: false }).lean();
+  if (!driver) throw new AppError("Driver not found", 404);
+  return getDriverAttendance(driver.name);
+};
+
+module.exports = { getDriverAttendance, getDriverAttendanceById };
