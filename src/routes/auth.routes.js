@@ -56,8 +56,8 @@ router.put(
 // Super Admin only: Update own password
 router.put(
   "/super-admin/password",
-  // protect,
-  // authorize(ROLES.SUPER_ADMIN),
+  protect,
+  authorize(ROLES.SUPER_ADMIN),
   updateSuperAdminPasswordValidator,
   validate,
   updateSuperAdminPassword,
