@@ -51,4 +51,16 @@ const createManager = async (req, res) => {
   });
 };
 
-module.exports = { register, login, refresh, getProfile, createManager };
+const updatePassword = async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+  await authService.updatePassword({ oldPassword, newPassword }, req.user.id);
+  sendSuccess(res, { message: "Password updated successfully." });
+};
+
+const updateSuperAdminPassword = async (req, res) => {
+  const { newPassword } = req.body;
+  await authService.updateSuperAdminPassword(newPassword, req.user.id);
+  sendSuccess(res, { message: "Super admin password updated successfully." });
+};
+
+module.exports = { register, login, refresh, getProfile, createManager, updatePassword, updateSuperAdminPassword };

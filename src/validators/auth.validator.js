@@ -16,12 +16,29 @@ const registerValidator = [
   body("password")
     .notEmpty()
     .withMessage("Password is required.")
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters.")
-    .matches(/(?=.*[A-Z])/)
-    .withMessage("Password must contain at least one uppercase letter.")
-    .matches(/(?=.*\d)/)
-    .withMessage("Password must contain at least one number."),
+    .isLength({ min: 6, max: 6 })
+    .withMessage("Password must be exactly 6 digits.")
+    .isNumeric()
+    .withMessage("Password must contain only digits."),
+
+  body("profile.alternativeContacts")
+    .optional()
+    .isArray({ max: 3 })
+    .withMessage("At most 3 alternative contacts are allowed."),
+
+  body("profile.alternativeContacts.*.name")
+    .optional()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Contact name must not exceed 100 characters."),
+
+  body("profile.alternativeContacts.*.mobileNumber")
+    .optional()
+    .trim()
+    .isLength({ min: 10, max: 10 })
+    .withMessage("Alternative mobile number must be exactly 10 digits.")
+    .isNumeric()
+    .withMessage("Alternative mobile number must contain only digits."),
 
   body("profile.name")
     .trim()
@@ -69,12 +86,10 @@ const createManagerValidator = [
   body("password")
     .notEmpty()
     .withMessage("Password is required.")
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters.")
-    .matches(/(?=.*[A-Z])/)
-    .withMessage("Password must contain at least one uppercase letter.")
-    .matches(/(?=.*\d)/)
-    .withMessage("Password must contain at least one number."),
+    .isLength({ min: 6, max: 6 })
+    .withMessage("Password must be exactly 6 digits.")
+    .isNumeric()
+    .withMessage("Password must contain only digits."),
 
   body("role")
     .notEmpty()
@@ -111,4 +126,27 @@ const createManagerValidator = [
     .withMessage("Contact person must not exceed 100 characters."),
 ];
 
-module.exports = { registerValidator, loginValidator, createManagerValidator };
+const updateSuperAdminPasswordValidator = [
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required.")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters."),
+];
+
+const updatePasswordValidator = [
+  body("oldPassword").notEmpty().withMessage("Current password is required."),
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required.")
+    .isLength({ min: 6 })
+    .withMessage("New password must be at least 6 characters."),
+];
+
+module.exports = {
+  registerValidator,
+  loginValidator,
+  createManagerValidator,
+  updateSuperAdminPasswordValidator,
+  updatePasswordValidator,
+};

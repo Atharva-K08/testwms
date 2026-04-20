@@ -54,14 +54,13 @@ const login = async ({ username, mobileNumber, password }) => {
 
   // Check if it's Super Admin login
   if (username === SUPER_ADMIN_CREDENTIALS.USERNAME) {
-    if (password !== SUPER_ADMIN_CREDENTIALS.PASSWORD) {
-      throw new AppError("Invalid username or password.", 401);
-    }
-
-    // Find or create Super Admin in database
-    user = await User.findOne({ username: SUPER_ADMIN_CREDENTIALS.USERNAME });
+    user = await User.findOne({ username: SUPER_ADMIN_CREDENTIALS.USERNAME }).select("+password");
 
     if (!user) {
+      // First-time setup: validate against hardcoded default and create the DB record
+      if (password !== SUPER_ADMIN_CREDENTIALS.PASSWORD) {
+        throw new AppError("Invalid username or password.", 401);
+      }
       const hashedPassword = await bcrypt.hash(password, BCRYPT_SALT_ROUNDS);
       user = await User.create({
         username: SUPER_ADMIN_CREDENTIALS.USERNAME,
@@ -74,6 +73,14 @@ const login = async ({ username, mobileNumber, password }) => {
           contactPerson: "Super Administrator",
         },
       });
+      // Re-fetch with password selected after create
+      user = await User.findById(user._id).select("+password");
+    } else {
+      // Subsequent logins: compare against stored hash (supports password changes)
+      const isValid = await bcrypt.compare(password, user.password);
+      if (!isValid) {
+        throw new AppError("Invalid username or password.", 401);
+      }
     }
   } else {
     // Regular user login with mobile number
@@ -167,10 +174,32 @@ const getProfile = async (userId) => {
   return user.toPublicJSON();
 };
 
+const updatePassword = async ({ oldPassword, newPassword }, userId) => {
+  const user = await User.findById(userId).select("+password");
+  if (!user) throw new AppError("User not found.", 404);
+
+  const isMatch = await bcrypt.compare(oldPassword, user.password);
+  if (!isMatch) throw new AppError("Current password is incorrect.", 401);
+
+  user.password = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
+  await user.save();
+};
+
+const updateSuperAdminPassword = async (newPassword, adminUserId) => {
+  const user = await User.findById(adminUserId);
+  if (!user || user.role !== ROLES.SUPER_ADMIN) {
+    throw new AppError("Unauthorized.", 403);
+  }
+  user.password = await bcrypt.hash(newPassword, BCRYPT_SALT_ROUNDS);
+  await user.save();
+};
+
 module.exports = {
   register,
   login,
   refreshToken,
   getProfile,
   createManagerOrFuelManager,
+  updatePassword,
+  updateSuperAdminPassword,
 };
