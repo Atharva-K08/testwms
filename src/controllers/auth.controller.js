@@ -58,8 +58,8 @@ const updatePassword = async (req, res) => {
 };
 
 const updateSuperAdminPassword = async (req, res) => {
-  const { newPassword } = req.body;
-  await authService.updateSuperAdminPassword(newPassword, req.user.id);
+  const { newPassword, id } = req.body;
+  await authService.updateSuperAdminPassword(newPassword, id);
   sendSuccess(res, { message: "Super admin password updated successfully." });
 };
 
