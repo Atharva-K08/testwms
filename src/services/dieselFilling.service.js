@@ -10,11 +10,13 @@ const { DIESEL_FILLING_STATUS } = require("../config/constants");
  */
 const calculateTripsBetweenDates = async (tankerNumber, startDate, endDate) => {
   const tripCount = await Request.countDocuments({
-    "tankerAssignment.tankerNumber": tankerNumber,
+    "tankerAssignment.tankerNumber": {
+      $regex: new RegExp(`^${tankerNumber}$`, "i"),
+    },
     status: "completed",
     completedAt: {
       $gt: startDate,
-      $lte: endDate,
+      $lte: new Date(endDate),
     },
   });
   return tripCount;
@@ -28,11 +30,13 @@ const sumRoundTripKmBetweenDates = async (tankerNumber, startDate, endDate) => {
   const result = await Request.aggregate([
     {
       $match: {
-        "tankerAssignment.tankerNumber": tankerNumber,
+        "tankerAssignment.tankerNumber": {
+          $regex: new RegExp(`^${tankerNumber}$`, "i"),
+        },
         status: "completed",
         completedAt: {
           $gt: startDate || new Date(0),
-          $lte: endDate,
+          $lte: new Date(endDate),
         },
         roundTripKilometer: { $ne: null },
       },
@@ -78,7 +82,7 @@ const recordDieselFilling = async (data, userId) => {
       tripsSinceLastFill = await calculateTripsBetweenDates(
         tankerNumber,
         lastFillingDate,
-        dateTime,
+        new Date(dateTime),
       );
       logger.info(
         `Tanker ${tankerNumber}: ${tripsSinceLastFill} trips completed since last diesel filling on ${lastFillingDate}`,
@@ -220,11 +224,13 @@ const generateDieselReport = async (page = 1, limit = 20, filters = {}) => {
   const reportData = await Promise.all(
     fillings.map(async (filling) => {
       const requests = await Request.find({
-        "tankerAssignment.tankerNumber": filling.tankerNumber,
+        "tankerAssignment.tankerNumber": {
+          $regex: new RegExp(`^${filling.tankerNumber}$`, "i"),
+        },
         status: "completed",
         completedAt: {
           $gt: filling.lastFillingDate || new Date(0),
-          $lte: filling.dateTime,
+          $lte: new Date(filling.dateTime),
         },
       })
         .select("tankerAssignment completedAt societyName address roundTripKilometer")
