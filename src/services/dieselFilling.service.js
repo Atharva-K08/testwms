@@ -163,15 +163,38 @@ const getAllDieselFillings = async (page = 1, limit = 20, filters = {}) => {
 };
 
 /**
- * Get diesel filling by ID.
+ * Get diesel filling by ID, with live-queried trip details.
  */
 const getDieselFillingById = async (id) => {
-  const filling = await DieselFilling.findById(id).populate(
-    "filledBy",
-    "mobileNumber role profile.name",
-  );
+  const filling = await DieselFilling.findById(id)
+    .populate("filledBy", "mobileNumber role profile.name")
+    .lean();
   if (!filling) throw new AppError("Diesel filling not found", 404);
-  return filling;
+
+  const requests = await Request.find({
+    "tankerAssignment.tankerNumber": {
+      $regex: new RegExp(`^${filling.tankerNumber}$`, "i"),
+    },
+    status: "completed",
+    completedAt: {
+      $gt: filling.lastFillingDate || new Date(0),
+      $lte: new Date(filling.dateTime),
+    },
+  })
+    .select("tankerAssignment completedAt societyName address roundTripKilometer")
+    .lean();
+
+  return {
+    ...filling,
+    trips: requests.map((req) => ({
+      completedAt: req.completedAt,
+      societyName: req.societyName,
+      address: req.address,
+      tankerNumber: req.tankerAssignment?.tankerNumber,
+      roundTripKilometer: req.roundTripKilometer,
+    })),
+    tripCount: requests.length,
+  };
 };
 
 /**
