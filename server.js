@@ -25,6 +25,7 @@ const dieselFillingRoutes = require("./src/routes/dieselFilling.routes");
 const driverRoutes = require("./src/routes/driver.routes");
 const routeRoutes = require("./src/routes/route.routes");
 const attendanceRoutes = require("./src/routes/attendance.routes");
+const tankerRoutes = require("./src/routes/tanker.routes");
 
 const app = express();
 
@@ -76,6 +77,7 @@ app.use("/api/v1/diesel-fillings", dieselFillingRoutes);
 app.use("/api/v1/drivers", driverRoutes);
 app.use("/api/v1/routes", routeRoutes);
 app.use("/api/v1/attendance", attendanceRoutes);
+app.use("/api/v1/tankers", tankerRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────────────────────
 app.use(notFoundHandler);

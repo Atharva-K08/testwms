@@ -96,6 +96,22 @@ const tankerSummaryValidator = [
     .withMessage("Tanker number is required.")
     .isLength({ max: 20 })
     .withMessage("Tanker number must not exceed 20 characters."),
+
+  query("startDate")
+    .optional()
+    .isISO8601()
+    .withMessage("Start date must be a valid ISO 8601 date."),
+
+  query("endDate")
+    .optional()
+    .isISO8601()
+    .withMessage("End date must be a valid ISO 8601 date.")
+    .custom((value, { req }) => {
+      if (value && req.query.startDate && new Date(value) < new Date(req.query.startDate)) {
+        throw new Error("End date must be after start date.");
+      }
+      return true;
+    }),
 ];
 
 const markAsWrongValidator = [

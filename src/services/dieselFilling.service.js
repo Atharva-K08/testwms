@@ -309,10 +309,20 @@ const generateDieselReport = async (page = 1, limit = 20, filters = {}) => {
 
 /**
  * Get diesel summary for a specific tanker.
- * Includes total km travelled since last fill derived from completed trip roundTripKilometers.
+ * Accepts optional startDate / endDate to scope fillings AND trips to a date range.
+ * When dates are provided every number (fillings, liters, trips, km) reflects that
+ * range only — giving identical results on every device.
  */
-const getTankerDieselSummary = async (tankerNumber) => {
-  const fillings = await DieselFilling.find({ tankerNumber })
+const getTankerDieselSummary = async (tankerNumber, startDate, endDate) => {
+  const fillingQuery = { tankerNumber };
+  if (startDate && endDate) {
+    fillingQuery.dateTime = {
+      $gte: new Date(startDate),
+      $lte: new Date(endDate),
+    };
+  }
+
+  const fillings = await DieselFilling.find(fillingQuery)
     .sort({ dateTime: -1 })
     .lean();
 
@@ -321,37 +331,50 @@ const getTankerDieselSummary = async (tankerNumber) => {
   }
 
   const totalLiters = fillings.reduce((sum, f) => sum + f.liters, 0);
-  const totalTrips = fillings.reduce((sum, f) => sum + (f.tripsSinceLastFill || 0), 0);
   const totalKmTravelled = fillings.reduce(
     (sum, f) => sum + (f.kilometersTravelledSinceLastTrip || 0),
     0,
   );
 
-  // Total km from completed roundTrip records since last filling
+  // Count completed trips in the same date range so the number is consistent.
+  const tripQuery = {
+    "tankerAssignment.tankerNumber": {
+      $regex: new RegExp(`^${tankerNumber}$`, "i"),
+    },
+    status: "completed",
+  };
+  if (startDate && endDate) {
+    tripQuery.completedAt = {
+      $gte: new Date(startDate),
+      $lte: new Date(endDate),
+    };
+  }
+  const totalCompletedTrips = await Request.countDocuments(tripQuery);
+
+  // km from GPS roundTripKilometer records since the LAST fill in the queried range.
   const lastFilling = fillings[0];
   const kilometersTravelledSinceLastFill = await sumRoundTripKmBetweenDates(
     tankerNumber,
     lastFilling.dateTime,
-    new Date(),
+    endDate ? new Date(endDate) : new Date(),
   );
-
-  const totalCompletedTrips = await Request.countDocuments({
-    "tankerAssignment.tankerNumber": tankerNumber,
-    status: "completed",
-  });
 
   return {
     tankerNumber,
     totalFillings: fillings.length,
     totalLiters,
-    totalTripsRecorded: totalTrips,
+    totalTripsRecorded: fillings.reduce((sum, f) => sum + (f.tripsSinceLastFill || 0), 0),
     totalCompletedTrips,
     totalKmTravelled,
     kilometersTravelledSinceLastFill,
     averageLitersPerTrip:
-      totalCompletedTrips > 0 ? parseFloat((totalLiters / totalCompletedTrips).toFixed(2)) : 0,
+      totalCompletedTrips > 0
+        ? parseFloat((totalLiters / totalCompletedTrips).toFixed(2))
+        : 0,
     lastFillingDate: fillings[0]?.dateTime || null,
     firstFillingDate: fillings[fillings.length - 1]?.dateTime || null,
+    startDate: startDate || null,
+    endDate: endDate || null,
   };
 };
 

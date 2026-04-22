@@ -163,13 +163,15 @@ const generateDieselReport = async (req, res, next) => {
 };
 
 /**
- * GET /api/v1/diesel-fillings/summary/:tankerNumber
- * Get diesel summary for a specific tanker
+ * GET /api/v1/diesel-fillings/summary/:tankerNumber?startDate=&endDate=
+ * Get diesel summary for a specific tanker, optionally scoped to a date range.
  */
 const getTankerDieselSummary = async (req, res, next) => {
   try {
     const summary = await dieselFillingService.getTankerDieselSummary(
       req.params.tankerNumber,
+      req.query.startDate,
+      req.query.endDate,
     );
     return sendSuccess(res, {
       message: "Tanker diesel summary retrieved successfully",
