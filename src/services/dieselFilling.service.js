@@ -164,6 +164,7 @@ const getAllDieselFillings = async (page = 1, limit = 20, filters = {}) => {
 
 /**
  * Get diesel filling by ID, with live-queried trip details.
+ * Counts trips completed AFTER this filling until the next filling (or now).
  */
 const getDieselFillingById = async (id) => {
   const filling = await DieselFilling.findById(id)
@@ -171,14 +172,24 @@ const getDieselFillingById = async (id) => {
     .lean();
   if (!filling) throw new AppError("Diesel filling not found", 404);
 
+  const nextFilling = await DieselFilling.findOne({
+    tankerNumber: filling.tankerNumber,
+    dateTime: { $gt: new Date(filling.dateTime) },
+  })
+    .sort({ dateTime: 1 })
+    .select("dateTime")
+    .lean();
+
+  const windowEnd = nextFilling ? nextFilling.dateTime : new Date();
+
   const requests = await Request.find({
     "tankerAssignment.tankerNumber": {
       $regex: new RegExp(`^${filling.tankerNumber}$`, "i"),
     },
     status: "completed",
     completedAt: {
-      $gt: filling.lastFillingDate || new Date(0),
-      $lte: new Date(filling.dateTime),
+      $gt: new Date(filling.dateTime),
+      $lte: windowEnd,
     },
   })
     .select("tankerAssignment completedAt societyName address roundTripKilometer")
@@ -246,14 +257,24 @@ const generateDieselReport = async (page = 1, limit = 20, filters = {}) => {
 
   const reportData = await Promise.all(
     fillings.map(async (filling) => {
+      const nextFilling = await DieselFilling.findOne({
+        tankerNumber: filling.tankerNumber,
+        dateTime: { $gt: new Date(filling.dateTime) },
+      })
+        .sort({ dateTime: 1 })
+        .select("dateTime")
+        .lean();
+
+      const windowEnd = nextFilling ? nextFilling.dateTime : new Date();
+
       const requests = await Request.find({
         "tankerAssignment.tankerNumber": {
           $regex: new RegExp(`^${filling.tankerNumber}$`, "i"),
         },
         status: "completed",
         completedAt: {
-          $gt: filling.lastFillingDate || new Date(0),
-          $lte: new Date(filling.dateTime),
+          $gt: new Date(filling.dateTime),
+          $lte: windowEnd,
         },
       })
         .select("tankerAssignment completedAt societyName address roundTripKilometer")
@@ -300,7 +321,7 @@ const getTankerDieselSummary = async (tankerNumber) => {
   }
 
   const totalLiters = fillings.reduce((sum, f) => sum + f.liters, 0);
-  const totalTrips = fillings.reduce((sum, f) => sum + f.tripsSinceLastFill, 0);
+  const totalTrips = fillings.reduce((sum, f) => sum + (f.tripsSinceLastFill || 0), 0);
   const totalKmTravelled = fillings.reduce(
     (sum, f) => sum + (f.kilometersTravelledSinceLastTrip || 0),
     0,
@@ -310,7 +331,7 @@ const getTankerDieselSummary = async (tankerNumber) => {
   const lastFilling = fillings[0];
   const kilometersTravelledSinceLastFill = await sumRoundTripKmBetweenDates(
     tankerNumber,
-    lastFilling.lastFillingDate || new Date(0),
+    lastFilling.dateTime,
     new Date(),
   );
 
@@ -328,7 +349,7 @@ const getTankerDieselSummary = async (tankerNumber) => {
     totalKmTravelled,
     kilometersTravelledSinceLastFill,
     averageLitersPerTrip:
-      totalTrips > 0 ? parseFloat((totalLiters / totalTrips).toFixed(2)) : 0,
+      totalCompletedTrips > 0 ? parseFloat((totalLiters / totalCompletedTrips).toFixed(2)) : 0,
     lastFillingDate: fillings[0]?.dateTime || null,
     firstFillingDate: fillings[fillings.length - 1]?.dateTime || null,
   };
