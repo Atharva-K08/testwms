@@ -36,14 +36,6 @@ const generateReceipt = async ({ requestId, managerId }) => {
   const request = await Request.findById(requestId);
   if (!request) throw new AppError("Request not found.", 404);
 
-  // Receipt only for completed requests
-  if (request.status !== "completed") {
-    throw new AppError(
-      "Receipt can only be generated after the request is marked as completed.",
-      422,
-    );
-  }
-
   if (!request.tankerAssignment) {
     throw new AppError("No tanker assigned to this request.", 422);
   }
