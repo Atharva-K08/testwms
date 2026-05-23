@@ -71,9 +71,8 @@ const cancelRequestValidator = [
   param("id").isMongoId().withMessage("Invalid request ID."),
 
   body("cancelReason")
+    .optional({ checkFalsy: true })
     .trim()
-    .notEmpty()
-    .withMessage("Cancel reason is required.")
     .isLength({ max: 300 })
     .withMessage("Cancel reason must not exceed 300 characters."),
 ];

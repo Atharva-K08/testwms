@@ -74,12 +74,13 @@ const getAllRequests = async (req, res) => {
 
 const cancelRequest = async (req, res) => {
   const { cancelReason } = req.body;
-  const isManager = req.user.role === ROLES.MANAGER;
+  // Both manager and superAdmin can cancel any request by ID without a userId check.
+  const isPrivileged = req.user.role === ROLES.MANAGER || req.user.role === ROLES.SUPER_ADMIN;
 
   const request = await requestService.cancelRequest({
     requestId: req.params.id,
     userId: req.user._id,
-    isManager,
+    isManager: isPrivileged,
     cancelReason,
   });
 
