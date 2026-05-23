@@ -8,15 +8,6 @@ const { REQUEST_STATUS, ENTITY_STATUS } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
 
 const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
-  // Prevent duplicate pending requests from the same member
-  const existingPending = await Request.findOne({ userId, status: REQUEST_STATUS.PENDING });
-  if (existingPending) {
-    throw new AppError(
-      "You already have a pending request in the queue. Please wait for it to be completed or cancel it first.",
-      409,
-    );
-  }
-
   const queuePosition = await getNextQueuePosition();
 
   const request = await Request.create({
