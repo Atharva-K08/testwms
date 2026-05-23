@@ -17,14 +17,14 @@ router.get(
 router.post(
   "/",
   protect,
-  authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN),
+  authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   addTanker,
 );
 
 router.delete(
   "/:id",
   protect,
-  authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN),
+  authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   deleteTanker,
 );
 
