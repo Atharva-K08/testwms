@@ -1,28 +1,33 @@
 "use strict";
 
+const mongoose = require("mongoose");
 const Receipt = require("../models/receipt.model");
 const Request = require("../models/request.model");
 const { RECEIPT_PREFIX } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
 
+// Counter schema shared via mongoose.models to avoid re-registration
+const counterSchema = new mongoose.Schema({ _id: String, seq: { type: Number, default: 0 } });
+const Counter = mongoose.models.Counter || mongoose.model("Counter", counterSchema);
+
+// Atomic sequential receipt number per calendar day
 const generateReceiptNumber = async () => {
   const today = new Date();
-  const datePart = today.toISOString().slice(0, 10).replace(/-/g, "");
+  const datePart = today.toISOString().slice(0, 10).replace(/-/g, ""); // YYYYMMDD
+  const counterId = `receipt-${datePart}`;
 
-  // Count receipts today to create sequential suffix
-  const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-  const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+  const counter = await Counter.findByIdAndUpdate(
+    counterId,
+    { $inc: { seq: 1 } },
+    { new: true, upsert: true },
+  );
 
-  const count = await Receipt.countDocuments({
-    generatedAt: { $gte: startOfDay, $lte: endOfDay },
-  });
-
-  const seq = String(count + 1).padStart(4, "0");
+  const seq = String(counter.seq).padStart(4, "0");
   return `${RECEIPT_PREFIX}-${datePart}-${seq}`;
 };
 
 const generateReceipt = async ({ requestId, managerId }) => {
-  // Check if receipt already exists for this request
+  // Return existing receipt idempotently
   const existing = await Receipt.findOne({ requestId });
   if (existing) {
     return existing.populate("generatedBy", "profile");
@@ -31,9 +36,10 @@ const generateReceipt = async ({ requestId, managerId }) => {
   const request = await Request.findById(requestId);
   if (!request) throw new AppError("Request not found.", 404);
 
-  if (request.status !== "pending" && request.status !== "completed") {
+  // Receipt only for completed requests
+  if (request.status !== "completed") {
     throw new AppError(
-      "Receipt can only be generated for pending or completed requests.",
+      "Receipt can only be generated after the request is marked as completed.",
       422,
     );
   }
@@ -47,16 +53,16 @@ const generateReceipt = async ({ requestId, managerId }) => {
   const receipt = await Receipt.create({
     receiptNumber,
     requestId,
-    societyName: request.societyName,
-    address: request.address,
+    societyName:   request.societyName,
+    address:       request.address,
     contactPerson: request.contactPerson,
-    mobileNumber: request.mobileNumber,
-    tankerNumber: request.tankerAssignment.tankerNumber,
-    driverName: request.tankerAssignment.driverName,
-    driverMobile: request.tankerAssignment.driverMobile,
+    mobileNumber:  request.mobileNumber,
+    tankerNumber:  request.tankerAssignment.tankerNumber,
+    driverName:    request.tankerAssignment.driverName,
+    driverMobile:  request.tankerAssignment.driverMobile,
     queuePosition: request.queuePosition,
-    generatedBy: managerId,
-    generatedAt: new Date(),
+    generatedBy:   managerId,
+    generatedAt:   new Date(),
   });
 
   return receipt;
@@ -93,9 +99,4 @@ const getAllReceipts = async ({ page = 1, limit = 20 }) => {
   return { items, total, page, limit };
 };
 
-module.exports = {
-  generateReceipt,
-  getReceiptByRequestId,
-  markPrinted,
-  getAllReceipts,
-};
+module.exports = { generateReceipt, getReceiptByRequestId, markPrinted, getAllReceipts };

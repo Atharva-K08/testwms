@@ -50,6 +50,17 @@ const driverSchema = new mongoose.Schema(
       },
       default: "ACTIVE",
     },
+    // Trip-level availability — separate from permanent ACTIVE/BLOCK status
+    currentStatus: {
+      type: String,
+      enum: ["available", "on_trip"],
+      default: "available",
+    },
+    activeRequestId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Request",
+      default: null,
+    },
     documents: {
       type: [String],
       default: [],
@@ -87,5 +98,6 @@ driverSchema.pre("save", async function (next) {
 driverSchema.index({ mobileNumber: 1 });
 driverSchema.index({ status: 1 });
 driverSchema.index({ name: 1 });
+driverSchema.index({ currentStatus: 1 });
 
 module.exports = mongoose.model("Driver", driverSchema);

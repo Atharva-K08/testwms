@@ -1,20 +1,31 @@
 "use strict";
 
 const Request = require("../models/request.model");
+const Tanker  = require("../models/tanker.model");
+const Driver  = require("../models/driver.model");
 const { getNextQueuePosition } = require("./queue.service");
-const { REQUEST_STATUS } = require("../config/constants");
+const { REQUEST_STATUS, ENTITY_STATUS } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
 
 const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
+  // Prevent duplicate pending requests from the same member
+  const existingPending = await Request.findOne({ userId, status: REQUEST_STATUS.PENDING });
+  if (existingPending) {
+    throw new AppError(
+      "You already have a pending request in the queue. Please wait for it to be completed or cancel it first.",
+      409,
+    );
+  }
+
   const queuePosition = await getNextQueuePosition();
 
   const request = await Request.create({
     userId,
-    societyName: profile.societyName,
-    address: profile.address,
+    societyName:   profile.societyName,
+    address:       profile.address,
     contactPerson: profile.contactPerson,
     mobileNumber,
-    notes: notes || "",
+    notes:         notes || "",
     queuePosition,
   });
 
@@ -24,42 +35,30 @@ const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
 const getMemberRequests = async ({ userId, page = 1, limit = 20 }) => {
   const skip = (page - 1) * limit;
   const [items, total] = await Promise.all([
-    Request.find({ userId })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean(),
+    Request.find({ userId }).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
     Request.countDocuments({ userId }),
   ]);
   return { items, total, page, limit };
 };
 
 const getRequestById = async (requestId) => {
-  const request = await Request.findById(requestId).populate(
-    "userId",
-    "mobileNumber profile",
-  );
+  const request = await Request.findById(requestId).populate("userId", "mobileNumber profile");
   if (!request) throw new AppError("Request not found.", 404);
   return request;
 };
 
-const cancelRequest = async ({
-  requestId,
-  userId,
-  isManager,
-  cancelReason,
-}) => {
+const cancelRequest = async ({ requestId, userId, isManager, cancelReason }) => {
   const query = { _id: requestId };
   if (!isManager) {
     query.userId = userId;
-    query.status = REQUEST_STATUS.PENDING; // Members can only cancel pending requests
+    query.status = REQUEST_STATUS.PENDING;
   }
 
   const request = await Request.findOneAndUpdate(
     query,
     {
       $set: {
-        status: REQUEST_STATUS.CANCELLED,
+        status:      REQUEST_STATUS.CANCELLED,
         cancelledAt: new Date(),
         cancelReason,
       },
@@ -67,8 +66,20 @@ const cancelRequest = async ({
     { new: true },
   );
 
-  if (!request) {
-    throw new AppError("Request not found or cannot be cancelled.", 404);
+  if (!request) throw new AppError("Request not found or cannot be cancelled.", 404);
+
+  // Free tanker and driver if they were assigned
+  if (request.tankerAssignment) {
+    await Promise.all([
+      Tanker.updateOne(
+        { tankerNumber: request.tankerAssignment.tankerNumber },
+        { currentStatus: ENTITY_STATUS.AVAILABLE, activeRequestId: null },
+      ),
+      Driver.updateOne(
+        { _id: request.tankerAssignment.driverId },
+        { currentStatus: ENTITY_STATUS.AVAILABLE, activeRequestId: null },
+      ),
+    ]);
   }
 
   return request;

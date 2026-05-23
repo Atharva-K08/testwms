@@ -20,28 +20,47 @@ const assignTankerValidator = [
     .isLength({ max: 20 })
     .withMessage("Tanker number must not exceed 20 characters."),
 
-  body("driverName")
-    .trim()
+  body("driverId")
     .notEmpty()
-    .withMessage("Driver name is required.")
-    .isLength({ max: 100 })
-    .withMessage("Driver name must not exceed 100 characters."),
-
-  body("driverMobile")
-    .optional()
-    .trim()
-    .isLength({ min: 10, max: 10 })
-    .withMessage("Driver mobile number must be exactly 10 digits.")
-    .isNumeric()
-    .withMessage("Driver mobile number must contain only digits."),
+    .withMessage("Driver ID is required.")
+    .isMongoId()
+    .withMessage("Driver ID must be a valid ID."),
 
   body("dateTime")
     .notEmpty()
     .withMessage("Date and time is required.")
     .isISO8601()
-    .withMessage(
-      "Date and time must be in ISO 8601 format (e.g., 2024-01-15T10:30:00Z).",
-    ),
+    .withMessage("Date and time must be in ISO 8601 format (e.g., 2024-01-15T10:30:00Z)."),
+];
+
+const handoverTankerValidator = [
+  param("id").isMongoId().withMessage("Invalid request ID."),
+
+  body("tankerNumber")
+    .trim()
+    .notEmpty()
+    .withMessage("New tanker number is required.")
+    .isLength({ max: 20 })
+    .withMessage("Tanker number must not exceed 20 characters."),
+
+  body("driverId")
+    .notEmpty()
+    .withMessage("New driver ID is required.")
+    .isMongoId()
+    .withMessage("Driver ID must be a valid ID."),
+
+  body("dateTime")
+    .notEmpty()
+    .withMessage("Date and time is required.")
+    .isISO8601()
+    .withMessage("Date and time must be in ISO 8601 format."),
+
+  body("reason")
+    .trim()
+    .notEmpty()
+    .withMessage("Handover reason is required.")
+    .isLength({ max: 500 })
+    .withMessage("Reason must not exceed 500 characters."),
 ];
 
 const completeRequestValidator = [
@@ -108,13 +127,14 @@ const assignSourceDestinationValidator = [
   body("kilometers")
     .notEmpty()
     .withMessage("Kilometers is required.")
-    .isFloat({ min: 0 })
-    .withMessage("Kilometers must be a non-negative number."),
+    .isFloat({ min: 0.1 })
+    .withMessage("Kilometers must be greater than 0."),
 ];
 
 module.exports = {
   submitRequestValidator,
   assignTankerValidator,
+  handoverTankerValidator,
   completeRequestValidator,
   cancelRequestValidator,
   paginationValidator,

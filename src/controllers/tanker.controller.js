@@ -6,7 +6,7 @@ const { sendSuccess, sendCreated } = require("../utils/response.util");
 const addTanker = async (req, res, next) => {
   try {
     const tanker = await tankerService.addTanker(req.body.tankerNumber, req.user.id);
-    return sendCreated(res, { message: "Tanker added successfully", data: tanker });
+    return sendCreated(res, { message: "Tanker added successfully.", data: tanker });
   } catch (error) {
     next(error);
   }
@@ -14,8 +14,9 @@ const addTanker = async (req, res, next) => {
 
 const getAllTankers = async (req, res, next) => {
   try {
-    const tankers = await tankerService.getAllTankers();
-    return sendSuccess(res, { message: "Tankers retrieved successfully", data: tankers });
+    const { currentStatus } = req.query;
+    const tankers = await tankerService.getAllTankers({ currentStatus });
+    return sendSuccess(res, { message: "Tankers retrieved successfully.", data: tankers });
   } catch (error) {
     next(error);
   }
@@ -24,7 +25,7 @@ const getAllTankers = async (req, res, next) => {
 const deleteTanker = async (req, res, next) => {
   try {
     await tankerService.deleteTanker(req.params.id);
-    return sendSuccess(res, { message: "Tanker deleted successfully" });
+    return sendSuccess(res, { message: "Tanker deleted successfully." });
   } catch (error) {
     next(error);
   }

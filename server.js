@@ -31,8 +31,11 @@ const app = express();
 
 // ── Security Middleware ────────────────────────────────────────────────────────
 app.use(helmet());
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",").map((o) => o.trim())
+  : "*";
 app.use(
-  cors({ origin: "*", methods: ["GET", "POST", "PUT", "PATCH", "DELETE"] }),
+  cors({ origin: allowedOrigins, methods: ["GET", "POST", "PUT", "PATCH", "DELETE"] }),
 );
 
 // ── Rate Limiting ─────────────────────────────────────────────────────────────

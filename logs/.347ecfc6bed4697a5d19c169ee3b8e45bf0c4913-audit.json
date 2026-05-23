@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\.347ecfc6bed4697a5d19c169ee3b8e45bf0c4913-audit.json",
+    "files": [
+        {
+            "date": 1779530421886,
+            "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\error-2026-05-23.log",
+            "hash": "c06e59a4af416e17d774888bfefcda297b9fec385c19fc9b5ebc2d1854f4eaa1"
+        }
+    ],
+    "hashType": "sha256"
+}

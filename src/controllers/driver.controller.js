@@ -46,9 +46,9 @@ const getAllDrivers = async (req, res, next) => {
       parseInt(req.query.limit) || PAGINATION.DEFAULT_LIMIT,
       PAGINATION.MAX_LIMIT,
     );
-    const { status } = req.query;
+    const { status, currentStatus } = req.query;
 
-    const result = await driverService.getAllDrivers({ page, limit, status });
+    const result = await driverService.getAllDrivers({ page, limit, status, currentStatus });
 
     return sendPaginated(res, {
       message: "Drivers retrieved successfully",

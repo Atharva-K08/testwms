@@ -16,9 +16,10 @@ const createDriver = async (data) => {
  * Get all drivers with pagination and optional status filter
  * Excludes soft-deleted drivers
  */
-const getAllDrivers = async ({ page = 1, limit = 20, status } = {}) => {
+const getAllDrivers = async ({ page = 1, limit = 20, status, currentStatus } = {}) => {
   const query = { isDeleted: false };
   if (status) query.status = status;
+  if (currentStatus) query.currentStatus = currentStatus;
 
   const skip = (page - 1) * limit;
 

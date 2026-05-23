@@ -6,9 +6,33 @@ const { REQUEST_STATUS } = require("../config/constants");
 const tankerAssignmentSchema = new mongoose.Schema(
   {
     tankerNumber: { type: String, required: true, trim: true },
-    driverName: { type: String, required: false, trim: true, default: "" },
-    driverMobile: { type: String, required: false, trim: true, default: "" },
-    dateTime: { type: Date, required: true },
+    driverId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Driver",
+      required: true,
+    },
+    driverName:   { type: String, trim: true, default: "" }, // snapshot
+    driverMobile: { type: String, trim: true, default: "" }, // snapshot
+    dateTime:     { type: Date, required: true },
+  },
+  { _id: false },
+);
+
+const handoverEntrySchema = new mongoose.Schema(
+  {
+    fromTankerNumber:  { type: String, trim: true },
+    fromDriverId:      { type: mongoose.Schema.Types.ObjectId, ref: "Driver" },
+    fromDriverName:    { type: String, trim: true },
+    fromDriverMobile:  { type: String, trim: true },
+    fromDateTime:      { type: Date },
+    toTankerNumber:    { type: String, trim: true },
+    toDriverId:        { type: mongoose.Schema.Types.ObjectId, ref: "Driver" },
+    toDriverName:      { type: String, trim: true },
+    toDriverMobile:    { type: String, trim: true },
+    toDateTime:        { type: Date },
+    reason:            { type: String, required: true, maxlength: 500 },
+    handedOverAt:      { type: Date, default: Date.now },
+    handedOverBy:      { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { _id: false },
 );
@@ -21,11 +45,11 @@ const requestSchema = new mongoose.Schema(
       required: true,
     },
     // Snapshot of member details at time of request
-    societyName: { type: String, required: true, trim: true },
-    address: { type: String, required: true, trim: true },
+    societyName:   { type: String, required: true, trim: true },
+    address:       { type: String, required: true, trim: true },
     contactPerson: { type: String, required: true, trim: true },
-    mobileNumber: { type: String, required: true, trim: true },
-    notes: { type: String, trim: true, maxlength: 500, default: "" },
+    mobileNumber:  { type: String, required: true, trim: true },
+    notes:         { type: String, trim: true, maxlength: 500, default: "" },
 
     status: {
       type: String,
@@ -36,7 +60,7 @@ const requestSchema = new mongoose.Schema(
     // FIFO queue position — auto-assigned, sequential
     queuePosition: { type: Number, required: true },
 
-    // Set once when manager assigns tanker — immutable after that
+    // Current assignment — replaced on handover; history preserved below
     tankerAssignment: { type: tankerAssignmentSchema, default: null },
 
     assignedAt: { type: Date, default: null },
@@ -46,14 +70,17 @@ const requestSchema = new mongoose.Schema(
       default: null,
     },
 
-    // Source-destination assignment (set via assign-source-destination endpoint)
-    source: { type: String, trim: true, default: "" },
-    destination: { type: String, trim: true, default: "" },
-    kilometer: { type: Number, default: null },
-    roundTripKilometer: { type: Number, default: null },
+    // Full audit trail of every re-assignment
+    handoverHistory: { type: [handoverEntrySchema], default: [] },
 
-    completedAt: { type: Date, default: null },
-    cancelledAt: { type: Date, default: null },
+    // Source-destination assignment
+    source:              { type: String, trim: true, default: "" },
+    destination:         { type: String, trim: true, default: "" },
+    kilometer:           { type: Number, default: null },
+    roundTripKilometer:  { type: Number, default: null },
+
+    completedAt:  { type: Date, default: null },
+    cancelledAt:  { type: Date, default: null },
     cancelReason: { type: String, default: "" },
   },
   {
@@ -66,7 +93,7 @@ const requestSchema = new mongoose.Schema(
 requestSchema.index({ status: 1, queuePosition: 1 });
 requestSchema.index({ userId: 1, status: 1 });
 requestSchema.index({ queuePosition: 1 });
-requestSchema.index({ "tankerAssignment.driverName": 1 });
 requestSchema.index({ "tankerAssignment.tankerNumber": 1 });
+requestSchema.index({ "tankerAssignment.driverId": 1 });
 
 module.exports = mongoose.model("Request", requestSchema);

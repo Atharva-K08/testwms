@@ -1,11 +1,11 @@
 "use strict";
 
 const express = require("express");
-const router = express.Router();
-const { protect } = require("../middlewares/auth.middleware");
+const router  = express.Router();
+const { protect }   = require("../middlewares/auth.middleware");
 const { authorize } = require("../middlewares/role.middleware");
-const { validate } = require("../middlewares/validate.middleware");
-const { ROLES } = require("../config/constants");
+const { validate }  = require("../middlewares/validate.middleware");
+const { ROLES }     = require("../config/constants");
 const {
   createRoute,
   getAllRoutes,
@@ -19,13 +19,26 @@ const {
   routeIdValidator,
 } = require("../validators/route.validator");
 
-// All route management requires authentication; managers and super admins only
-// router.use(protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN));
+// Read routes — any authenticated user (manager, superAdmin, fuelManager)
+router.get("/",
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  getAllRoutes);
 
-router.post("/", createRouteValidator, validate, createRoute);
-router.get("/", getAllRoutes);
-router.put("/:id", updateRouteValidator, validate, updateRoute);
-router.delete("/:id", routeIdValidator, validate, deleteRoute);
-router.get("/destination/:destinationName", getRouteByDestinationName);
+router.get("/destination/:destinationName",
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  getRouteByDestinationName);
+
+// Write routes — manager and superAdmin only
+router.post("/",
+  protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN),
+  createRouteValidator, validate, createRoute);
+
+router.put("/:id",
+  protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN),
+  updateRouteValidator, validate, updateRoute);
+
+router.delete("/:id",
+  protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN),
+  routeIdValidator, validate, deleteRoute);
 
 module.exports = router;
