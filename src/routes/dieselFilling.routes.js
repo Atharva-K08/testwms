@@ -29,28 +29,29 @@ const {
 
 // Specific paths before :id
 router.get("/report",
-  protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   dieselReportValidator, validate, generateDieselReport);
 
 router.get("/summary/:tankerNumber",
-  protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   tankerSummaryValidator, validate, getTankerDieselSummary);
 
 router.get("/wrong-entries",
   protect, authorize(ROLES.SUPER_ADMIN),
   getWrongEntries);
 
-// CRUD — fuelManager and superAdmin only
+// Write — fuelManager and superAdmin only
 router.post("/",
   protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   recordDieselFillingValidator, validate, recordDieselFilling);
 
+// Read — manager, fuelManager, superAdmin
 router.get("/",
-  protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   getAllDieselFillings);
 
 router.get("/:id",
-  protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   getDieselFillingValidator, validate, getDieselFillingById);
 
 router.put("/:id",

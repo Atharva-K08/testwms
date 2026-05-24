@@ -1,8 +1,9 @@
 "use strict";
 
-const Request = require("../models/request.model");
-const Tanker  = require("../models/tanker.model");
-const Driver  = require("../models/driver.model");
+const Request       = require("../models/request.model");
+const Tanker        = require("../models/tanker.model");
+const Driver        = require("../models/driver.model");
+const DieselFilling = require("../models/dieselFilling.model");
 const { REQUEST_STATUS, ENTITY_STATUS } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
 
@@ -92,6 +93,15 @@ const assignTanker = async ({ requestId, tankerNumber, driverId, dateTime, manag
     );
   }
 
+  // 2a. Tanker must have at least one diesel filling record
+  const hasFilling = await DieselFilling.exists({ tankerNumber: tanker.tankerNumber });
+  if (!hasFilling) {
+    throw new AppError(
+      `Tanker ${tanker.tankerNumber} has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.`,
+      422,
+    );
+  }
+
   // 3. Validate driver registered in DB and not soft-deleted
   const driver = await Driver.findOne({ _id: driverId, isDeleted: false });
   if (!driver) {
@@ -166,6 +176,17 @@ const handoverTanker = async ({ requestId, tankerNumber, driverId, dateTime, rea
       `Tanker ${newTanker.tankerNumber} is currently on a trip and cannot be assigned.`,
       409,
     );
+  }
+
+  // New tanker must have at least one diesel filling record
+  if (!isSameTanker) {
+    const hasFilling = await DieselFilling.exists({ tankerNumber: newTanker.tankerNumber });
+    if (!hasFilling) {
+      throw new AppError(
+        `Tanker ${newTanker.tankerNumber} has no diesel filling record. Ask the Fuel Manager to record a filling before using this tanker.`,
+        422,
+      );
+    }
   }
 
   // Validate new driver

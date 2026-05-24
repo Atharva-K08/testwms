@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const mongoose = require('mongoose');
-const { logger } = require('../utils/logger.util');
+const mongoose = require("mongoose");
+const { logger } = require("../utils/logger.util");
 
 const connectDB = async () => {
   try {
@@ -12,15 +12,15 @@ const connectDB = async () => {
 
     logger.info(`MongoDB Connected: ${conn.connection.host}`);
 
-    mongoose.connection.on('disconnected', () => {
-      logger.warn('MongoDB disconnected. Attempting to reconnect...');
+    mongoose.connection.on("disconnected", () => {
+      logger.warn("MongoDB disconnected. Attempting to reconnect...");
     });
 
-    mongoose.connection.on('reconnected', () => {
-      logger.info('MongoDB reconnected.');
+    mongoose.connection.on("reconnected", () => {
+      logger.info("MongoDB reconnected.");
     });
 
-    mongoose.connection.on('error', (err) => {
+    mongoose.connection.on("error", (err) => {
       logger.error(`MongoDB connection error: ${err.message}`);
     });
   } catch (error) {
