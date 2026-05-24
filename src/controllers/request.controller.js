@@ -17,6 +17,7 @@ const submitRequest = async (req, res) => {
     userId: user._id,
     profile: user.profile,
     mobileNumber: user.mobileNumber,
+    distanceInKm: user.profile?.distanceInKm ?? null,
     notes,
   });
 

@@ -20,6 +20,7 @@ const profileSchema = new mongoose.Schema(
     societyName: { type: String, trim: true, maxlength: 150 },
     address: { type: String, trim: true, maxlength: 300 },
     contactPerson: { type: String, trim: true, maxlength: 100 },
+    distanceInKm: { type: Number, default: null },
     alternativeContacts: {
       type: [alternativeContactSchema],
       default: [],

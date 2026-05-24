@@ -73,6 +73,9 @@ const requestSchema = new mongoose.Schema(
     // Full audit trail of every re-assignment
     handoverHistory: { type: [handoverEntrySchema], default: [] },
 
+    // One-way distance from filling station — snapshot from member profile at submission
+    distanceInKm: { type: Number, default: null },
+
     // Source-destination assignment
     source:              { type: String, trim: true, default: "" },
     destination:         { type: String, trim: true, default: "" },

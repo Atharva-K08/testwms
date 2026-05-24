@@ -7,8 +7,10 @@ const { getNextQueuePosition } = require("./queue.service");
 const { REQUEST_STATUS, ENTITY_STATUS } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
 
-const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
+const submitRequest = async ({ userId, profile, mobileNumber, notes, distanceInKm }) => {
   const queuePosition = await getNextQueuePosition();
+
+  const hasDistance = distanceInKm != null && distanceInKm > 0;
 
   const request = await Request.create({
     userId,
@@ -18,6 +20,12 @@ const submitRequest = async ({ userId, profile, mobileNumber, notes }) => {
     mobileNumber,
     notes:         notes || "",
     queuePosition,
+    distanceInKm:  distanceInKm ?? null,
+    // Auto-fill route from registration data — no separate manager step needed
+    source:             hasDistance ? "Water Tanker Filling Station" : "",
+    destination:        hasDistance ? profile.address : "",
+    kilometer:          hasDistance ? distanceInKm : null,
+    roundTripKilometer: hasDistance ? distanceInKm * 2 : null,
   });
 
   return request;
