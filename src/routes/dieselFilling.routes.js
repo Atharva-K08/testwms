@@ -55,7 +55,7 @@ router.get("/:id",
   getDieselFillingValidator, validate, getDieselFillingById);
 
 router.put("/:id",
-  protect, authorize(ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
+  protect, authorize(ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.SUPER_ADMIN),
   updateDieselFillingValidator, validate, updateDieselFilling);
 
 router.delete("/:id",
