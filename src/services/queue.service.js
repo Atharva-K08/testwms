@@ -1,11 +1,18 @@
 "use strict";
 
-const Request       = require("../models/request.model");
-const Tanker        = require("../models/tanker.model");
-const Driver        = require("../models/driver.model");
-const DieselFilling = require("../models/dieselFilling.model");
+const mongoose       = require("mongoose");
+const Request        = require("../models/request.model");
+const Tanker         = require("../models/tanker.model");
+const Driver         = require("../models/driver.model");
+const DieselFilling  = require("../models/dieselFilling.model");
 const { REQUEST_STATUS, ENTITY_STATUS } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
+
+// Counter schema shared via mongoose.models to avoid re-registration
+// (same pattern as driver.model.js's serialNumber counter and
+// receipt.service.js's per-day receipt-number counter).
+const counterSchema = new mongoose.Schema({ _id: String, seq: { type: Number, default: 0 } });
+const Counter = mongoose.models.Counter || mongoose.model("Counter", counterSchema);
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -43,13 +50,34 @@ const _lockTankerAndDriver = async (tankerNumber, driverId, requestId) => {
   ]);
 };
 
-// ── Queue position ─────────────────────────────────────────────────────────────
+// ── Queue position (atomic) ────────────────────────────────────────────────────
+//
+// Previously read-then-write (find max, return +1), which let two concurrent
+// submissions read the same max and receive the same queuePosition. Fixed via
+// the same atomic Counter pattern already used for driver serial numbers and
+// receipt numbers: a single $inc per call, race-free regardless of concurrency.
 
 const getNextQueuePosition = async () => {
-  const last = await Request.findOne({}, { queuePosition: 1 })
-    .sort({ queuePosition: -1 })
-    .lean();
-  return last ? last.queuePosition + 1 : 1;
+  const existing = await Counter.findById("queuePosition").lean();
+  if (!existing) {
+    // One-time migration: seed the counter from the current max queuePosition
+    // so switching to the atomic counter never collides with pre-existing data.
+    const last = await Request.findOne({}, { queuePosition: 1 })
+      .sort({ queuePosition: -1 })
+      .lean();
+    try {
+      await Counter.create({ _id: "queuePosition", seq: last ? last.queuePosition : 0 });
+    } catch (err) {
+      if (err.code !== 11000) throw err; // another concurrent caller already seeded it
+    }
+  }
+
+  const counter = await Counter.findByIdAndUpdate(
+    "queuePosition",
+    { $inc: { seq: 1 } },
+    { new: true, upsert: true },
+  );
+  return counter.seq;
 };
 
 // ── Queue read ────────────────────────────────────────────────────────────────

@@ -1,0 +1,427 @@
+[2026-06-21 11:20:25] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-21 11:20:50] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-21 11:22:37] INFO: MongoDB Connected: cluster0-shard-00-02.6u1nu.mongodb.net
+[2026-06-21 11:22:37] INFO: [demoTraffic] Planned 23/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 11:22:37] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 11:22:37] INFO: Server Running On development mode on port 5050
+[2026-06-21 11:22:38] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:32:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:8:18)
+[2026-06-21 11:22:39] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:22:40] ERROR: Error: Invalid username or password.
+Error: Invalid username or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:82:15)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:22:40] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:22:40] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:22:40] ERROR: Error: Request not found or cannot be cancelled.
+Error: Request not found or cannot be cancelled.
+    at Object.cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:68:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\request.controller.js:81:19)
+[2026-06-21 11:22:42] INFO: [demoTraffic] Generated demo request 6a377c2a968d129b4acd43d4 for "chanfrabhaga" (tanker MH12RT6820, driver Suresh) at 2026-06-21T05:52:41.799Z
+[2026-06-21 11:24:00] INFO: MongoDB Connected: cluster0-shard-00-02.6u1nu.mongodb.net
+[2026-06-21 11:24:00] INFO: [demoTraffic] Planned 20/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 11:24:00] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 11:24:00] INFO: Server Running On development mode on port 5050
+[2026-06-21 11:24:00] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:32:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:8:18)
+[2026-06-21 11:24:01] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:02] ERROR: Error: Invalid username or password.
+Error: Invalid username or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:82:15)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Invalid username or password.
+Error: Invalid username or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:82:15)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:93:13)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:03] ERROR: Error: Request not found or cannot be cancelled.
+Error: Request not found or cannot be cancelled.
+    at Object.cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:68:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\request.controller.js:81:19)
+[2026-06-21 11:24:04] INFO: [demoTraffic] Generated demo request 6a377c7c5e050bed7542f087 for "AAAA" (tanker MH12RT6820, driver Suresh) at 2026-06-21T05:54:04.522Z
+[2026-06-21 11:24:32] INFO: MongoDB Connected: cluster0-shard-00-02.6u1nu.mongodb.net
+[2026-06-21 11:24:34] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 11:24:39] INFO: MongoDB Connected: cluster0-shard-00-00.6u1nu.mongodb.net
+[2026-06-21 11:24:40] INFO: [demoTraffic] Planned 25/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 11:24:40] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 11:24:40] INFO: Server Running On development mode on port 5050
+[2026-06-21 11:24:40] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:32:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:8:18)
+[2026-06-21 11:24:41] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:24:43] ERROR: MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8278863001" }
+MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8278863001" }
+    at InsertOneOperation.handleOk (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async executeOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\collection.js:154:16)
+[2026-06-21 11:24:44] ERROR: Error: Driver not found
+Error: Driver not found
+    at Object.getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\driver.service.js:48:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\driver.controller.js:71:20)
+[2026-06-21 11:24:44] ERROR: Error: Tanker number already exists.
+Error: Tanker number already exists.
+    at Object.addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\tanker.service.js:8:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\tanker.controller.js:8:20)
+[2026-06-21 11:24:44] INFO: First diesel filling record for tanker TST27886301
+[2026-06-21 11:24:44] INFO: Diesel filling recorded for tanker TST27886301: 800 liters, 0 trips since last fill
+[2026-06-21 11:24:44] INFO: User 6a377ca3dd934b05db74b412 recorded diesel filling for the tanker TST27886301
+[2026-06-21 11:24:44] INFO: First diesel filling record for tanker TST27886302
+[2026-06-21 11:24:44] INFO: Diesel filling recorded for tanker TST27886302: 750 liters, 0 trips since last fill
+[2026-06-21 11:24:44] INFO: User 6a377ca3dd934b05db74b412 recorded diesel filling for the tanker TST27886302
+[2026-06-21 11:24:44] INFO: Diesel filling 6a377ca4dd934b05db74b459 marked as wrong by user 6a377ca3dd934b05db74b412. Reason: Entered liters incorrectly
+[2026-06-21 11:24:44] INFO: User 6a377ca3dd934b05db74b412 marked diesel filling 6a377ca4dd934b05db74b459 as wrong
+[2026-06-21 11:24:44] ERROR: Error: This entry is already marked as wrong
+Error: This entry is already marked as wrong
+    at Object.markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\dieselFilling.service.js:389:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\dieselFilling.controller.js:192:28)
+[2026-06-21 11:24:44] INFO: First diesel filling record for tanker TST27886301
+[2026-06-21 11:24:44] INFO: Diesel filling recorded for tanker TST27886301: 900 liters, 0 trips since last fill
+[2026-06-21 11:24:44] INFO: User 6a377ca3dd934b05db74b412 recorded diesel filling for the tanker TST27886301
+[2026-06-21 11:24:45] ERROR: Error: Tanker TST27886303 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+Error: Tanker TST27886303 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:99:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:45] ERROR: Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:113:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:45] ERROR: Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:90:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:45] ERROR: Error: Assign a tanker first before setting source and destination.
+Error: Assign a tanker first before setting source and destination.
+    at Object.assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:258:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:70:19)
+[2026-06-21 11:24:45] ERROR: Error: Cannot complete: source and destination must be set first.
+Error: Cannot complete: source and destination must be set first.
+    at Object.completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:290:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:86:21)
+[2026-06-21 11:24:46] ERROR: Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+    at Object.handoverTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:175:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async handoverTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:52:19)
+[2026-06-21 11:24:46] ERROR: Error: Request not found or cannot be cancelled.
+Error: Request not found or cannot be cancelled.
+    at Object.cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:68:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\request.controller.js:81:19)
+[2026-06-21 11:24:46] ERROR: Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:90:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:46] ERROR: CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+    at SchemaObjectId.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schema\objectId.js:253:11)
+    at SchemaType.applySetters (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1288:12)
+    at SchemaType.castForQuery (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1724:17)
+    at cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\cast.js:390:32)
+    at Query.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:5060:12)
+    at Query._castConditions (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2374:10)
+    at model.Query._findOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2697:8)
+    at model.Query.exec (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:4627:80)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRequestById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:44:19)
+[2026-06-21 11:24:46] ERROR: Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+Error: Tanker TST27886301 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:90:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:46] INFO: First diesel filling record for tanker TST27886305
+[2026-06-21 11:24:46] INFO: Diesel filling recorded for tanker TST27886305: 500 liters, 0 trips since last fill
+[2026-06-21 11:24:46] INFO: User 6a377ca3dd934b05db74b412 recorded diesel filling for the tanker TST27886305
+[2026-06-21 11:24:46] ERROR: Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:118:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:46] ERROR: Error: Driver E2E Driver One is currently on a trip and cannot be assigned.
+Error: Driver E2E Driver One is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:118:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:24:47] INFO: [demoTraffic] Generated demo request 6a377ca730776a2817be71d8 for "Green Valley CHS" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T05:54:47.643Z
+[2026-06-21 11:26:26] INFO: MongoDB Connected: cluster0-shard-00-00.6u1nu.mongodb.net
+[2026-06-21 11:26:28] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 11:26:30] INFO: MongoDB Connected: cluster0-shard-00-00.6u1nu.mongodb.net
+[2026-06-21 11:26:30] INFO: [demoTraffic] Planned 27/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 11:26:30] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 11:26:30] INFO: Server Running On development mode on port 5050
+[2026-06-21 11:26:30] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:32:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:8:18)
+[2026-06-21 11:26:31] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:26:34] ERROR: MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8388782001" }
+MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8388782001" }
+    at InsertOneOperation.handleOk (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async executeOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\collection.js:154:16)
+[2026-06-21 11:26:34] ERROR: Error: Driver not found
+Error: Driver not found
+    at Object.getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\driver.service.js:48:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\driver.controller.js:71:20)
+[2026-06-21 11:26:34] ERROR: Error: Tanker number already exists.
+Error: Tanker number already exists.
+    at Object.addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\tanker.service.js:8:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\tanker.controller.js:8:20)
+[2026-06-21 11:26:34] INFO: First diesel filling record for tanker TST38878201
+[2026-06-21 11:26:34] INFO: Diesel filling recorded for tanker TST38878201: 800 liters, 0 trips since last fill
+[2026-06-21 11:26:34] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878201
+[2026-06-21 11:26:34] INFO: First diesel filling record for tanker TST38878202
+[2026-06-21 11:26:34] INFO: Diesel filling recorded for tanker TST38878202: 750 liters, 0 trips since last fill
+[2026-06-21 11:26:34] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878202
+[2026-06-21 11:26:34] INFO: Diesel filling 6a377d1288e153b0609ca364 marked as wrong by user 6a377d1188e153b0609ca31d. Reason: Entered liters incorrectly
+[2026-06-21 11:26:34] INFO: User 6a377d1188e153b0609ca31d marked diesel filling 6a377d1288e153b0609ca364 as wrong
+[2026-06-21 11:26:34] ERROR: Error: This entry is already marked as wrong
+Error: This entry is already marked as wrong
+    at Object.markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\dieselFilling.service.js:389:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\dieselFilling.controller.js:192:28)
+[2026-06-21 11:26:35] INFO: First diesel filling record for tanker TST38878201
+[2026-06-21 11:26:35] INFO: Diesel filling recorded for tanker TST38878201: 900 liters, 0 trips since last fill
+[2026-06-21 11:26:35] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878201
+[2026-06-21 11:26:35] ERROR: Error: Tanker TST38878203 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+Error: Tanker TST38878203 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:99:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:26:35] ERROR: Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:113:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:26:35] ERROR: Error: Tanker TST38878201 is currently on a trip and cannot be assigned.
+Error: Tanker TST38878201 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:90:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:26:35] ERROR: Error: Assign a tanker first before setting source and destination.
+Error: Assign a tanker first before setting source and destination.
+    at Object.assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:258:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:70:19)
+[2026-06-21 11:26:35] ERROR: Error: Cannot complete: source and destination must be set first.
+Error: Cannot complete: source and destination must be set first.
+    at Object.completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:290:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:86:21)
+[2026-06-21 11:26:36] INFO: First diesel filling record for tanker TST38878205
+[2026-06-21 11:26:36] INFO: Diesel filling recorded for tanker TST38878205: 500 liters, 0 trips since last fill
+[2026-06-21 11:26:36] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878205
+[2026-06-21 11:26:36] INFO: First diesel filling record for tanker TST38878206
+[2026-06-21 11:26:36] INFO: Diesel filling recorded for tanker TST38878206: 500 liters, 0 trips since last fill
+[2026-06-21 11:26:36] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878206
+[2026-06-21 11:26:36] ERROR: Error: Request not found or cannot be cancelled.
+Error: Request not found or cannot be cancelled.
+    at Object.cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:68:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\request.controller.js:81:19)
+[2026-06-21 11:26:36] INFO: First diesel filling record for tanker TST38878207
+[2026-06-21 11:26:36] INFO: Diesel filling recorded for tanker TST38878207: 500 liters, 0 trips since last fill
+[2026-06-21 11:26:36] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878207
+[2026-06-21 11:26:37] ERROR: CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+    at SchemaObjectId.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schema\objectId.js:253:11)
+    at SchemaType.applySetters (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1288:12)
+    at SchemaType.castForQuery (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1724:17)
+    at cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\cast.js:390:32)
+    at Query.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:5060:12)
+    at Query._castConditions (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2374:10)
+    at model.Query._findOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2697:8)
+    at model.Query.exec (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:4627:80)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRequestById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:44:19)
+[2026-06-21 11:26:37] ERROR: Error: Tanker TST38878201 is currently on a trip and cannot be assigned.
+Error: Tanker TST38878201 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:90:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:26:37] INFO: First diesel filling record for tanker TST38878208
+[2026-06-21 11:26:37] INFO: Diesel filling recorded for tanker TST38878208: 500 liters, 0 trips since last fill
+[2026-06-21 11:26:37] INFO: User 6a377d1188e153b0609ca31d recorded diesel filling for the tanker TST38878208
+[2026-06-21 11:26:37] ERROR: Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:118:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:26:38] INFO: [demoTraffic] Generated demo request 6a377d16f9722e1f7488fbd2 for "Sai Krupa Society" (tanker TST38878207, driver E2E Handover Driver A) at 2026-06-21T05:56:38.530Z
+[2026-06-21 11:49:05] INFO: MongoDB Connected: cluster0-shard-00-01.6u1nu.mongodb.net
+[2026-06-21 11:49:07] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 11:49:09] INFO: MongoDB Connected: cluster0-shard-00-01.6u1nu.mongodb.net
+[2026-06-21 11:49:09] INFO: [demoTraffic] Planned 20/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 11:49:09] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 11:49:09] INFO: Server Running On development mode on port 5050
+[2026-06-21 11:49:09] ERROR: Error: An account with this mobile number already exists.
+Error: An account with this mobile number already exists.
+    at Object.register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:32:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async register (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:8:18)
+[2026-06-21 11:49:10] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 11:49:13] ERROR: MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8747672001" }
+MongoServerError: E11000 duplicate key error collection: wmstest.drivers index: mobileNumber_1 dup key: { mobileNumber: "8747672001" }
+    at InsertOneOperation.handleOk (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\insert.js:51:19)
+    at tryOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:214:34)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async executeOperation (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\operations\execute_operation.js:78:16)
+    at async Collection.insertOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongodb\lib\collection.js:154:16)
+[2026-06-21 11:49:13] ERROR: Error: Driver not found
+Error: Driver not found
+    at Object.getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\driver.service.js:48:22)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async getDriverById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\driver.controller.js:71:20)
+[2026-06-21 11:49:13] ERROR: Error: Tanker number already exists.
+Error: Tanker number already exists.
+    at Object.addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\tanker.service.js:8:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async addTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\tanker.controller.js:8:20)
+[2026-06-21 11:49:13] INFO: First diesel filling record for tanker TST74767201
+[2026-06-21 11:49:13] INFO: Diesel filling recorded for tanker TST74767201: 800 liters, 0 trips since last fill
+[2026-06-21 11:49:13] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767201
+[2026-06-21 11:49:13] INFO: First diesel filling record for tanker TST74767202
+[2026-06-21 11:49:13] INFO: Diesel filling recorded for tanker TST74767202: 750 liters, 0 trips since last fill
+[2026-06-21 11:49:13] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767202
+[2026-06-21 11:49:14] INFO: Diesel filling 6a378261e2c436e6c4ee1f28 marked as wrong by user 6a378260e2c436e6c4ee1ee1. Reason: Entered liters incorrectly
+[2026-06-21 11:49:14] INFO: User 6a378260e2c436e6c4ee1ee1 marked diesel filling 6a378261e2c436e6c4ee1f28 as wrong
+[2026-06-21 11:49:14] ERROR: Error: This entry is already marked as wrong
+Error: This entry is already marked as wrong
+    at Object.markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\dieselFilling.service.js:389:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async markAsWrongEntry (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\dieselFilling.controller.js:192:28)
+[2026-06-21 11:49:14] INFO: First diesel filling record for tanker TST74767201
+[2026-06-21 11:49:14] INFO: Diesel filling recorded for tanker TST74767201: 900 liters, 0 trips since last fill
+[2026-06-21 11:49:14] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767201
+[2026-06-21 11:49:14] ERROR: Error: Tanker TST74767203 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+Error: Tanker TST74767203 has no diesel filling record. Ask the Fuel Manager to record a filling before assigning this tanker.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:127:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:49:14] ERROR: Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+Error: Driver E2E Blocked Driver is blocked and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:141:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:49:14] ERROR: Error: Tanker TST74767201 is currently on a trip and cannot be assigned.
+Error: Tanker TST74767201 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:118:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:49:14] ERROR: Error: Assign a tanker first before setting source and destination.
+Error: Assign a tanker first before setting source and destination.
+    at Object.assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:286:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignSourceDestination (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:70:19)
+[2026-06-21 11:49:15] ERROR: Error: Cannot complete: source and destination must be set first.
+Error: Cannot complete: source and destination must be set first.
+    at Object.completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:318:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async completeRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:86:21)
+[2026-06-21 11:49:15] INFO: First diesel filling record for tanker TST74767205
+[2026-06-21 11:49:15] INFO: Diesel filling recorded for tanker TST74767205: 500 liters, 0 trips since last fill
+[2026-06-21 11:49:15] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767205
+[2026-06-21 11:49:15] INFO: First diesel filling record for tanker TST74767206
+[2026-06-21 11:49:15] INFO: Diesel filling recorded for tanker TST74767206: 500 liters, 0 trips since last fill
+[2026-06-21 11:49:15] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767206
+[2026-06-21 11:49:16] ERROR: Error: Request not found or cannot be cancelled.
+Error: Request not found or cannot be cancelled.
+    at Object.cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:68:23)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async cancelRequest (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\request.controller.js:81:19)
+[2026-06-21 11:49:16] INFO: First diesel filling record for tanker TST74767207
+[2026-06-21 11:49:16] INFO: Diesel filling recorded for tanker TST74767207: 500 liters, 0 trips since last fill
+[2026-06-21 11:49:16] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767207
+[2026-06-21 11:49:16] ERROR: CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+CastError: Cast to ObjectId failed for value "not-a-valid-id" (type string) at path "_id" for model "Request"
+    at SchemaObjectId.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schema\objectId.js:253:11)
+    at SchemaType.applySetters (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1288:12)
+    at SchemaType.castForQuery (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\schemaType.js:1724:17)
+    at cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\cast.js:390:32)
+    at Query.cast (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:5060:12)
+    at Query._castConditions (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2374:10)
+    at model.Query._findOne (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:2697:8)
+    at model.Query.exec (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\mongoose\lib\query.js:4627:80)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async Object.getRequestById (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\request.service.js:44:19)
+[2026-06-21 11:49:16] ERROR: Error: Tanker TST74767201 is currently on a trip and cannot be assigned.
+Error: Tanker TST74767201 is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:118:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:49:16] INFO: First diesel filling record for tanker TST74767208
+[2026-06-21 11:49:16] INFO: Diesel filling recorded for tanker TST74767208: 500 liters, 0 trips since last fill
+[2026-06-21 11:49:16] INFO: User 6a378260e2c436e6c4ee1ee1 recorded diesel filling for the tanker TST74767208
+[2026-06-21 11:49:16] ERROR: Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
+    at Object.assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\queue.service.js:146:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
+[2026-06-21 11:49:17] INFO: [demoTraffic] Generated demo request 6a3782658123ae97f29e4e61 for "Hadapsar Heights" (tanker TST74767207, driver Santosh Mane) at 2026-06-21T06:19:17.650Z

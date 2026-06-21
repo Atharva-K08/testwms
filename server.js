@@ -15,6 +15,7 @@ const {
   notFoundHandler,
 } = require("./src/middlewares/error.middleware");
 const { httpLogger, logger } = require("./src/utils/logger.util");
+const { startDemoTrafficScheduler } = require("./src/utils/demoTrafficScheduler");
 
 // Route imports
 const authRoutes = require("./src/routes/auth.routes");
@@ -98,6 +99,7 @@ const PORT = process.env.PORT || 5000;
       `Server Running On ${process.env.NODE_ENV} mode on port ${PORT}`,
     );
   });
+  startDemoTrafficScheduler();
 })();
 
 // ── Graceful Shutdown ─────────────────────────────────────────────────────────
