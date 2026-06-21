@@ -307,14 +307,20 @@ async function runAuthTests() {
 
   // --- Super admin bootstrap ---
   // This database may be a long-lived "wmstest" instance with a superAdmin
-  // already created under an older default password (see System.md BUG-B-005
-  // history: defaults moved from admin/root to env-driven Admin@1234). Try the
-  // current default first, then the historical one, purely so the rest of the
-  // suite (which needs a superAdmin token to create isolated manager/fuel
-  // manager accounts) isn't blocked by a stale credential on a shared DB.
+  // already created by seed.js (password "000000" — see seed.js's
+  // seedUsers()) rather than via the bootstrap-on-first-login path (which
+  // would use SUPER_ADMIN_DEFAULT_PASSWORD, default "Admin@1234"). Try both,
+  // plus the historical "root" default, so the rest of the suite (which
+  // needs a superAdmin token to create isolated manager/fuel manager
+  // accounts) isn't blocked by whichever path actually created this DB's
+  // admin user.
   await test("Super admin bootstrap login -> 200", async () => {
     const username = process.env.SUPER_ADMIN_USERNAME || "admin";
-    const candidates = [process.env.SUPER_ADMIN_DEFAULT_PASSWORD || "Admin@1234", "root"];
+    const candidates = [
+      "000000",
+      process.env.SUPER_ADMIN_DEFAULT_PASSWORD || "Admin@1234",
+      "root",
+    ];
     let lastRes = null;
     for (const password of candidates) {
       lastRes = await api("POST", "/auth/login", { body: { username, password } });
@@ -390,7 +396,7 @@ async function runAuthTests() {
       body: { mobileNumber: ctx.manager1.mobileNumber, password: ctx.manager1.password },
     });
     if (res.status !== 200) {
-      const fallback = { mobileNumber: "9000000001", password: "Manager@123" };
+      const fallback = { mobileNumber: "9000000001", password: "111111" };
       res = await api("POST", "/auth/login", { body: fallback });
       if (res.status === 200) ctx.manager1 = { ...fallback };
     }
@@ -403,7 +409,7 @@ async function runAuthTests() {
       body: { mobileNumber: ctx.fuelManager1.mobileNumber, password: ctx.fuelManager1.password },
     });
     if (res.status !== 200) {
-      const fallback = { mobileNumber: "9000000010", password: "Fuel@1234" };
+      const fallback = { mobileNumber: "9000000010", password: "222222" };
       res = await api("POST", "/auth/login", { body: fallback });
       if (res.status === 200) ctx.fuelManager1 = { ...fallback };
     }
@@ -932,6 +938,64 @@ async function runHandoverTests() {
       body: { tankerNumber: ctx.handoverTankerA.tankerNumber, driverId: ctx.handoverDriverA.id, dateTime: new Date().toISOString() },
     });
     assertEqual(res.status, 422, "handover missing reason status");
+  });
+
+  await test("Receipt generated before a handover picks up the new tanker/driver afterward", async () => {
+    // Generate a receipt while the request still holds tankerB (current
+    // assignment from the test above) — generateReceipt has no status
+    // restriction, so this is allowed even though the request is still
+    // pending, mirroring a manager who prints a receipt before delivery.
+    const firstReceiptRes = await api("POST", `/receipts/request/${ctx.handoverRequestId}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(firstReceiptRes.status, 201, "pre-handover receipt generation status");
+    assertEqual(
+      firstReceiptRes.body.data.receipt.tankerNumber,
+      tankerB.tankerNumber,
+      "receipt initially shows tankerB",
+    );
+
+    // A second breakdown — hand the same request over again, to a third pair.
+    const tankerC = await createFreshTanker();
+    const driverC = await createFreshDriver("E2E Handover Driver C");
+    const secondHandoverRes = await api("PATCH", `/queue/${ctx.handoverRequestId}/handover`, {
+      token: ctx.manager1.token,
+      body: {
+        tankerNumber: tankerC.tankerNumber,
+        driverId: driverC.id,
+        dateTime: new Date().toISOString(),
+        reason: "Second tanker also broke down",
+      },
+    });
+    assertEqual(secondHandoverRes.status, 200, "second handover status");
+
+    // Re-fetching the receipt must now reflect tankerC/driverC, not the
+    // stale tankerB snapshot from when it was first generated.
+    const refetchedRes = await api("GET", `/receipts/request/${ctx.handoverRequestId}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(refetchedRes.status, 200, "refetch receipt status");
+    assertEqual(
+      refetchedRes.body.data.receipt.tankerNumber,
+      tankerC.tankerNumber,
+      "receipt synced to tankerC after second handover",
+    );
+    assertEqual(
+      refetchedRes.body.data.receipt.driverName,
+      driverC.name,
+      "receipt synced to driverC after second handover",
+    );
+
+    // Calling generateReceipt again (idempotent path) must also return the
+    // synced version, not the originally-cached tankerB snapshot.
+    const regenRes = await api("POST", `/receipts/request/${ctx.handoverRequestId}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(
+      regenRes.body.data.receipt.tankerNumber,
+      tankerC.tankerNumber,
+      "idempotent generateReceipt also returns the synced tankerC",
+    );
   });
 }
 
