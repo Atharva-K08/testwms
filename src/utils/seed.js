@@ -53,17 +53,25 @@ const clearAll = async () => {
 
 const seedUsers = async () => {
   const [managerPw, fuelPw, memberPw, adminPw] = await Promise.all([
-    hash("Manager@123"),
-    hash("Fuel@1234"),
-    hash("Member@123"),
-    hash("Admin@1234"),
+    hash("111111"),
+    hash("222222"),
+    hash("333333"),
+    hash("000000"),
   ]);
 
-  // SuperAdmin
+  // SuperAdmin — profile mirrors the one the bootstrap-login path
+  // (auth.service.js) sets on first login, so the account looks the
+  // same regardless of which path created it.
   const superAdmin = await User.create({
     username: process.env.SUPER_ADMIN_USERNAME || "admin",
     password: adminPw,
     role: ROLES.SUPER_ADMIN,
+    profile: {
+      name: "Super Administrator",
+      societyName: "System",
+      address: "System",
+      contactPerson: "Super Administrator",
+    },
     isActive: true,
   });
 
@@ -377,12 +385,12 @@ const printTable = (users, drivers, tankers) => {
   console.log(`\n${line}`);
   console.log("  NagarJal Seed Credentials");
   console.log(line);
-  console.log(`  SUPER ADMIN   username: admin             password: Admin@1234`);
-  console.log(`  MANAGER       mobile:   9000000001        password: Manager@123`);
-  console.log(`  MANAGER       mobile:   9000000003        password: Manager@123`);
-  console.log(`  FUEL MANAGER  mobile:   9000000010        password: Fuel@1234`);
-  console.log(`  FUEL MANAGER  mobile:   9000000011        password: Fuel@1234`);
-  console.log(`  MEMBER        mobile:   9000000020–27     password: Member@123`);
+  console.log(`  SUPER ADMIN   username: ${process.env.SUPER_ADMIN_USERNAME || "admin"}             password: 000000`);
+  console.log(`  MANAGER       mobile:   9000000001        password: 111111`);
+  console.log(`  MANAGER       mobile:   9000000003        password: 111111`);
+  console.log(`  FUEL MANAGER  mobile:   9000000010        password: 222222`);
+  console.log(`  FUEL MANAGER  mobile:   9000000011        password: 222222`);
+  console.log(`  MEMBER        mobile:   9000000020–27     password: 333333`);
   console.log(line);
   console.log(`  Tankers  : ${tankers.map((t) => t.tankerNumber).join(", ")}`);
   console.log(`  Drivers  : ${drivers.length} seeded (serials 1–${drivers.length}; serial 6 BLOCKED)`);

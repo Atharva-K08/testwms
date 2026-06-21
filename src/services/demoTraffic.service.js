@@ -19,6 +19,19 @@ const { logger } = require("../utils/logger.util");
 const _randomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const _randomMinutes = (min, max) => Math.floor(min + Math.random() * (max - min));
 
+// Human-readable local time for terminal logs, e.g. "21 Jun 2026, 03:52 PM"
+// — toISOString() prints UTC with a 'T'/'Z' separator, which is hard to
+// scan at a glance in a running server's console.
+const _readable = (date) =>
+  date.toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
 // Picks a random available tanker that already has at least one diesel filling
 // record — mirrors the same eligibility rule enforced on manual assignment
 // (queue.service.js assignTanker) so demo data never violates real invariants.
@@ -118,7 +131,7 @@ const generateDemoRequest = async (scheduledTime) => {
 
     logger.info(
       `[demoTraffic] Generated demo request ${request._id} for "${request.societyName}" ` +
-        `(tanker ${tanker.tankerNumber}, driver ${driver.name}) at ${completedAt.toISOString()}`,
+        `(tanker ${tanker.tankerNumber}, driver ${driver.name}) at ${_readable(completedAt)}`,
     );
     return request;
   } catch (err) {

@@ -425,3 +425,267 @@ Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
 [2026-06-21 11:49:17] INFO: [demoTraffic] Generated demo request 6a3782658123ae97f29e4e61 for "Hadapsar Heights" (tanker TST74767207, driver Santosh Mane) at 2026-06-21T06:19:17.650Z
+[2026-06-21 14:55:17] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-21 14:56:21] INFO: MongoDB Connected: localhost
+[2026-06-21 14:56:21] INFO: [demoTraffic] Planned 5/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 14:56:21] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 14:56:21] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:00:40] WARN: [demoTraffic] Skipped: no member accounts found.
+[2026-06-21 15:01:43] INFO: MongoDB Connected: localhost
+[2026-06-21 15:01:45] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 15:02:18] INFO: MongoDB Connected: localhost
+[2026-06-21 15:02:18] INFO: [demoTraffic] Planned 6/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:02:18] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:02:18] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:11:29] INFO: [demoTraffic] Generated demo request 6a37b1c991e307529ff3de41 for "Sai Krupa Society" (tanker MH12AB3456, driver Arun Patole) at 2026-06-21T09:41:29.496Z
+[2026-06-21 15:12:34] INFO: [demoTraffic] Generated demo request 6a37b20a91e307529ff3de4b for "Shivaji Nagar Colony" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T09:42:34.587Z
+[2026-06-21 15:15:30] INFO: [demoTraffic] Generated demo request 6a37b2ba91e307529ff3de55 for "Parvati Darshan" (tanker MH12AB3456, driver Rajendra Salve) at 2026-06-21T09:45:30.804Z
+[2026-06-21 15:16:14] INFO: MongoDB Connected: localhost
+[2026-06-21 15:16:14] INFO: [demoTraffic] Planned 3/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:16:14] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:16:14] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:18:45] INFO: [demoTraffic] Generated demo request 6a37b37d5b708ab6ac57460a for "Parvati Darshan" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T09:48:45.633Z
+[2026-06-21 15:19:47] INFO: [demoTraffic] Generated demo request 6a37b3bb5b708ab6ac574614 for "Wagholi Gardens" (tanker MH12AB3456, driver Arun Patole) at 2026-06-21T09:49:47.896Z
+[2026-06-21 15:21:32] INFO: MongoDB Connected: localhost
+[2026-06-21 15:21:32] INFO: [demoTraffic] Planned 4/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:21:32] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:21:32] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:26:26] INFO: [demoTraffic] Generated demo request 6a37b54af8b248f1166020de for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Rajendra Salve) at 2026-06-21T09:56:26.333Z
+[2026-06-21 15:26:37] INFO: [demoTraffic] Generated demo request 6a37b555f8b248f1166020e8 for "Erandwane Society" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T09:56:37.812Z
+[2026-06-21 15:28:33] INFO: [demoTraffic] Generated demo request 6a37b5c9f8b248f1166020f2 for "Green Valley CHS" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T09:58:33.176Z
+[2026-06-21 15:30:00] INFO: [demoTraffic] Generated demo request 6a37b620f8b248f1166020fc for "Shivaji Nagar Colony" (tanker MH12AB3456, driver Santosh Mane) at 2026-06-21T10:00:00.164Z
+[2026-06-21 15:32:18] INFO: MongoDB Connected: localhost
+[2026-06-21 15:32:18] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:32:18] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:32:18] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:32:33] INFO: MongoDB Connected: localhost
+[2026-06-21 15:32:33] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:32:33] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:32:33] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:32:41] INFO: MongoDB Connected: localhost
+[2026-06-21 15:32:41] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:32:41] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:32:41] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:34:51] INFO: MongoDB Connected: localhost
+[2026-06-21 15:34:51] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:34:51] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:34:51] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:34:56] INFO: MongoDB Connected: localhost
+[2026-06-21 15:34:56] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:34:56] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:34:56] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:35:03] INFO: MongoDB Connected: localhost
+[2026-06-21 15:35:03] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:35:03] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:35:03] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:35:06] INFO: MongoDB Connected: localhost
+[2026-06-21 15:35:06] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:35:06] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:35:06] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:35:07] INFO: MongoDB Connected: localhost
+[2026-06-21 15:35:08] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:35:08] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:35:08] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:35:18] INFO: MongoDB Connected: localhost
+[2026-06-21 15:35:20] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 15:45:22] INFO: MongoDB Connected: localhost
+[2026-06-21 15:45:36] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 15:45:36] ERROR: Error: Invalid username or password.
+Error: Invalid username or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:82:15)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 15:45:36] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 15:45:56] INFO: MongoDB Connected: localhost
+[2026-06-21 15:45:57] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 15:46:07] INFO: MongoDB Connected: localhost
+[2026-06-21 15:46:10] ERROR: Error: Invalid mobile number or password.
+Error: Invalid mobile number or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:98:13)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 15:46:11] ERROR: Error: Invalid username or password.
+Error: Invalid username or password.
+    at Object.login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:82:15)
+    at async login (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:21:18)
+[2026-06-21 15:46:32] INFO: MongoDB Connected: localhost
+[2026-06-21 15:46:32] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 15:46:32] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 15:46:32] INFO: Server Running On development mode on port 5000
+[2026-06-21 15:52:22] INFO: MongoDB Connected: localhost
+[2026-06-21 15:52:23] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 16:06:08] INFO: MongoDB Connected: localhost
+[2026-06-21 16:06:08] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:06:08] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:06:08] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:09:53] INFO: MongoDB Connected: localhost
+[2026-06-21 16:09:53] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:09:53] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:09:53] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:10:03] INFO: MongoDB Connected: localhost
+[2026-06-21 16:10:03] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:10:03] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:10:03] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:16:59] INFO: MongoDB Connected: localhost
+[2026-06-21 16:16:59] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:16:59] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:16:59] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:17:02] INFO: MongoDB Connected: localhost
+[2026-06-21 16:17:02] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:17:02] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:17:02] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:17:03] INFO: MongoDB Connected: localhost
+[2026-06-21 16:17:03] INFO: [demoTraffic] Planned 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:17:03] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:17:03] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:21:54] INFO: [demoTraffic] Generated demo request 6a37c24ab698faacda66d2fa for "Kothrud Residency" (tanker MH12AB3456, driver Rajendra Salve) at 2026-06-21T10:51:54.272Z
+[2026-06-21 16:25:49] INFO: [demoTraffic] Generated demo request 6a37c335b698faacda66d304 for "Hadapsar Heights" (tanker MH12AB3456, driver Rajendra Salve) at 2026-06-21T10:55:49.760Z
+[2026-06-21 16:28:03] INFO: MongoDB Connected: localhost
+[2026-06-21 16:28:03] INFO: [demoTraffic] Planned 0/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:28:03] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:28:03] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:31:54] INFO: MongoDB Connected: localhost
+[2026-06-21 16:31:54] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:31:54] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:31:54] INFO: [demoTraffic] 2 already done; planned 0 future + 28 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:31:56] INFO: [demoTraffic] Generated demo request 6a37c4a408bc26c9b7e1d476 for "Kothrud Residency" (tanker MH14XX1234, driver Santosh Mane) at 2026-06-21T04:45:35.581Z
+[2026-06-21 16:31:58] INFO: [demoTraffic] Generated demo request 6a37c4a608bc26c9b7e1d480 for "Wagholi Gardens" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T04:52:51.567Z
+[2026-06-21 16:32:00] INFO: [demoTraffic] Generated demo request 6a37c4a808bc26c9b7e1d48a for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Arun Patole) at 2026-06-21T04:55:15.752Z
+[2026-06-21 16:32:02] INFO: [demoTraffic] Generated demo request 6a37c4aa08bc26c9b7e1d494 for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Mahesh Kamble) at 2026-06-21T05:00:54.964Z
+[2026-06-21 16:32:04] INFO: [demoTraffic] Generated demo request 6a37c4ac08bc26c9b7e1d49e for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T05:24:41.413Z
+[2026-06-21 16:32:06] INFO: [demoTraffic] Generated demo request 6a37c4ae08bc26c9b7e1d4a8 for "Parvati Darshan" (tanker MH14XY7890, driver Mahesh Kamble) at 2026-06-21T05:39:24.719Z
+[2026-06-21 16:32:08] INFO: [demoTraffic] Generated demo request 6a37c4b008bc26c9b7e1d4b2 for "Kothrud Residency" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T05:55:32.407Z
+[2026-06-21 16:32:11] INFO: MongoDB Connected: localhost
+[2026-06-21 16:32:11] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:32:11] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:32:11] INFO: [demoTraffic] 9 already done; planned 0 future + 21 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:32:13] INFO: [demoTraffic] Generated demo request 6a37c4b5100f40d51bff6377 for "Erandwane Society" (tanker MH12GH1122, driver Arun Patole) at 2026-06-21T04:33:32.092Z
+[2026-06-21 16:32:15] INFO: [demoTraffic] Generated demo request 6a37c4b7100f40d51bff6381 for "Sai Krupa Society" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T04:53:00.944Z
+[2026-06-21 16:32:17] INFO: [demoTraffic] Generated demo request 6a37c4b9100f40d51bff638b for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T05:03:07.730Z
+[2026-06-21 16:32:19] INFO: [demoTraffic] Generated demo request 6a37c4bb100f40d51bff6395 for "Erandwane Society" (tanker MH12GH1122, driver Mahesh Kamble) at 2026-06-21T05:08:22.062Z
+[2026-06-21 16:32:21] INFO: [demoTraffic] Generated demo request 6a37c4bd100f40d51bff639f for "Shivaji Nagar Colony" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T05:26:52.602Z
+[2026-06-21 16:32:23] INFO: [demoTraffic] Generated demo request 6a37c4bf100f40d51bff63a9 for "Sai Krupa Society" (tanker MH12GH1122, driver Arun Patole) at 2026-06-21T05:38:11.674Z
+[2026-06-21 16:32:25] INFO: [demoTraffic] Generated demo request 6a37c4c1100f40d51bff63b3 for "Kothrud Residency" (tanker MH12GH1122, driver Arun Patole) at 2026-06-21T05:38:12.279Z
+[2026-06-21 16:32:27] INFO: [demoTraffic] Generated demo request 6a37c4c3100f40d51bff63bd for "Wagholi Gardens" (tanker MH12GH1122, driver Mahesh Kamble) at 2026-06-21T06:03:43.541Z
+[2026-06-21 16:32:29] INFO: [demoTraffic] Generated demo request 6a37c4c5100f40d51bff63c7 for "Green Valley CHS" (tanker MH14XX1234, driver Arun Patole) at 2026-06-21T06:06:28.843Z
+[2026-06-21 16:32:31] INFO: [demoTraffic] Generated demo request 6a37c4c7100f40d51bff63d1 for "Kothrud Residency" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T06:50:05.311Z
+[2026-06-21 16:32:33] INFO: [demoTraffic] Generated demo request 6a37c4c9100f40d51bff63db for "Kothrud Residency" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T07:10:53.270Z
+[2026-06-21 16:32:35] INFO: [demoTraffic] Generated demo request 6a37c4cb100f40d51bff63e5 for "Green Valley CHS" (tanker MH14XX1234, driver Mahesh Kamble) at 2026-06-21T07:15:21.299Z
+[2026-06-21 16:32:37] INFO: [demoTraffic] Generated demo request 6a37c4cd100f40d51bff63ef for "Sai Krupa Society" (tanker MH14XX1234, driver Santosh Mane) at 2026-06-21T07:31:42.596Z
+[2026-06-21 16:32:39] INFO: [demoTraffic] Generated demo request 6a37c4cf100f40d51bff63f9 for "Erandwane Society" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T07:52:14.047Z
+[2026-06-21 16:32:41] INFO: [demoTraffic] Generated demo request 6a37c4d1100f40d51bff6403 for "Parvati Darshan" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T07:59:44.038Z
+[2026-06-21 16:32:43] INFO: [demoTraffic] Generated demo request 6a37c4d3100f40d51bff640d for "Shivaji Nagar Colony" (tanker MH14XY7890, driver Mahesh Kamble) at 2026-06-21T08:01:33.101Z
+[2026-06-21 16:32:45] INFO: [demoTraffic] Generated demo request 6a37c4d5100f40d51bff6417 for "Erandwane Society" (tanker MH14XX1234, driver Mahesh Kamble) at 2026-06-21T08:16:57.121Z
+[2026-06-21 16:32:47] INFO: [demoTraffic] Generated demo request 6a37c4d7100f40d51bff6421 for "Kothrud Residency" (tanker MH14XY7890, driver Mahesh Kamble) at 2026-06-21T08:17:20.628Z
+[2026-06-21 16:32:49] INFO: [demoTraffic] Generated demo request 6a37c4d9100f40d51bff642b for "Hadapsar Heights" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T08:46:37.852Z
+[2026-06-21 16:32:51] INFO: [demoTraffic] Generated demo request 6a37c4db100f40d51bff6435 for "Parvati Darshan" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T08:54:21.558Z
+[2026-06-21 16:32:53] INFO: [demoTraffic] Generated demo request 6a37c4dd100f40d51bff643f for "Shivaji Nagar Colony" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T10:07:57.855Z
+[2026-06-21 16:34:17] INFO: MongoDB Connected: localhost
+[2026-06-21 16:34:17] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:34:17] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:34:17] INFO: [demoTraffic] 30/30 demo requests already exist for Sun Jun 21 2026 — nothing more to plan.
+[2026-06-21 16:34:21] INFO: MongoDB Connected: localhost
+[2026-06-21 16:34:21] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:34:21] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:34:21] INFO: [demoTraffic] 30/30 demo requests already exist for Sun Jun 21 2026 — nothing more to plan.
+[2026-06-21 16:34:36] INFO: MongoDB Connected: localhost
+[2026-06-21 16:34:36] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:34:36] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:34:36] INFO: [demoTraffic] 30/30 demo requests already exist for Sun Jun 21 2026 — nothing more to plan.
+[2026-06-21 16:34:55] INFO: MongoDB Connected: localhost
+[2026-06-21 16:34:56] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 16:35:07] INFO: MongoDB Connected: localhost
+[2026-06-21 16:35:07] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:35:07] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:35:07] INFO: [demoTraffic] 0 already done; planned 14 future + 16 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:35:10] INFO: [demoTraffic] Generated demo request 6a37c5666cb782659069d6ba for "Wagholi Gardens" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T10:31:48.742Z
+[2026-06-21 16:35:11] INFO: [demoTraffic] Generated demo request 6a37c5676cb782659069d6c4 for "Shivaji Nagar Colony" (tanker MH12AB3456, driver Arun Patole) at 2026-06-21T10:34:55.754Z
+[2026-06-21 16:35:13] INFO: [demoTraffic] Generated demo request 6a37c5696cb782659069d6ce for "Hadapsar Heights" (tanker MH12AB3456, driver Santosh Mane) at 2026-06-21T10:37:13.569Z
+[2026-06-21 16:35:15] INFO: [demoTraffic] Generated demo request 6a37c56b6cb782659069d6d8 for "Hadapsar Heights" (tanker MH12AB3456, driver Arun Patole) at 2026-06-21T10:38:07.855Z
+[2026-06-21 16:35:17] INFO: [demoTraffic] Generated demo request 6a37c56d6cb782659069d6e2 for "Sai Krupa Society" (tanker MH12GH1122, driver Rajendra Salve) at 2026-06-21T10:40:01.417Z
+[2026-06-21 16:35:19] INFO: [demoTraffic] Generated demo request 6a37c56f6cb782659069d6ec for "Kothrud Residency" (tanker MH12AB3456, driver Rajendra Salve) at 2026-06-21T10:40:52.103Z
+[2026-06-21 16:35:21] INFO: [demoTraffic] Generated demo request 6a37c5716cb782659069d6f6 for "Parvati Darshan" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T10:41:42.312Z
+[2026-06-21 16:35:23] INFO: [demoTraffic] Generated demo request 6a37c5736cb782659069d700 for "Parvati Darshan" (tanker MH12AB3456, driver Arun Patole) at 2026-06-21T10:42:28.731Z
+[2026-06-21 16:35:25] INFO: [demoTraffic] Generated demo request 6a37c5756cb782659069d70a for "Sai Krupa Society" (tanker MH14XY7890, driver Arun Patole) at 2026-06-21T10:44:16.482Z
+[2026-06-21 16:35:27] INFO: [demoTraffic] Generated demo request 6a37c5776cb782659069d714 for "Green Valley CHS" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T10:48:48.455Z
+[2026-06-21 16:35:30] INFO: [demoTraffic] Generated demo request 6a37c57a6cb782659069d71e for "Parvati Darshan" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T10:50:26.122Z
+[2026-06-21 16:35:31] INFO: [demoTraffic] Generated demo request 6a37c57b6cb782659069d728 for "Parvati Darshan" (tanker MH12AB3456, driver Santosh Mane) at 2026-06-21T10:51:30.200Z
+[2026-06-21 16:35:33] INFO: [demoTraffic] Generated demo request 6a37c57d6cb782659069d732 for "Hadapsar Heights" (tanker MH14XY7890, driver Rajendra Salve) at 2026-06-21T10:52:09.152Z
+[2026-06-21 16:35:35] INFO: [demoTraffic] Generated demo request 6a37c57f6cb782659069d73c for "Green Valley CHS" (tanker MH12AB3456, driver Santosh Mane) at 2026-06-21T10:55:49.254Z
+[2026-06-21 16:35:37] INFO: [demoTraffic] Generated demo request 6a37c5816cb782659069d746 for "Hadapsar Heights" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T11:01:10.698Z
+[2026-06-21 16:35:39] INFO: [demoTraffic] Generated demo request 6a37c5836cb782659069d750 for "Green Valley CHS" (tanker MH14XY7890, driver Santosh Mane) at 2026-06-21T11:02:41.167Z
+[2026-06-21 16:37:03] INFO: MongoDB Connected: localhost
+[2026-06-21 16:37:03] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:37:03] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:37:03] INFO: [demoTraffic] 16 already done; planned 5 future + 9 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:37:05] INFO: [demoTraffic] Generated demo request 6a37c5d939bbabc2f2c05600 for "Shivaji Nagar Colony" (tanker MH12AB3456, driver Santosh Mane) at 2026-06-21T10:31:02.007Z
+[2026-06-21 16:37:07] INFO: [demoTraffic] Generated demo request 6a37c5db39bbabc2f2c0560a for "Kothrud Residency" (tanker MH12GH1122, driver Santosh Mane) at 2026-06-21T10:38:02.744Z
+[2026-06-21 16:37:09] INFO: MongoDB Connected: localhost
+[2026-06-21 16:37:09] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:37:09] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:37:09] INFO: [demoTraffic] 18 already done; planned 2 future + 10 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:37:11] INFO: [demoTraffic] Generated demo request 6a37c5df0c25402f5469bb44 for "Parvati Darshan" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:00 pm
+[2026-06-21 16:37:13] INFO: [demoTraffic] Generated demo request 6a37c5e10c25402f5469bb4e for "Wagholi Gardens" (tanker MH12AB3456, driver Rajendra Salve) at 21 Jun 2026, 04:02 pm
+[2026-06-21 16:37:15] INFO: [demoTraffic] Generated demo request 6a37c5e30c25402f5469bb58 for "Erandwane Society" (tanker MH14XY7890, driver Arun Patole) at 21 Jun 2026, 04:03 pm
+[2026-06-21 16:37:17] INFO: [demoTraffic] Generated demo request 6a37c5e50c25402f5469bb62 for "Sai Krupa Society" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 04:04 pm
+[2026-06-21 16:37:19] INFO: [demoTraffic] Generated demo request 6a37c5e70c25402f5469bb6c for "Kothrud Residency" (tanker MH14XY7890, driver Rajendra Salve) at 21 Jun 2026, 04:06 pm
+[2026-06-21 16:37:21] INFO: [demoTraffic] Generated demo request 6a37c5e90c25402f5469bb76 for "Wagholi Gardens" (tanker MH14XY7890, driver Rajendra Salve) at 21 Jun 2026, 04:09 pm
+[2026-06-21 16:37:23] INFO: [demoTraffic] Generated demo request 6a37c5eb0c25402f5469bb80 for "Kothrud Residency" (tanker MH12AB3456, driver Rajendra Salve) at 21 Jun 2026, 04:10 pm
+[2026-06-21 16:37:25] INFO: [demoTraffic] Generated demo request 6a37c5ed0c25402f5469bb8a for "Green Valley CHS" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 04:14 pm
+[2026-06-21 16:37:27] INFO: [demoTraffic] Generated demo request 6a37c5ef0c25402f5469bb94 for "Kothrud Residency" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:20 pm
+[2026-06-21 16:37:29] INFO: [demoTraffic] Generated demo request 6a37c5f10c25402f5469bb9e for "Sai Krupa Society" (tanker MH12AB3456, driver Rajendra Salve) at 21 Jun 2026, 04:24 pm
+[2026-06-21 16:44:01] INFO: [demoTraffic] Generated demo request 6a37c7790c25402f5469bba8 for "Hadapsar Heights" (tanker MH12GH1122, driver Rajendra Salve) at 21 Jun 2026, 04:44 pm
+[2026-06-21 16:44:17] INFO: MongoDB Connected: localhost
+[2026-06-21 16:44:17] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:44:17] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:44:17] INFO: [demoTraffic] 29 already done; planned 1 future + 0 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:44:22] INFO: MongoDB Connected: localhost
+[2026-06-21 16:44:24] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 16:44:33] INFO: MongoDB Connected: localhost
+[2026-06-21 16:44:34] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-21 16:44:39] INFO: MongoDB Connected: localhost
+[2026-06-21 16:44:39] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:44:39] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:44:39] INFO: [demoTraffic] 0 already done; planned 15 future + 15 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:44:41] INFO: [demoTraffic] Generated demo request 6a37c7a1dba6f00589636611 for "Parvati Darshan" (tanker MH12AB3456, driver Rajendra Salve) at 21 Jun 2026, 04:02 pm
+[2026-06-21 16:44:43] INFO: [demoTraffic] Generated demo request 6a37c7a3dba6f0058963661b for "Green Valley CHS" (tanker MH12GH1122, driver Rajendra Salve) at 21 Jun 2026, 04:08 pm
+[2026-06-21 16:44:45] INFO: [demoTraffic] Generated demo request 6a37c7a5dba6f00589636625 for "Green Valley CHS" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 04:11 pm
+[2026-06-21 16:44:47] INFO: [demoTraffic] Generated demo request 6a37c7a7dba6f0058963662f for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 04:13 pm
+[2026-06-21 16:44:49] INFO: [demoTraffic] Generated demo request 6a37c7a9dba6f00589636639 for "Parvati Darshan" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 04:15 pm
+[2026-06-21 16:44:51] INFO: [demoTraffic] Generated demo request 6a37c7abdba6f00589636643 for "Parvati Darshan" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:20 pm
+[2026-06-21 16:44:53] INFO: [demoTraffic] Generated demo request 6a37c7addba6f0058963664d for "Parvati Darshan" (tanker MH14XY7890, driver Rajendra Salve) at 21 Jun 2026, 04:25 pm
+[2026-06-21 16:44:55] INFO: [demoTraffic] Generated demo request 6a37c7afdba6f00589636657 for "Wagholi Gardens" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:27 pm
+[2026-06-21 16:44:57] INFO: [demoTraffic] Generated demo request 6a37c7b1dba6f00589636661 for "Sai Krupa Society" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:30 pm
+[2026-06-21 16:44:59] INFO: [demoTraffic] Generated demo request 6a37c7b3dba6f0058963666b for "Hadapsar Heights" (tanker MH12GH1122, driver Rajendra Salve) at 21 Jun 2026, 04:33 pm
+[2026-06-21 16:45:01] INFO: [demoTraffic] Generated demo request 6a37c7b5dba6f00589636675 for "Green Valley CHS" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 04:34 pm
+[2026-06-21 16:45:03] INFO: [demoTraffic] Generated demo request 6a37c7b7dba6f0058963667f for "Sai Krupa Society" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 04:38 pm
+[2026-06-21 16:45:05] INFO: [demoTraffic] Generated demo request 6a37c7b9dba6f00589636689 for "Kothrud Residency" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 04:42 pm
+[2026-06-21 16:45:07] INFO: [demoTraffic] Generated demo request 6a37c7bbdba6f00589636693 for "Parvati Darshan" (tanker MH12AB3456, driver Santosh Mane) at 21 Jun 2026, 04:43 pm
+[2026-06-21 16:45:09] INFO: [demoTraffic] Generated demo request 6a37c7bddba6f0058963669d for "Green Valley CHS" (tanker MH14XY7890, driver Santosh Mane) at 21 Jun 2026, 04:43 pm
+[2026-06-21 16:49:45] INFO: [demoTraffic] Generated demo request 6a37c8d1dba6f005896366a7 for "Green Valley CHS" (tanker MH12AB3456, driver Arun Patole) at 21 Jun 2026, 04:49 pm
+[2026-06-21 16:50:02] ERROR: Error: Invalid or expired refresh token.
+Error: Invalid or expired refresh token.
+    at Object.refreshToken (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\services\auth.service.js:159:11)
+    at refresh (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\auth.controller.js:30:36)
+    at newFn (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express-async-errors\index.js:16:20)
+    at Layer.handle [as handle_request] (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express\lib\router\route.js:149:13)
+    at validate (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\middlewares\validate.middleware.js:25:3)
+    at newFn (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express-async-errors\index.js:16:20)
+    at Layer.handle [as handle_request] (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express\lib\router\route.js:149:13)
+    at middleware (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\node_modules\express-validator\lib\middlewares\check.js:16:13)
+[2026-06-21 16:51:11] INFO: MongoDB Connected: localhost
+[2026-06-21 16:51:11] INFO: [demoTraffic] Scheduler started.
+[2026-06-21 16:51:11] INFO: Server Running On development mode on port 5000
+[2026-06-21 16:51:11] INFO: [demoTraffic] 16 already done; planned 0 future + 14 catch-up = 30/30 demo requests for Sun Jun 21 2026.
+[2026-06-21 16:51:13] INFO: [demoTraffic] Generated demo request 6a37c929287a36af260c9bd9 for "Kothrud Residency" (tanker MH12GH1122, driver Rajendra Salve) at 21 Jun 2026, 10:24 am
+[2026-06-21 16:51:15] INFO: [demoTraffic] Generated demo request 6a37c92b287a36af260c9be3 for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 10:34 am
+[2026-06-21 16:51:17] INFO: [demoTraffic] Generated demo request 6a37c92d287a36af260c9bed for "Erandwane Society" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 10:50 am
+[2026-06-21 16:51:19] INFO: [demoTraffic] Generated demo request 6a37c92f287a36af260c9bf7 for "Kothrud Residency" (tanker MH12GH1122, driver Arun Patole) at 21 Jun 2026, 11:07 am
+[2026-06-21 16:51:21] INFO: [demoTraffic] Generated demo request 6a37c931287a36af260c9c01 for "Hadapsar Heights" (tanker MH12GH1122, driver Rajendra Salve) at 21 Jun 2026, 11:15 am
+[2026-06-21 16:51:23] INFO: [demoTraffic] Generated demo request 6a37c933287a36af260c9c0b for "Shivaji Nagar Colony" (tanker MH12GH1122, driver Santosh Mane) at 21 Jun 2026, 11:47 am
