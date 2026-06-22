@@ -239,3 +239,12 @@ Error: Driver E2E Driver Two is currently on a trip and cannot be assigned.
     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
     at async assignTanker (C:\Users\Atharva Kumbhar\StudioProjects\watertankerfinalui\watertanker-backend\src\controllers\queue.controller.js:35:19)
 [2026-06-22 00:36:28] INFO: [demoTraffic] Generated demo request 6a38363415e283df3ae3260e for "Shivaji Nagar Colony" (tanker TST70326907, driver E2E Handover Driver B) at 22 Jun 2026, 12:36 am
+[2026-06-22 22:17:36] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-22 22:26:38] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-22 22:29:28] ERROR: MongoDB connection failed: querySrv ECONNREFUSED _mongodb._tcp.cluster0.6u1nu.mongodb.net
+[2026-06-22 22:30:42] INFO: MongoDB Connected: localhost
+[2026-06-22 22:30:43] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-22 22:32:24] INFO: MongoDB Connected: localhost
+[2026-06-22 22:32:24] WARN: MongoDB disconnected. Attempting to reconnect...
+[2026-06-22 22:33:34] INFO: MongoDB Connected: localhost
+[2026-06-22 22:33:34] WARN: MongoDB disconnected. Attempting to reconnect...
