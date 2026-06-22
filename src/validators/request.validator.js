@@ -8,6 +8,12 @@ const submitRequestValidator = [
     .trim()
     .isLength({ max: 500 })
     .withMessage("Notes must not exceed 500 characters."),
+
+  // Super Admin only: raise the request on behalf of this society member.
+  body("memberId")
+    .optional()
+    .isMongoId()
+    .withMessage("Invalid member ID."),
 ];
 
 const assignTankerValidator = [

@@ -1,6 +1,8 @@
 "use strict";
 
 const requestService = require("../services/request.service");
+const User = require("../models/user.model");
+const { AppError } = require("../middlewares/error.middleware");
 const {
   sendSuccess,
   sendCreated,
@@ -10,8 +12,17 @@ const { PAGINATION } = require("../config/constants");
 const { ROLES } = require("../config/constants");
 
 const submitRequest = async (req, res) => {
-  const { notes } = req.body;
-  const { user } = req;
+  const { notes, memberId } = req.body;
+  let { user } = req;
+
+  // Super Admin raising a request on behalf of a society member: the
+  // request must carry the member's own identity (userId/profile/mobile),
+  // not the admin's, so it reads exactly as if the member submitted it.
+  if (memberId && req.user.role === ROLES.SUPER_ADMIN) {
+    const member = await User.findOne({ _id: memberId, role: ROLES.MEMBER });
+    if (!member) throw new AppError("Member not found.", 404);
+    user = member;
+  }
 
   const request = await requestService.submitRequest({
     userId: user._id,
