@@ -27,6 +27,7 @@ const driverRoutes = require("./src/routes/driver.routes");
 const routeRoutes = require("./src/routes/route.routes");
 const attendanceRoutes = require("./src/routes/attendance.routes");
 const tankerRoutes = require("./src/routes/tanker.routes");
+const userRoutes = require("./src/routes/user.routes");
 
 const app = express();
 
@@ -82,6 +83,7 @@ app.use("/api/v1/drivers", driverRoutes);
 app.use("/api/v1/routes", routeRoutes);
 app.use("/api/v1/attendance", attendanceRoutes);
 app.use("/api/v1/tankers", tankerRoutes);
+app.use("/api/v1/users", userRoutes);
 
 // ── 404 Handler ───────────────────────────────────────────────────────────────
 app.use(notFoundHandler);
