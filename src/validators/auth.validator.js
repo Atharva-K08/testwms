@@ -94,8 +94,8 @@ const createManagerValidator = [
   body("role")
     .notEmpty()
     .withMessage("Role is required.")
-    .isIn([ROLES.MANAGER, ROLES.FUEL_MANAGER])
-    .withMessage("Role must be either manager or fuelManager."),
+    .isIn([ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.MEMBER])
+    .withMessage("Role must be manager, fuelManager, or member."),
 
   body("profile.name")
     .trim()
@@ -124,6 +124,25 @@ const createManagerValidator = [
     .withMessage("Contact person is required.")
     .isLength({ max: 100 })
     .withMessage("Contact person must not exceed 100 characters."),
+
+  body("profile.alternativeContacts")
+    .optional()
+    .isArray({ max: 3 })
+    .withMessage("At most 3 alternative contacts are allowed."),
+
+  body("profile.alternativeContacts.*.name")
+    .optional()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Contact name must not exceed 100 characters."),
+
+  body("profile.alternativeContacts.*.mobileNumber")
+    .optional()
+    .trim()
+    .isLength({ min: 10, max: 10 })
+    .withMessage("Alternative mobile number must be exactly 10 digits.")
+    .isNumeric()
+    .withMessage("Alternative mobile number must contain only digits."),
 ];
 
 const updateSuperAdminPasswordValidator = [

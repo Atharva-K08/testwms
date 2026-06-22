@@ -127,8 +127,11 @@ const createManagerOrFuelManager = async (
     );
   }
 
-  if (![ROLES.MANAGER, ROLES.FUEL_MANAGER].includes(role)) {
-    throw new AppError("Can only create Manager or Fuel Manager roles.", 400);
+  if (![ROLES.MANAGER, ROLES.FUEL_MANAGER, ROLES.MEMBER].includes(role)) {
+    throw new AppError(
+      "Can only create Manager, Fuel Manager, or Member roles.",
+      400,
+    );
   }
 
   const existing = await User.findOne({ mobileNumber });
