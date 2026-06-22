@@ -97,6 +97,23 @@ const getReceiptByRequestId = async (requestId) => {
   return request ? _syncReceiptWithRequest(receipt, request) : receipt;
 };
 
+// Explicit "refresh this receipt now" action (PUT /receipts/request/:requestId)
+// — same sync GET/POST already do implicitly, but callable on its own right
+// after a handover so the app can immediately offer to print the corrected
+// receipt without the manager having to re-open it first.
+const refreshReceiptForRequest = async (requestId) => {
+  const receipt = await Receipt.findOne({ requestId }).populate(
+    "generatedBy",
+    "profile mobileNumber",
+  );
+  if (!receipt) throw new AppError("Receipt not found for this request.", 404);
+
+  const request = await Request.findById(requestId);
+  if (!request) throw new AppError("Request not found.", 404);
+
+  return _syncReceiptWithRequest(receipt, request);
+};
+
 const markPrinted = async (receiptId) => {
   return Receipt.findByIdAndUpdate(
     receiptId,
@@ -119,4 +136,10 @@ const getAllReceipts = async ({ page = 1, limit = 20 }) => {
   return { items, total, page, limit };
 };
 
-module.exports = { generateReceipt, getReceiptByRequestId, markPrinted, getAllReceipts };
+module.exports = {
+  generateReceipt,
+  getReceiptByRequestId,
+  refreshReceiptForRequest,
+  markPrinted,
+  getAllReceipts,
+};

@@ -8,6 +8,7 @@ const { ROLES } = require("../config/constants");
 const {
   generateReceipt,
   getReceiptByRequest,
+  refreshReceipt,
   markPrinted,
   getAllReceipts,
 } = require("../controllers/receipt.controller");
@@ -18,6 +19,7 @@ router.use(protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN));
 router.get("/", getAllReceipts);
 router.post("/request/:requestId", generateReceipt);
 router.get("/request/:requestId", getReceiptByRequest);
+router.put("/request/:requestId", refreshReceipt);
 router.patch("/:id/printed", markPrinted);
 
 module.exports = router;

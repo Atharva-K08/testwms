@@ -21,6 +21,11 @@ const getReceiptByRequest = async (req, res) => {
   sendSuccess(res, { message: 'Receipt fetched.', data: { receipt } });
 };
 
+const refreshReceipt = async (req, res) => {
+  const receipt = await receiptService.refreshReceiptForRequest(req.params.requestId);
+  sendSuccess(res, { message: 'Receipt refreshed.', data: { receipt } });
+};
+
 const markPrinted = async (req, res) => {
   const receipt = await receiptService.markPrinted(req.params.id);
   sendSuccess(res, { message: 'Receipt marked as printed.', data: { receipt } });
@@ -41,4 +46,4 @@ const getAllReceipts = async (req, res) => {
   });
 };
 
-module.exports = { generateReceipt, getReceiptByRequest, markPrinted, getAllReceipts };
+module.exports = { generateReceipt, getReceiptByRequest, refreshReceipt, markPrinted, getAllReceipts };

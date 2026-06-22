@@ -997,6 +997,47 @@ async function runHandoverTests() {
       "idempotent generateReceipt also returns the synced tankerC",
     );
   });
+
+  await test("PUT /receipts/request/:id explicitly refreshes an existing receipt after a handover", async () => {
+    // ctx.handoverRequestId currently has a receipt showing tankerC (from the
+    // previous test). Hand over once more, to a fourth pair, then use the
+    // explicit PUT refresh endpoint (rather than GET/POST's implicit sync)
+    // to pull the receipt up to date.
+    const tankerD = await createFreshTanker();
+    const driverD = await createFreshDriver("E2E Handover Driver D");
+    const thirdHandoverRes = await api("PATCH", `/queue/${ctx.handoverRequestId}/handover`, {
+      token: ctx.manager1.token,
+      body: {
+        tankerNumber: tankerD.tankerNumber,
+        driverId: driverD.id,
+        dateTime: new Date().toISOString(),
+        reason: "Third tanker also broke down",
+      },
+    });
+    assertEqual(thirdHandoverRes.status, 200, "third handover status");
+
+    const putRes = await api("PUT", `/receipts/request/${ctx.handoverRequestId}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(putRes.status, 200, "PUT refresh receipt status");
+    assertEqual(
+      putRes.body.data.receipt.tankerNumber,
+      tankerD.tankerNumber,
+      "PUT refresh returns the synced tankerD",
+    );
+    assertEqual(
+      putRes.body.data.receipt.driverName,
+      driverD.name,
+      "PUT refresh returns the synced driverD",
+    );
+  });
+
+  await test("PUT /receipts/request/:id returns 404 when no receipt exists yet", async () => {
+    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: {} });
+    const requestId = submitRes.body.data.request._id;
+    const res = await api("PUT", `/receipts/request/${requestId}`, { token: ctx.manager1.token });
+    assertEqual(res.status, 404, "PUT refresh on request with no receipt status");
+  });
 }
 
 async function runCancelTests() {
