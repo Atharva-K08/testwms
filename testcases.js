@@ -47,7 +47,12 @@ async function test(name, fn) {
   const startedAt = Date.now();
   try {
     await fn();
-    results.push({ category: currentCategory, name, status: "PASS", durationMs: Date.now() - startedAt });
+    results.push({
+      category: currentCategory,
+      name,
+      status: "PASS",
+      durationMs: Date.now() - startedAt,
+    });
     console.log(`  PASS  ${name}`);
   } catch (err) {
     results.push({
@@ -64,18 +69,23 @@ async function test(name, fn) {
 
 function assertEqual(actual, expected, msg) {
   if (actual !== expected) {
-    throw new Error(`${msg || "Assertion failed"} (expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)})`);
+    throw new Error(
+      `${msg || "Assertion failed"} (expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)})`,
+    );
   }
 }
 function assertTrue(value, msg) {
   if (!value) throw new Error(msg || "Expected a truthy value");
 }
 function assertDefined(value, msg) {
-  if (value === undefined || value === null) throw new Error(msg || "Expected value to be defined");
+  if (value === undefined || value === null)
+    throw new Error(msg || "Expected value to be defined");
 }
 function assertIncludes(haystack, needle, msg) {
   if (!haystack || !haystack.includes(needle)) {
-    throw new Error(`${msg || "Expected substring not found"} (looked for "${needle}" in "${haystack}")`);
+    throw new Error(
+      `${msg || "Expected substring not found"} (looked for "${needle}" in "${haystack}")`,
+    );
   }
 }
 
@@ -106,10 +116,14 @@ let driverSeq = 0;
 let tankerSeq = 0;
 let routeSeq = 0;
 
-const nextMemberMobile = () => `9${RUN_ID}${String((memberSeq += 1)).padStart(3, "0")}`.slice(0, 10);
-const nextDriverMobile = () => `8${RUN_ID}${String((driverSeq += 1)).padStart(3, "0")}`.slice(0, 10);
-const nextTankerNumber = () => `TST${RUN_ID}${String((tankerSeq += 1)).padStart(2, "0")}`;
-const nextRouteTag = () => `RUN-${RUN_ID}-${String((routeSeq += 1)).padStart(2, "0")}`;
+const nextMemberMobile = () =>
+  `9${RUN_ID}${String((memberSeq += 1)).padStart(3, "0")}`.slice(0, 10);
+const nextDriverMobile = () =>
+  `8${RUN_ID}${String((driverSeq += 1)).padStart(3, "0")}`.slice(0, 10);
+const nextTankerNumber = () =>
+  `TST${RUN_ID}${String((tankerSeq += 1)).padStart(2, "0")}`;
+const nextRouteTag = () =>
+  `RUN-${RUN_ID}-${String((routeSeq += 1)).padStart(2, "0")}`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -119,7 +133,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 // reusing shared tankers in later sections is a recipe for false failures.
 async function createFreshTanker() {
   const tankerNumber = nextTankerNumber();
-  await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber } });
+  await api("POST", "/tankers", {
+    token: ctx.manager1.token,
+    body: { tankerNumber },
+  });
   await api("POST", "/diesel-fillings", {
     token: ctx.fuelManager1.token,
     body: { tankerNumber, liters: 500, kilometersTravelledSinceLastTrip: 0 },
@@ -133,7 +150,12 @@ async function createFreshDriver(name) {
   const mobileNumber = nextDriverMobile();
   const res = await api("POST", "/drivers", {
     token: ctx.manager1.token,
-    body: { name, permanentAddress: "Fresh Address, Pune", mobileNumber, status: "ACTIVE" },
+    body: {
+      name,
+      permanentAddress: "Fresh Address, Pune",
+      mobileNumber,
+      status: "ACTIVE",
+    },
   });
   return { id: res.body.data._id, name: res.body.data.name, mobileNumber };
 }
@@ -161,8 +183,12 @@ function startServer() {
       },
     );
 
-    serverProcess.stdout.on("data", (d) => process.stdout.write(`[server] ${d}`));
-    serverProcess.stderr.on("data", (d) => process.stderr.write(`[server] ${d}`));
+    serverProcess.stdout.on("data", (d) =>
+      process.stdout.write(`[server] ${d}`),
+    );
+    serverProcess.stderr.on("data", (d) =>
+      process.stderr.write(`[server] ${d}`),
+    );
     serverProcess.on("error", reject);
     serverProcess.on("exit", (code) => {
       if (code !== null && code !== 0) {
@@ -259,7 +285,10 @@ async function runAuthTests() {
 
   await test("Login member with correct credentials -> 200", async () => {
     const res = await api("POST", "/auth/login", {
-      body: { mobileNumber: ctx.member1.mobileNumber, password: ctx.member1.password },
+      body: {
+        mobileNumber: ctx.member1.mobileNumber,
+        password: ctx.member1.password,
+      },
     });
     assertEqual(res.status, 200, "login status");
     assertDefined(res.body?.data?.accessToken, "accessToken present");
@@ -285,7 +314,9 @@ async function runAuthTests() {
   });
 
   await test("Refresh token -> 200 with new tokens", async () => {
-    const res = await api("POST", "/auth/refresh", { body: { refreshToken: ctx.member1.refreshToken } });
+    const res = await api("POST", "/auth/refresh", {
+      body: { refreshToken: ctx.member1.refreshToken },
+    });
     assertEqual(res.status, 200, "refresh status");
     assertDefined(res.body?.data?.accessToken, "new accessToken present");
     ctx.member1.token = res.body.data.accessToken;
@@ -323,7 +354,9 @@ async function runAuthTests() {
     ];
     let lastRes = null;
     for (const password of candidates) {
-      lastRes = await api("POST", "/auth/login", { body: { username, password } });
+      lastRes = await api("POST", "/auth/login", {
+        body: { username, password },
+      });
       if (lastRes.status === 200) {
         ctx.superAdmin = { token: lastRes.body.data.accessToken };
         return;
@@ -341,7 +374,12 @@ async function runAuthTests() {
         mobileNumber: nextMemberMobile(),
         password: "444444",
         role: "manager",
-        profile: { name: "X", societyName: "X", address: "X", contactPerson: "X" },
+        profile: {
+          name: "X",
+          societyName: "X",
+          address: "X",
+          contactPerson: "X",
+        },
       },
     });
     assertEqual(res.status, 403, "member create-manager status");
@@ -349,7 +387,10 @@ async function runAuthTests() {
 
   ctx.manager1 = { mobileNumber: nextMemberMobile(), password: "555555" };
   await test("Super admin creates a manager -> 201", async () => {
-    if (!ctx.superAdmin?.token) throw new Error("Skipped: super admin bootstrap login failed above, no token to act with.");
+    if (!ctx.superAdmin?.token)
+      throw new Error(
+        "Skipped: super admin bootstrap login failed above, no token to act with.",
+      );
     const res = await api("POST", "/auth/create-manager", {
       token: ctx.superAdmin.token,
       body: {
@@ -369,7 +410,10 @@ async function runAuthTests() {
 
   ctx.fuelManager1 = { mobileNumber: nextMemberMobile(), password: "666666" };
   await test("Super admin creates a fuel manager -> 201", async () => {
-    if (!ctx.superAdmin?.token) throw new Error("Skipped: super admin bootstrap login failed above, no token to act with.");
+    if (!ctx.superAdmin?.token)
+      throw new Error(
+        "Skipped: super admin bootstrap login failed above, no token to act with.",
+      );
     const res = await api("POST", "/auth/create-manager", {
       token: ctx.superAdmin.token,
       body: {
@@ -393,7 +437,10 @@ async function runAuthTests() {
   // from cascading into unrelated failures on a shared/stale database.
   await test("Manager login -> 200 (freshly created, or seeded fallback)", async () => {
     let res = await api("POST", "/auth/login", {
-      body: { mobileNumber: ctx.manager1.mobileNumber, password: ctx.manager1.password },
+      body: {
+        mobileNumber: ctx.manager1.mobileNumber,
+        password: ctx.manager1.password,
+      },
     });
     if (res.status !== 200) {
       const fallback = { mobileNumber: "9000000001", password: "111111" };
@@ -406,7 +453,10 @@ async function runAuthTests() {
 
   await test("Fuel manager login -> 200 (freshly created, or seeded fallback)", async () => {
     let res = await api("POST", "/auth/login", {
-      body: { mobileNumber: ctx.fuelManager1.mobileNumber, password: ctx.fuelManager1.password },
+      body: {
+        mobileNumber: ctx.fuelManager1.mobileNumber,
+        password: ctx.fuelManager1.password,
+      },
     });
     if (res.status !== 200) {
       const fallback = { mobileNumber: "9000000010", password: "222222" };
@@ -487,28 +537,48 @@ async function runDriverTests() {
   await test("Member cannot create a driver -> 403", async () => {
     const res = await api("POST", "/drivers", {
       token: ctx.member1.token,
-      body: { name: "X", permanentAddress: "X", mobileNumber: nextDriverMobile(), status: "ACTIVE" },
+      body: {
+        name: "X",
+        permanentAddress: "X",
+        mobileNumber: nextDriverMobile(),
+        status: "ACTIVE",
+      },
     });
     assertEqual(res.status, 403, "member create driver status");
   });
 
   await test("Get all drivers -> 200 paginated", async () => {
-    const res = await api("GET", "/drivers?limit=100", { token: ctx.manager1.token });
+    const res = await api("GET", "/drivers?limit=100", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get drivers status");
     assertTrue(Array.isArray(res.body?.data), "drivers data is array");
-    assertTrue(res.body.data.some((d) => d._id === ctx.driver1.id), "driver1 present in list");
+    assertTrue(
+      res.body.data.some((d) => d._id === ctx.driver1.id),
+      "driver1 present in list",
+    );
   });
 
   await test("Get driver by id -> 200", async () => {
-    const res = await api("GET", `/drivers/${ctx.driver1.id}`, { token: ctx.manager1.token });
+    const res = await api("GET", `/drivers/${ctx.driver1.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get driver by id status");
     assertEqual(res.body?.data?._id, ctx.driver1.id, "driver id matches");
   });
 
   await test("Get driver by serial number -> 200", async () => {
-    const res = await api("GET", `/drivers/serial/${ctx.driver1.serialNumber}`, { token: ctx.manager1.token });
+    const res = await api(
+      "GET",
+      `/drivers/serial/${ctx.driver1.serialNumber}`,
+      { token: ctx.manager1.token },
+    );
     assertEqual(res.status, 200, "get driver by serial status");
-    assertEqual(res.body?.data?._id, ctx.driver1.id, "driver id matches serial lookup");
+    assertEqual(
+      res.body?.data?._id,
+      ctx.driver1.id,
+      "driver id matches serial lookup",
+    );
   });
 
   await test("Update driver -> 200", async () => {
@@ -517,22 +587,39 @@ async function runDriverTests() {
       body: { temporaryAddress: "Updated Temp Address" },
     });
     assertEqual(res.status, 200, "update driver status");
-    assertEqual(res.body?.data?.temporaryAddress, "Updated Temp Address", "temp address updated");
+    assertEqual(
+      res.body?.data?.temporaryAddress,
+      "Updated Temp Address",
+      "temp address updated",
+    );
   });
 
   ctx.driverToDelete = { mobileNumber: nextDriverMobile() };
   await test("Soft-delete a driver -> excluded from subsequent list", async () => {
     const createRes = await api("POST", "/drivers", {
       token: ctx.manager1.token,
-      body: { name: "Disposable Driver", permanentAddress: "X", mobileNumber: ctx.driverToDelete.mobileNumber, status: "ACTIVE" },
+      body: {
+        name: "Disposable Driver",
+        permanentAddress: "X",
+        mobileNumber: ctx.driverToDelete.mobileNumber,
+        status: "ACTIVE",
+      },
     });
     ctx.driverToDelete.id = createRes.body.data._id;
 
-    const delRes = await api("DELETE", `/drivers/${ctx.driverToDelete.id}`, { token: ctx.manager1.token });
+    const delRes = await api("DELETE", `/drivers/${ctx.driverToDelete.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(delRes.status, 200, "delete driver status");
 
-    const getRes = await api("GET", `/drivers/${ctx.driverToDelete.id}`, { token: ctx.manager1.token });
-    assertEqual(getRes.status, 404, "soft-deleted driver no longer retrievable");
+    const getRes = await api("GET", `/drivers/${ctx.driverToDelete.id}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(
+      getRes.status,
+      404,
+      "soft-deleted driver no longer retrievable",
+    );
   });
 }
 
@@ -541,49 +628,78 @@ async function runTankerTests() {
 
   ctx.tanker1 = { tankerNumber: nextTankerNumber() };
   await test("Add a tanker -> 201", async () => {
-    const res = await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber: ctx.tanker1.tankerNumber } });
+    const res = await api("POST", "/tankers", {
+      token: ctx.manager1.token,
+      body: { tankerNumber: ctx.tanker1.tankerNumber },
+    });
     assertEqual(res.status, 201, "add tanker status");
-    assertEqual(res.body?.data?.currentStatus, "available", "new tanker is available");
+    assertEqual(
+      res.body?.data?.currentStatus,
+      "available",
+      "new tanker is available",
+    );
     ctx.tanker1.id = res.body.data._id;
   });
 
   ctx.tanker2 = { tankerNumber: nextTankerNumber() };
   await test("Add a second tanker -> 201 (will be used for handover)", async () => {
-    const res = await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber: ctx.tanker2.tankerNumber } });
+    const res = await api("POST", "/tankers", {
+      token: ctx.manager1.token,
+      body: { tankerNumber: ctx.tanker2.tankerNumber },
+    });
     assertEqual(res.status, 201, "add second tanker status");
     ctx.tanker2.id = res.body.data._id;
   });
 
   ctx.tankerNoFuel = { tankerNumber: nextTankerNumber() };
   await test("Add a third tanker (deliberately never fuelled) -> 201", async () => {
-    const res = await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber: ctx.tankerNoFuel.tankerNumber } });
+    const res = await api("POST", "/tankers", {
+      token: ctx.manager1.token,
+      body: { tankerNumber: ctx.tankerNoFuel.tankerNumber },
+    });
     assertEqual(res.status, 201, "add third tanker status");
     ctx.tankerNoFuel.id = res.body.data._id;
   });
 
   await test("Add duplicate tanker number -> 409", async () => {
-    const res = await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber: ctx.tanker1.tankerNumber } });
+    const res = await api("POST", "/tankers", {
+      token: ctx.manager1.token,
+      body: { tankerNumber: ctx.tanker1.tankerNumber },
+    });
     assertEqual(res.status, 409, "duplicate tanker status");
   });
 
   await test("Member cannot add a tanker -> 403", async () => {
-    const res = await api("POST", "/tankers", { token: ctx.member1.token, body: { tankerNumber: nextTankerNumber() } });
+    const res = await api("POST", "/tankers", {
+      token: ctx.member1.token,
+      body: { tankerNumber: nextTankerNumber() },
+    });
     assertEqual(res.status, 403, "member add tanker status");
   });
 
   await test("Get all tankers -> 200", async () => {
     const res = await api("GET", "/tankers", { token: ctx.manager1.token });
     assertEqual(res.status, 200, "get tankers status");
-    assertTrue(res.body.data.some((t) => t.tankerNumber === ctx.tanker1.tankerNumber), "tanker1 present");
+    assertTrue(
+      res.body.data.some((t) => t.tankerNumber === ctx.tanker1.tankerNumber),
+      "tanker1 present",
+    );
   });
 }
 
 async function runRouteTests() {
   category("Routes (source/destination)");
 
-  ctx.route1 = { source: `Filling Station ${nextRouteTag()}`, destination: `Society ${nextRouteTag()}`, distanceInKm: 5.4 };
+  ctx.route1 = {
+    source: `Filling Station ${nextRouteTag()}`,
+    destination: `Society ${nextRouteTag()}`,
+    distanceInKm: 5.4,
+  };
   await test("Manager creates a route -> 201", async () => {
-    const res = await api("POST", "/routes", { token: ctx.manager1.token, body: ctx.route1 });
+    const res = await api("POST", "/routes", {
+      token: ctx.manager1.token,
+      body: ctx.route1,
+    });
     assertEqual(res.status, 201, "create route status");
     ctx.route1.id = res.body.data._id;
   });
@@ -599,23 +715,39 @@ async function runRouteTests() {
   await test("Get all routes -> 200", async () => {
     const res = await api("GET", "/routes", { token: ctx.fuelManager1.token });
     assertEqual(res.status, 200, "get routes status");
-    assertTrue(res.body.data.some((r) => r._id === ctx.route1.id), "route1 present");
+    assertTrue(
+      res.body.data.some((r) => r._id === ctx.route1.id),
+      "route1 present",
+    );
   });
 
   await test("Get route by destination name -> 200", async () => {
-    const res = await api("GET", `/routes/destination/${encodeURIComponent(ctx.route1.destination)}`, { token: ctx.manager1.token });
+    const res = await api(
+      "GET",
+      `/routes/destination/${encodeURIComponent(ctx.route1.destination)}`,
+      { token: ctx.manager1.token },
+    );
     assertEqual(res.status, 200, "get route by destination status");
-    assertEqual(res.body?.data?.destination, ctx.route1.destination, "destination matches");
+    assertEqual(
+      res.body?.data?.destination,
+      ctx.route1.destination,
+      "destination matches",
+    );
   });
 
   await test("Update route -> 200", async () => {
-    const res = await api("PUT", `/routes/${ctx.route1.id}`, { token: ctx.manager1.token, body: { distanceInKm: 6.1 } });
+    const res = await api("PUT", `/routes/${ctx.route1.id}`, {
+      token: ctx.manager1.token,
+      body: { distanceInKm: 6.1 },
+    });
     assertEqual(res.status, 200, "update route status");
     assertEqual(res.body?.data?.distanceInKm, 6.1, "distance updated");
   });
 
   await test("Delete route -> 200", async () => {
-    const res = await api("DELETE", `/routes/${ctx.route1.id}`, { token: ctx.manager1.token });
+    const res = await api("DELETE", `/routes/${ctx.route1.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "delete route status");
   });
 }
@@ -626,7 +758,11 @@ async function runDieselTests() {
   await test("Fuel manager records a filling for tanker1 -> 201, 0 trips so far", async () => {
     const res = await api("POST", "/diesel-fillings", {
       token: ctx.fuelManager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, liters: 800, kilometersTravelledSinceLastTrip: 0 },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        liters: 800,
+        kilometersTravelledSinceLastTrip: 0,
+      },
     });
     assertEqual(res.status, 201, "record filling status");
     assertEqual(res.body?.data?.tripsSinceLastFill, 0, "no prior trips");
@@ -636,7 +772,11 @@ async function runDieselTests() {
   await test("Fuel manager records a filling for tanker2 (handover target) -> 201", async () => {
     const res = await api("POST", "/diesel-fillings", {
       token: ctx.fuelManager1.token,
-      body: { tankerNumber: ctx.tanker2.tankerNumber, liters: 750, kilometersTravelledSinceLastTrip: 0 },
+      body: {
+        tankerNumber: ctx.tanker2.tankerNumber,
+        liters: 750,
+        kilometersTravelledSinceLastTrip: 0,
+      },
     });
     assertEqual(res.status, 201, "record filling for tanker2 status");
   });
@@ -644,7 +784,11 @@ async function runDieselTests() {
   await test("Member cannot record a diesel filling -> 403", async () => {
     const res = await api("POST", "/diesel-fillings", {
       token: ctx.member1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, liters: 100, kilometersTravelledSinceLastTrip: 0 },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        liters: 100,
+        kilometersTravelledSinceLastTrip: 0,
+      },
     });
     assertEqual(res.status, 403, "member record filling status");
   });
@@ -652,19 +796,27 @@ async function runDieselTests() {
   await test("Manager (read-only role here) cannot record a diesel filling -> 403", async () => {
     const res = await api("POST", "/diesel-fillings", {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, liters: 100, kilometersTravelledSinceLastTrip: 0 },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        liters: 100,
+        kilometersTravelledSinceLastTrip: 0,
+      },
     });
     assertEqual(res.status, 403, "manager record filling status");
   });
 
   await test("Get all diesel fillings -> 200 paginated", async () => {
-    const res = await api("GET", "/diesel-fillings?limit=100", { token: ctx.fuelManager1.token });
+    const res = await api("GET", "/diesel-fillings?limit=100", {
+      token: ctx.fuelManager1.token,
+    });
     assertEqual(res.status, 200, "get fillings status");
     assertTrue(Array.isArray(res.body?.data), "fillings data is array");
   });
 
   await test("Get diesel filling by id -> 200", async () => {
-    const res = await api("GET", `/diesel-fillings/${ctx.filling1.id}`, { token: ctx.fuelManager1.token });
+    const res = await api("GET", `/diesel-fillings/${ctx.filling1.id}`, {
+      token: ctx.fuelManager1.token,
+    });
     assertEqual(res.status, 200, "get filling by id status");
   });
 
@@ -695,29 +847,48 @@ async function runDieselTests() {
   });
 
   await test("Super admin views wrong entries -> 200, includes filling1", async () => {
-    const res = await api("GET", "/diesel-fillings/wrong-entries", { token: ctx.superAdmin.token });
+    const res = await api("GET", "/diesel-fillings/wrong-entries", {
+      token: ctx.superAdmin.token,
+    });
     assertEqual(res.status, 200, "get wrong entries status");
-    assertTrue(res.body.data.some((f) => f._id === ctx.filling1.id), "filling1 present in wrong entries");
+    assertTrue(
+      res.body.data.some((f) => f._id === ctx.filling1.id),
+      "filling1 present in wrong entries",
+    );
   });
 
   await test("Fuel manager cannot view wrong entries (superAdmin only) -> 403", async () => {
-    const res = await api("GET", "/diesel-fillings/wrong-entries", { token: ctx.fuelManager1.token });
+    const res = await api("GET", "/diesel-fillings/wrong-entries", {
+      token: ctx.fuelManager1.token,
+    });
     assertEqual(res.status, 403, "fuel manager wrong entries status");
   });
 
   await test("Generate diesel report -> 200", async () => {
-    const res = await api("GET", "/diesel-fillings/report?limit=100", { token: ctx.manager1.token });
+    const res = await api("GET", "/diesel-fillings/report?limit=100", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "diesel report status");
   });
 
   await test("Get tanker diesel summary -> 200", async () => {
-    const res = await api("GET", `/diesel-fillings/summary/${ctx.tanker1.tankerNumber}`, { token: ctx.fuelManager1.token });
+    const res = await api(
+      "GET",
+      `/diesel-fillings/summary/${ctx.tanker1.tankerNumber}`,
+      { token: ctx.fuelManager1.token },
+    );
     assertEqual(res.status, 200, "tanker summary status");
-    assertEqual(res.body?.data?.tankerNumber, ctx.tanker1.tankerNumber, "summary tanker matches");
+    assertEqual(
+      res.body?.data?.tankerNumber,
+      ctx.tanker1.tankerNumber,
+      "summary tanker matches",
+    );
   });
 
   await test("Delete diesel filling -> 200", async () => {
-    const res = await api("DELETE", `/diesel-fillings/${ctx.filling1.id}`, { token: ctx.fuelManager1.token });
+    const res = await api("DELETE", `/diesel-fillings/${ctx.filling1.id}`, {
+      token: ctx.fuelManager1.token,
+    });
     assertEqual(res.status, 200, "delete filling status");
   });
 
@@ -726,27 +897,49 @@ async function runDieselTests() {
   await test("Re-record a valid filling for tanker1 (setup for assignment tests)", async () => {
     const res = await api("POST", "/diesel-fillings", {
       token: ctx.fuelManager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, liters: 900, kilometersTravelledSinceLastTrip: 0 },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        liters: 900,
+        kilometersTravelledSinceLastTrip: 0,
+      },
     });
     assertEqual(res.status, 201, "re-record filling status");
   });
 }
 
 async function runRequestLifecycleTests() {
-  category("Request Lifecycle: submit -> assign -> route -> complete -> receipt");
+  category(
+    "Request Lifecycle: submit -> assign -> route -> complete -> receipt",
+  );
 
   await test("Member submits a water tanker request -> 201 with queue position", async () => {
-    const res = await api("POST", "/requests", { token: ctx.member1.token, body: { notes: "E2E test request" } });
+    const res = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: { notes: "E2E test request" },
+    });
     assertEqual(res.status, 201, "submit request status");
-    assertDefined(res.body?.data?.request?.queuePosition, "queuePosition assigned");
-    assertEqual(res.body?.data?.request?.status, "pending", "status is pending");
-    ctx.request1 = { id: res.body.data.request._id, queuePosition: res.body.data.request.queuePosition };
+    assertDefined(
+      res.body?.data?.request?.queuePosition,
+      "queuePosition assigned",
+    );
+    assertEqual(
+      res.body?.data?.request?.status,
+      "pending",
+      "status is pending",
+    );
+    ctx.request1 = {
+      id: res.body.data.request._id,
+      queuePosition: res.body.data.request.queuePosition,
+    };
   });
 
   await test("Member views own requests -> 200, includes request1", async () => {
     const res = await api("GET", "/requests/my", { token: ctx.member1.token });
     assertEqual(res.status, 200, "get my requests status");
-    assertTrue(res.body.data.some((r) => r._id === ctx.request1.id), "request1 present");
+    assertTrue(
+      res.body.data.some((r) => r._id === ctx.request1.id),
+      "request1 present",
+    );
   });
 
   await test("Member cannot view the manager queue -> 403", async () => {
@@ -755,9 +948,14 @@ async function runRequestLifecycleTests() {
   });
 
   await test("Manager views the queue -> 200, includes request1", async () => {
-    const res = await api("GET", "/queue?limit=100", { token: ctx.manager1.token });
+    const res = await api("GET", "/queue?limit=100", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get queue status");
-    assertTrue(res.body.data.some((r) => r._id === ctx.request1.id), "request1 present in queue");
+    assertTrue(
+      res.body.data.some((r) => r._id === ctx.request1.id),
+      "request1 present in queue",
+    );
   });
 
   await test("Manager peeks next in queue -> 200", async () => {
@@ -768,7 +966,11 @@ async function runRequestLifecycleTests() {
   await test("Assigning an un-fuelled tanker is rejected -> 422", async () => {
     const res = await api("PATCH", `/queue/${ctx.request1.id}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tankerNoFuel.tankerNumber, driverId: ctx.driver1.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tankerNoFuel.tankerNumber,
+        driverId: ctx.driver1.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 422, "unfuelled tanker assign status");
   });
@@ -776,7 +978,11 @@ async function runRequestLifecycleTests() {
   await test("Assigning a blocked driver is rejected -> 422", async () => {
     const res = await api("PATCH", `/queue/${ctx.request1.id}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, driverId: ctx.driverBlocked.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        driverId: ctx.driverBlocked.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 422, "blocked driver assign status");
   });
@@ -784,103 +990,193 @@ async function runRequestLifecycleTests() {
   await test("Assign tanker + driver to request1 -> 200, both locked on_trip", async () => {
     const res = await api("PATCH", `/queue/${ctx.request1.id}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, driverId: ctx.driver1.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        driverId: ctx.driver1.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 200, "assign tanker status");
-    assertEqual(res.body?.data?.request?.tankerAssignment?.tankerNumber, ctx.tanker1.tankerNumber, "tanker assigned");
+    assertEqual(
+      res.body?.data?.request?.tankerAssignment?.tankerNumber,
+      ctx.tanker1.tankerNumber,
+      "tanker assigned",
+    );
 
-    const tankersRes = await api("GET", "/tankers", { token: ctx.manager1.token });
+    const tankersRes = await api("GET", "/tankers", {
+      token: ctx.manager1.token,
+    });
     const tanker = tankersRes.body.data.find((t) => t._id === ctx.tanker1.id);
     assertEqual(tanker.currentStatus, "on_trip", "tanker locked on_trip");
   });
 
   await test("Assigning the same (now-busy) tanker to a second request -> 409", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: { notes: "second" } });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: { notes: "second" },
+    });
     ctx.request2 = { id: submitRes.body.data.request._id };
     const res = await api("PATCH", `/queue/${ctx.request2.id}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, driverId: ctx.driver2.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        driverId: ctx.driver2.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 409, "busy tanker assign status");
   });
 
   await test("Cannot set source/destination before a tanker is assigned -> 422", async () => {
-    const res = await api("PATCH", `/queue/${ctx.request2.id}/assign-source-destination`, {
-      token: ctx.manager1.token,
-      body: { source: "A", destination: "B", kilometers: 1 },
-    });
+    const res = await api(
+      "PATCH",
+      `/queue/${ctx.request2.id}/assign-source-destination`,
+      {
+        token: ctx.manager1.token,
+        body: { source: "A", destination: "B", kilometers: 1 },
+      },
+    );
     assertEqual(res.status, 422, "route before assign status");
   });
 
   await test("Cannot complete request1 before source/destination/km are set -> 422", async () => {
-    const res = await api("PATCH", `/queue/${ctx.request1.id}/complete`, { token: ctx.manager1.token });
+    const res = await api("PATCH", `/queue/${ctx.request1.id}/complete`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 422, "complete before route status");
   });
 
   await test("Assign source/destination/km to request1 -> 200, round-trip auto-doubled", async () => {
-    const res = await api("PATCH", `/queue/${ctx.request1.id}/assign-source-destination`, {
-      token: ctx.manager1.token,
-      body: { source: "Filling Station", destination: "E2E Society", kilometers: 4.5 },
-    });
+    const res = await api(
+      "PATCH",
+      `/queue/${ctx.request1.id}/assign-source-destination`,
+      {
+        token: ctx.manager1.token,
+        body: {
+          source: "Filling Station",
+          destination: "E2E Society",
+          kilometers: 4.5,
+        },
+      },
+    );
     assertEqual(res.status, 200, "assign route status");
-    assertEqual(res.body?.data?.request?.kilometer, 4.5, "one-way km stored as sent");
-    assertEqual(res.body?.data?.request?.roundTripKilometer, 9, "round trip is double one-way");
+    assertEqual(
+      res.body?.data?.request?.kilometer,
+      4.5,
+      "one-way km stored as sent",
+    );
+    assertEqual(
+      res.body?.data?.request?.roundTripKilometer,
+      9,
+      "round trip is double one-way",
+    );
   });
 
   await test("Complete request1 -> 200, tanker + driver freed back to available", async () => {
-    const res = await api("PATCH", `/queue/${ctx.request1.id}/complete`, { token: ctx.manager1.token });
+    const res = await api("PATCH", `/queue/${ctx.request1.id}/complete`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "complete request status");
-    assertEqual(res.body?.data?.request?.status, "completed", "status completed");
+    assertEqual(
+      res.body?.data?.request?.status,
+      "completed",
+      "status completed",
+    );
 
-    const tankersRes = await api("GET", "/tankers", { token: ctx.manager1.token });
+    const tankersRes = await api("GET", "/tankers", {
+      token: ctx.manager1.token,
+    });
     const tanker = tankersRes.body.data.find((t) => t._id === ctx.tanker1.id);
-    assertEqual(tanker.currentStatus, "available", "tanker freed after completion");
+    assertEqual(
+      tanker.currentStatus,
+      "available",
+      "tanker freed after completion",
+    );
 
-    const driversRes = await api("GET", "/drivers?limit=100", { token: ctx.manager1.token });
+    const driversRes = await api("GET", "/drivers?limit=100", {
+      token: ctx.manager1.token,
+    });
     const driver = driversRes.body.data.find((d) => d._id === ctx.driver1.id);
-    assertEqual(driver.currentStatus, "available", "driver freed after completion");
+    assertEqual(
+      driver.currentStatus,
+      "available",
+      "driver freed after completion",
+    );
   });
 
   await test("Now the second request can take the freed tanker -> 200", async () => {
     const res = await api("PATCH", `/queue/${ctx.request2.id}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, driverId: ctx.driver2.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        driverId: ctx.driver2.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 200, "reassign freed tanker status");
   });
 
   await test("Generate a receipt for request1 -> 201 with WTR-formatted number", async () => {
-    const res = await api("POST", `/receipts/request/${ctx.request1.id}`, { token: ctx.manager1.token });
+    const res = await api("POST", `/receipts/request/${ctx.request1.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 201, "generate receipt status");
-    assertIncludes(res.body?.data?.receipt?.receiptNumber, "WTR-", "receipt number format");
-    ctx.receipt1 = { id: res.body.data.receipt._id, number: res.body.data.receipt.receiptNumber };
+    assertIncludes(
+      res.body?.data?.receipt?.receiptNumber,
+      "WTR-",
+      "receipt number format",
+    );
+    ctx.receipt1 = {
+      id: res.body.data.receipt._id,
+      number: res.body.data.receipt.receiptNumber,
+    };
   });
 
   await test("Generating the same receipt again is idempotent -> same receipt number", async () => {
-    const res = await api("POST", `/receipts/request/${ctx.request1.id}`, { token: ctx.manager1.token });
-    assertTrue(res.status === 200 || res.status === 201, "idempotent receipt status");
-    assertEqual(res.body?.data?.receipt?.receiptNumber, ctx.receipt1.number, "same receipt number returned");
+    const res = await api("POST", `/receipts/request/${ctx.request1.id}`, {
+      token: ctx.manager1.token,
+    });
+    assertTrue(
+      res.status === 200 || res.status === 201,
+      "idempotent receipt status",
+    );
+    assertEqual(
+      res.body?.data?.receipt?.receiptNumber,
+      ctx.receipt1.number,
+      "same receipt number returned",
+    );
   });
 
   await test("Fetch receipt by request id -> 200", async () => {
-    const res = await api("GET", `/receipts/request/${ctx.request1.id}`, { token: ctx.manager1.token });
+    const res = await api("GET", `/receipts/request/${ctx.request1.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get receipt by request status");
   });
 
   await test("Mark receipt as printed -> 200, printCount incremented", async () => {
-    const res = await api("PATCH", `/receipts/${ctx.receipt1.id}/printed`, { token: ctx.manager1.token });
+    const res = await api("PATCH", `/receipts/${ctx.receipt1.id}/printed`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "mark printed status");
     assertEqual(res.body?.data?.receipt?.printCount, 1, "print count is 1");
   });
 
   await test("Get all receipts -> 200, includes receipt1", async () => {
-    const res = await api("GET", "/receipts?limit=100", { token: ctx.manager1.token });
+    const res = await api("GET", "/receipts?limit=100", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get all receipts status");
-    assertTrue(res.body.data.some((r) => r._id === ctx.receipt1.id), "receipt1 present");
+    assertTrue(
+      res.body.data.some((r) => r._id === ctx.receipt1.id),
+      "receipt1 present",
+    );
   });
 
   await test("Driver attendance shows the completed trip -> 200", async () => {
-    const res = await api("GET", `/attendance/driver/${ctx.driver1.id}`, { token: ctx.manager1.token });
+    const res = await api("GET", `/attendance/driver/${ctx.driver1.id}`, {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "driver attendance status");
     assertTrue(res.body?.data?.totalTrips >= 1, "at least one trip recorded");
   });
@@ -897,12 +1193,19 @@ async function runHandoverTests() {
   const driverB = await createFreshDriver("E2E Handover Driver B");
 
   await test("Submit + assign a request, then hand it over to a different tanker/driver with a reason -> 200", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: { notes: "handover test" } });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: { notes: "handover test" },
+    });
     const requestId = submitRes.body.data.request._id;
 
     const assignRes = await api("PATCH", `/queue/${requestId}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: tankerA.tankerNumber, driverId: driverA.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: tankerA.tankerNumber,
+        driverId: driverA.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(assignRes.status, 200, "initial assign for handover status");
 
@@ -917,15 +1220,37 @@ async function runHandoverTests() {
     });
     assertEqual(handoverRes.status, 200, "handover status");
     const updated = handoverRes.body.data.request;
-    assertEqual(updated.tankerAssignment.tankerNumber, tankerB.tankerNumber, "new tanker assigned after handover");
-    assertEqual(updated.handoverHistory.length, 1, "handover history has one entry");
-    assertEqual(updated.handoverHistory[0].fromTankerNumber, tankerA.tankerNumber, "history records old tanker");
-    assertEqual(updated.handoverHistory[0].reason, "Original tanker broke down en route", "reason recorded");
+    assertEqual(
+      updated.tankerAssignment.tankerNumber,
+      tankerB.tankerNumber,
+      "new tanker assigned after handover",
+    );
+    assertEqual(
+      updated.handoverHistory.length,
+      1,
+      "handover history has one entry",
+    );
+    assertEqual(
+      updated.handoverHistory[0].fromTankerNumber,
+      tankerA.tankerNumber,
+      "history records old tanker",
+    );
+    assertEqual(
+      updated.handoverHistory[0].reason,
+      "Original tanker broke down en route",
+      "reason recorded",
+    );
 
     // old tanker (tankerA) should now be free again
-    const tankersRes = await api("GET", "/tankers", { token: ctx.manager1.token });
+    const tankersRes = await api("GET", "/tankers", {
+      token: ctx.manager1.token,
+    });
     const oldTanker = tankersRes.body.data.find((t) => t._id === tankerA.id);
-    assertEqual(oldTanker.currentStatus, "available", "old tanker freed after handover");
+    assertEqual(
+      oldTanker.currentStatus,
+      "available",
+      "old tanker freed after handover",
+    );
 
     ctx.handoverRequestId = requestId;
     ctx.handoverTankerA = tankerA;
@@ -935,7 +1260,11 @@ async function runHandoverTests() {
   await test("Handover without a reason is rejected -> 422", async () => {
     const res = await api("PATCH", `/queue/${ctx.handoverRequestId}/handover`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.handoverTankerA.tankerNumber, driverId: ctx.handoverDriverA.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.handoverTankerA.tankerNumber,
+        driverId: ctx.handoverDriverA.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(res.status, 422, "handover missing reason status");
   });
@@ -945,10 +1274,18 @@ async function runHandoverTests() {
     // assignment from the test above) — generateReceipt has no status
     // restriction, so this is allowed even though the request is still
     // pending, mirroring a manager who prints a receipt before delivery.
-    const firstReceiptRes = await api("POST", `/receipts/request/${ctx.handoverRequestId}`, {
-      token: ctx.manager1.token,
-    });
-    assertEqual(firstReceiptRes.status, 201, "pre-handover receipt generation status");
+    const firstReceiptRes = await api(
+      "POST",
+      `/receipts/request/${ctx.handoverRequestId}`,
+      {
+        token: ctx.manager1.token,
+      },
+    );
+    assertEqual(
+      firstReceiptRes.status,
+      201,
+      "pre-handover receipt generation status",
+    );
     assertEqual(
       firstReceiptRes.body.data.receipt.tankerNumber,
       tankerB.tankerNumber,
@@ -958,22 +1295,30 @@ async function runHandoverTests() {
     // A second breakdown — hand the same request over again, to a third pair.
     const tankerC = await createFreshTanker();
     const driverC = await createFreshDriver("E2E Handover Driver C");
-    const secondHandoverRes = await api("PATCH", `/queue/${ctx.handoverRequestId}/handover`, {
-      token: ctx.manager1.token,
-      body: {
-        tankerNumber: tankerC.tankerNumber,
-        driverId: driverC.id,
-        dateTime: new Date().toISOString(),
-        reason: "Second tanker also broke down",
+    const secondHandoverRes = await api(
+      "PATCH",
+      `/queue/${ctx.handoverRequestId}/handover`,
+      {
+        token: ctx.manager1.token,
+        body: {
+          tankerNumber: tankerC.tankerNumber,
+          driverId: driverC.id,
+          dateTime: new Date().toISOString(),
+          reason: "Second tanker also broke down",
+        },
       },
-    });
+    );
     assertEqual(secondHandoverRes.status, 200, "second handover status");
 
     // Re-fetching the receipt must now reflect tankerC/driverC, not the
     // stale tankerB snapshot from when it was first generated.
-    const refetchedRes = await api("GET", `/receipts/request/${ctx.handoverRequestId}`, {
-      token: ctx.manager1.token,
-    });
+    const refetchedRes = await api(
+      "GET",
+      `/receipts/request/${ctx.handoverRequestId}`,
+      {
+        token: ctx.manager1.token,
+      },
+    );
     assertEqual(refetchedRes.status, 200, "refetch receipt status");
     assertEqual(
       refetchedRes.body.data.receipt.tankerNumber,
@@ -988,9 +1333,13 @@ async function runHandoverTests() {
 
     // Calling generateReceipt again (idempotent path) must also return the
     // synced version, not the originally-cached tankerB snapshot.
-    const regenRes = await api("POST", `/receipts/request/${ctx.handoverRequestId}`, {
-      token: ctx.manager1.token,
-    });
+    const regenRes = await api(
+      "POST",
+      `/receipts/request/${ctx.handoverRequestId}`,
+      {
+        token: ctx.manager1.token,
+      },
+    );
     assertEqual(
       regenRes.body.data.receipt.tankerNumber,
       tankerC.tankerNumber,
@@ -1005,20 +1354,28 @@ async function runHandoverTests() {
     // to pull the receipt up to date.
     const tankerD = await createFreshTanker();
     const driverD = await createFreshDriver("E2E Handover Driver D");
-    const thirdHandoverRes = await api("PATCH", `/queue/${ctx.handoverRequestId}/handover`, {
-      token: ctx.manager1.token,
-      body: {
-        tankerNumber: tankerD.tankerNumber,
-        driverId: driverD.id,
-        dateTime: new Date().toISOString(),
-        reason: "Third tanker also broke down",
+    const thirdHandoverRes = await api(
+      "PATCH",
+      `/queue/${ctx.handoverRequestId}/handover`,
+      {
+        token: ctx.manager1.token,
+        body: {
+          tankerNumber: tankerD.tankerNumber,
+          driverId: driverD.id,
+          dateTime: new Date().toISOString(),
+          reason: "Third tanker also broke down",
+        },
       },
-    });
+    );
     assertEqual(thirdHandoverRes.status, 200, "third handover status");
 
-    const putRes = await api("PUT", `/receipts/request/${ctx.handoverRequestId}`, {
-      token: ctx.manager1.token,
-    });
+    const putRes = await api(
+      "PUT",
+      `/receipts/request/${ctx.handoverRequestId}`,
+      {
+        token: ctx.manager1.token,
+      },
+    );
     assertEqual(putRes.status, 200, "PUT refresh receipt status");
     assertEqual(
       putRes.body.data.receipt.tankerNumber,
@@ -1033,10 +1390,19 @@ async function runHandoverTests() {
   });
 
   await test("PUT /receipts/request/:id returns 404 when no receipt exists yet", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: {} });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: {},
+    });
     const requestId = submitRes.body.data.request._id;
-    const res = await api("PUT", `/receipts/request/${requestId}`, { token: ctx.manager1.token });
-    assertEqual(res.status, 404, "PUT refresh on request with no receipt status");
+    const res = await api("PUT", `/receipts/request/${requestId}`, {
+      token: ctx.manager1.token,
+    });
+    assertEqual(
+      res.status,
+      404,
+      "PUT refresh on request with no receipt status",
+    );
   });
 }
 
@@ -1044,21 +1410,37 @@ async function runCancelTests() {
   category("Cancel");
 
   await test("Member cancels their own pending request -> 200", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: { notes: "to cancel" } });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: { notes: "to cancel" },
+    });
     const requestId = submitRes.body.data.request._id;
     const res = await api("PATCH", `/requests/${requestId}/cancel`, {
       token: ctx.member1.token,
       body: { cancelReason: "Changed my mind" },
     });
     assertEqual(res.status, 200, "member cancel status");
-    assertEqual(res.body?.data?.request?.status, "cancelled", "status cancelled");
+    assertEqual(
+      res.body?.data?.request?.status,
+      "cancelled",
+      "status cancelled",
+    );
   });
 
   await test("Cancelling an already-cancelled request again -> 404", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: {} });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: {},
+    });
     const requestId = submitRes.body.data.request._id;
-    await api("PATCH", `/requests/${requestId}/cancel`, { token: ctx.member1.token, body: {} });
-    const res = await api("PATCH", `/requests/${requestId}/cancel`, { token: ctx.member1.token, body: {} });
+    await api("PATCH", `/requests/${requestId}/cancel`, {
+      token: ctx.member1.token,
+      body: {},
+    });
+    const res = await api("PATCH", `/requests/${requestId}/cancel`, {
+      token: ctx.member1.token,
+      body: {},
+    });
     assertEqual(res.status, 404, "double cancel status");
   });
 
@@ -1068,11 +1450,18 @@ async function runCancelTests() {
     const tanker = await createFreshTanker();
     const driver = await createFreshDriver("E2E Cancel-Assigned Driver");
 
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: {} });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: {},
+    });
     const requestId = submitRes.body.data.request._id;
     const assignRes = await api("PATCH", `/queue/${requestId}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: tanker.tankerNumber, driverId: driver.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: tanker.tankerNumber,
+        driverId: driver.id,
+        dateTime: new Date().toISOString(),
+      },
     });
     assertEqual(assignRes.status, 200, "setup assign before cancel status");
 
@@ -1082,13 +1471,23 @@ async function runCancelTests() {
     });
     assertEqual(res.status, 200, "manager cancel assigned request status");
 
-    const tankersRes = await api("GET", "/tankers", { token: ctx.manager1.token });
-    const refreshedTanker = tankersRes.body.data.find((t) => t._id === tanker.id);
-    assertEqual(refreshedTanker.currentStatus, "available", "tanker freed after cancel");
+    const tankersRes = await api("GET", "/tankers", {
+      token: ctx.manager1.token,
+    });
+    const refreshedTanker = tankersRes.body.data.find(
+      (t) => t._id === tanker.id,
+    );
+    assertEqual(
+      refreshedTanker.currentStatus,
+      "available",
+      "tanker freed after cancel",
+    );
   });
 
   await test("Get cancelled requests list -> 200", async () => {
-    const res = await api("GET", "/requests/cancelled?limit=100", { token: ctx.manager1.token });
+    const res = await api("GET", "/requests/cancelled?limit=100", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "get cancelled requests status");
     assertTrue(res.body.data.length > 0, "at least one cancelled request");
   });
@@ -1098,7 +1497,9 @@ async function runReportTests() {
   category("Reports");
 
   await test("Manager report -> 200 with summary counts", async () => {
-    const res = await api("GET", "/queue/report", { token: ctx.manager1.token });
+    const res = await api("GET", "/queue/report", {
+      token: ctx.manager1.token,
+    });
     assertEqual(res.status, 200, "manager report status");
     assertDefined(res.body?.meta?.summary, "summary present");
     assertTrue(res.body.meta.summary.total >= 1, "summary total non-zero");
@@ -1109,21 +1510,37 @@ async function runValidationAndRbacTests() {
   category("Validation & RBAC edge cases");
 
   await test("Invalid MongoId in param -> 400/422/404 (not a 500)", async () => {
-    const res = await api("GET", "/requests/not-a-valid-id", { token: ctx.manager1.token });
-    assertTrue([400, 404, 422].includes(res.status), `expected client error, got ${res.status}`);
+    const res = await api("GET", "/requests/not-a-valid-id", {
+      token: ctx.manager1.token,
+    });
+    assertTrue(
+      [400, 404, 422].includes(res.status),
+      `expected client error, got ${res.status}`,
+    );
   });
 
   await test("Assign-source-destination with kilometers below minimum -> 422", async () => {
-    const submitRes = await api("POST", "/requests", { token: ctx.member1.token, body: {} });
+    const submitRes = await api("POST", "/requests", {
+      token: ctx.member1.token,
+      body: {},
+    });
     const requestId = submitRes.body.data.request._id;
     await api("PATCH", `/queue/${requestId}/assign`, {
       token: ctx.manager1.token,
-      body: { tankerNumber: ctx.tanker1.tankerNumber, driverId: ctx.driver1.id, dateTime: new Date().toISOString() },
+      body: {
+        tankerNumber: ctx.tanker1.tankerNumber,
+        driverId: ctx.driver1.id,
+        dateTime: new Date().toISOString(),
+      },
     });
-    const res = await api("PATCH", `/queue/${requestId}/assign-source-destination`, {
-      token: ctx.manager1.token,
-      body: { source: "A", destination: "B", kilometers: 0.01 },
-    });
+    const res = await api(
+      "PATCH",
+      `/queue/${requestId}/assign-source-destination`,
+      {
+        token: ctx.manager1.token,
+        body: { source: "A", destination: "B", kilometers: 0.01 },
+      },
+    );
     assertEqual(res.status, 422, "kilometers below minimum status");
     // cleanup: complete this leftover assignment's tanker lock isn't required for wmstest, left as-is.
   });
@@ -1139,7 +1556,9 @@ async function runValidationAndRbacTests() {
   });
 
   await test("Malformed Authorization header -> 401", async () => {
-    const res = await fetch(`${BASE_URL}/auth/profile`, { headers: { Authorization: "NotBearer abc" } });
+    const res = await fetch(`${BASE_URL}/auth/profile`, {
+      headers: { Authorization: "NotBearer abc" },
+    });
     assertEqual(res.status, 401, "malformed auth header status");
   });
 }
@@ -1149,8 +1568,14 @@ async function runConcurrencyTests() {
 
   await test("Two simultaneous request submissions get unique queue positions", async () => {
     const [r1, r2] = await Promise.all([
-      api("POST", "/requests", { token: ctx.member1.token, body: { notes: "concurrent A" } }),
-      api("POST", "/requests", { token: ctx.member1.token, body: { notes: "concurrent B" } }),
+      api("POST", "/requests", {
+        token: ctx.member1.token,
+        body: { notes: "concurrent A" },
+      }),
+      api("POST", "/requests", {
+        token: ctx.member1.token,
+        body: { notes: "concurrent B" },
+      }),
     ]);
     assertEqual(r1.status, 201, "concurrent submit A status");
     assertEqual(r2.status, 201, "concurrent submit B status");
@@ -1166,15 +1591,24 @@ async function runConcurrencyTests() {
 
   await test("Two simultaneous assigns of the SAME tanker to two different pending requests — at most one should win", async () => {
     const tankerNumber = nextTankerNumber();
-    await api("POST", "/tankers", { token: ctx.manager1.token, body: { tankerNumber } });
+    await api("POST", "/tankers", {
+      token: ctx.manager1.token,
+      body: { tankerNumber },
+    });
     await api("POST", "/diesel-fillings", {
       token: ctx.fuelManager1.token,
       body: { tankerNumber, liters: 500, kilometersTravelledSinceLastTrip: 0 },
     });
 
     const [s1, s2] = await Promise.all([
-      api("POST", "/requests", { token: ctx.member1.token, body: { notes: "race A" } }),
-      api("POST", "/requests", { token: ctx.member1.token, body: { notes: "race B" } }),
+      api("POST", "/requests", {
+        token: ctx.member1.token,
+        body: { notes: "race A" },
+      }),
+      api("POST", "/requests", {
+        token: ctx.member1.token,
+        body: { notes: "race B" },
+      }),
     ]);
     const reqA = s1.body.data.request._id;
     const reqB = s2.body.data.request._id;
@@ -1182,11 +1616,19 @@ async function runConcurrencyTests() {
     const [a1, a2] = await Promise.all([
       api("PATCH", `/queue/${reqA}/assign`, {
         token: ctx.manager1.token,
-        body: { tankerNumber, driverId: ctx.driver1.id, dateTime: new Date().toISOString() },
+        body: {
+          tankerNumber,
+          driverId: ctx.driver1.id,
+          dateTime: new Date().toISOString(),
+        },
       }),
       api("PATCH", `/queue/${reqB}/assign`, {
         token: ctx.manager1.token,
-        body: { tankerNumber, driverId: ctx.driver2.id, dateTime: new Date().toISOString() },
+        body: {
+          tankerNumber,
+          driverId: ctx.driver2.id,
+          dateTime: new Date().toISOString(),
+        },
       }),
     ]);
 
@@ -1198,7 +1640,11 @@ async function runConcurrencyTests() {
           `leaving a read-then-write gap.`,
       );
     }
-    assertEqual(successCount, 1, "exactly one concurrent assign should succeed");
+    assertEqual(
+      successCount,
+      1,
+      "exactly one concurrent assign should succeed",
+    );
   });
 }
 
@@ -1213,10 +1659,14 @@ async function runDemoTrafficTest() {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(process.env.MONGO_URI);
     }
-    const { generateDemoRequest } = require("./src/services/demoTraffic.service");
+    const {
+      generateDemoRequest,
+    } = require("./src/services/demoTraffic.service");
     const Request = require("./src/models/request.model");
 
-    const pendingCountBefore = await Request.countDocuments({ status: "pending" });
+    const pendingCountBefore = await Request.countDocuments({
+      status: "pending",
+    });
     const demoRequest = await generateDemoRequest(new Date());
 
     if (!demoRequest) {
@@ -1226,10 +1676,20 @@ async function runDemoTrafficTest() {
       );
     }
     assertEqual(demoRequest.isDemo, true, "isDemo flag set");
-    assertEqual(demoRequest.status, "completed", "demo request created already completed");
+    assertEqual(
+      demoRequest.status,
+      "completed",
+      "demo request created already completed",
+    );
 
-    const pendingCountAfter = await Request.countDocuments({ status: "pending" });
-    assertEqual(pendingCountAfter, pendingCountBefore, "live pending queue count unchanged");
+    const pendingCountAfter = await Request.countDocuments({
+      status: "pending",
+    });
+    assertEqual(
+      pendingCountAfter,
+      pendingCountBefore,
+      "live pending queue count unchanged",
+    );
 
     await mongoose.disconnect();
   });
@@ -1322,7 +1782,13 @@ function generateReport() {
     await runDemoTrafficTest();
   } catch (err) {
     console.error("Fatal error running test suite:", err);
-    results.push({ category: "Fatal", name: "Test suite execution", status: "FAIL", durationMs: 0, error: err.message });
+    results.push({
+      category: "Fatal",
+      name: "Test suite execution",
+      status: "FAIL",
+      durationMs: 0,
+      error: err.message,
+    });
   } finally {
     generateReport();
     stopServer();

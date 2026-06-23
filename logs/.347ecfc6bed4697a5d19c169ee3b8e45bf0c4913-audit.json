@@ -6,11 +6,6 @@
     "auditLog": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\.347ecfc6bed4697a5d19c169ee3b8e45bf0c4913-audit.json",
     "files": [
         {
-            "date": 1779530421886,
-            "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\error-2026-05-23.log",
-            "hash": "c06e59a4af416e17d774888bfefcda297b9fec385c19fc9b5ebc2d1854f4eaa1"
-        },
-        {
             "date": 1782021024571,
             "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\error-2026-06-21.log",
             "hash": "7265e14018de2c7a1ccc57b544892a8cafa36708e676a9b493262c962b6202c9"
@@ -19,6 +14,11 @@
             "date": 1782068532440,
             "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\error-2026-06-22.log",
             "hash": "dc406ae8db5ea0f20867d9ee2f01f28b31ac0296fdc5a69750d40cbdad02f97c"
+        },
+        {
+            "date": 1782200718182,
+            "name": "C:\\Users\\Atharva Kumbhar\\StudioProjects\\watertankerfinalui\\watertanker-backend\\logs\\error-2026-06-23.log",
+            "hash": "17b057182e4c10a7ab9c6cd8f82177ec22da1c5238b4e8581a8ac1183d25baba"
         }
     ],
     "hashType": "sha256"

@@ -101,7 +101,8 @@ const PORT = process.env.PORT || 5000;
       `Server Running On ${process.env.NODE_ENV} mode on port ${PORT}`,
     );
   });
-  startDemoTrafficScheduler();
+  // Demo traffic generation disabled.
+  // startDemoTrafficScheduler();
 })();
 
 // ── Graceful Shutdown ─────────────────────────────────────────────────────────
