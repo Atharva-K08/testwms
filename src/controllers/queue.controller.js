@@ -4,6 +4,26 @@ const queueService = require("../services/queue.service");
 const { sendSuccess, sendPaginated } = require("../utils/response.util");
 const { PAGINATION } = require("../config/constants");
 const { AppError } = require("../middlewares/error.middleware");
+const { streamPmcDailyRegisterPdf } = require("../utils/pmcDailyRegisterPdf");
+const { streamPmcDailyRegisterExcel } = require("../utils/pmcDailyRegisterExcel");
+
+const formatDateLabel = (date) =>
+  [String(date.getDate()).padStart(2, "0"), String(date.getMonth() + 1).padStart(2, "0"), date.getFullYear()].join("/");
+
+const buildDailyRegisterParams = async (req) => {
+  const { date, stationName } = req.query;
+  const reportDate = new Date(date);
+  const rows = await queueService.getDailyTankerRegister({ date: reportDate });
+
+  return {
+    rows,
+    reportDate,
+    stationName,
+    reportDateLabel:  formatDateLabel(reportDate),
+    generatedBy:      req.user?.profile?.name || req.user?.username || req.user?.mobileNumber || "-",
+    generatedAtLabel: `${formatDateLabel(new Date())} ${new Date().toLocaleTimeString("en-IN", { hour12: false })}`,
+  };
+};
 
 const getQueue = async (req, res) => {
   const page  = parseInt(req.query.page)  || PAGINATION.DEFAULT_PAGE;
@@ -109,6 +129,26 @@ const getManagerReport = async (req, res) => {
   });
 };
 
+const getDailyTankerRegisterPdf = async (req, res) => {
+  const params = await buildDailyRegisterParams(req);
+  const filenameDate = params.reportDateLabel.replace(/\//g, "-");
+
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", `attachment; filename="daily_tanker_register_${filenameDate}.pdf"`);
+
+  streamPmcDailyRegisterPdf(res, params);
+};
+
+const getDailyTankerRegisterExcel = async (req, res) => {
+  const params = await buildDailyRegisterParams(req);
+  const filenameDate = params.reportDateLabel.replace(/\//g, "-");
+
+  res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+  res.setHeader("Content-Disposition", `attachment; filename="daily_tanker_register_${filenameDate}.xlsx"`);
+
+  await streamPmcDailyRegisterExcel(res, params);
+};
+
 module.exports = {
   getQueue,
   peekNext,
@@ -117,4 +157,6 @@ module.exports = {
   assignSourceDestination,
   completeRequest,
   getManagerReport,
+  getDailyTankerRegisterPdf,
+  getDailyTankerRegisterExcel,
 };

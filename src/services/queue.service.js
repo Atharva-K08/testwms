@@ -392,6 +392,46 @@ const getManagerReport = async ({ startDate, endDate, page = 1, limit = 50 } = {
   };
 };
 
+// ── PMC daily tanker supply register ──────────────────────────────────────────
+//
+// One row per society/vehicle combination completed on the given day; the
+// trip count is how many completed requests matched that combination, since
+// the system does not currently distinguish scheduled vs occasional trips.
+
+const getDailyTankerRegister = async ({ date }) => {
+  const start = new Date(date);
+  start.setUTCHours(0, 0, 0, 0);
+  const end = new Date(date);
+  end.setUTCHours(23, 59, 59, 999);
+
+  const requests = await Request.find({
+    status:      REQUEST_STATUS.COMPLETED,
+    completedAt: { $gte: start, $lte: end },
+  }).lean();
+
+  const groups = new Map();
+  requests.forEach((r) => {
+    const vehicleNo = r.tankerAssignment?.tankerNumber || "-";
+    const key = `${r.societyName}||${r.address}||${r.mobileNumber}||${vehicleNo}`;
+
+    if (!groups.has(key)) {
+      groups.set(key, {
+        wardNo:          "-",
+        societyName:     r.societyName,
+        address:         r.address,
+        mobileNo:        r.mobileNumber,
+        vehicleNo,
+        scheduledTrips:  0,
+        occasionalTrips: 0,
+        remarks:         "-",
+      });
+    }
+    groups.get(key).scheduledTrips += 1;
+  });
+
+  return Array.from(groups.values()).sort((a, b) => a.societyName.localeCompare(b.societyName));
+};
+
 module.exports = {
   getNextQueuePosition,
   getPendingQueue,
@@ -401,4 +441,5 @@ module.exports = {
   assignSourceDestination,
   completeRequest,
   getManagerReport,
+  getDailyTankerRegister,
 };

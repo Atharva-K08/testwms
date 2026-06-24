@@ -13,6 +13,8 @@ const {
   handoverTanker,
   completeRequest,
   getManagerReport,
+  getDailyTankerRegisterPdf,
+  getDailyTankerRegisterExcel,
   assignSourceDestination,
 } = require("../controllers/queue.controller");
 const {
@@ -21,6 +23,7 @@ const {
   completeRequestValidator,
   paginationValidator,
   managerReportValidator,
+  dailyTankerRegisterValidator,
   assignSourceDestinationValidator,
 } = require("../validators/request.validator");
 
@@ -30,6 +33,10 @@ router.use(protect, authorize(ROLES.MANAGER, ROLES.SUPER_ADMIN));
 router.get("/",     paginationValidator,    validate, getQueue);
 router.get("/next", peekNext);
 router.get("/report", managerReportValidator, validate, getManagerReport);
+router.get("/report/pdf/daily-register",
+  dailyTankerRegisterValidator, validate, getDailyTankerRegisterPdf);
+router.get("/report/excel/daily-register",
+  dailyTankerRegisterValidator, validate, getDailyTankerRegisterExcel);
 
 router.patch("/:id/assign",
   assignTankerValidator, validate, assignTanker);

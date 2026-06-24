@@ -136,6 +136,21 @@ const assignSourceDestinationValidator = [
     .withMessage("Kilometers must be greater than 0."),
 ];
 
+const dailyTankerRegisterValidator = [
+  query("date")
+    .notEmpty()
+    .withMessage("Date is required.")
+    .isISO8601()
+    .withMessage("Date must be in ISO 8601 format (e.g., 2026-05-13)."),
+
+  query("stationName")
+    .trim()
+    .notEmpty()
+    .withMessage("Station name is required.")
+    .isLength({ max: 100 })
+    .withMessage("Station name must not exceed 100 characters."),
+];
+
 module.exports = {
   submitRequestValidator,
   assignTankerValidator,
@@ -145,4 +160,5 @@ module.exports = {
   paginationValidator,
   managerReportValidator,
   assignSourceDestinationValidator,
+  dailyTankerRegisterValidator,
 };
