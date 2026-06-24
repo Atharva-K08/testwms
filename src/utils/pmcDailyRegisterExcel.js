@@ -12,6 +12,13 @@ const THIN_BORDER = {
 
 const EXCEL_ALIGN = { left: "left", center: "center", right: "right" };
 
+const FILL_RED    = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFF0000" } };
+const FILL_GREEN  = { type: "pattern", pattern: "solid", fgColor: { argb: "FF00CC00" } };
+const FILL_BLUE   = { type: "pattern", pattern: "solid", fgColor: { argb: "FF0000FF" } };
+const FILL_YELLOW = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFFFF00" } };
+const FONT_BLACK  = { argb: "FF000000" };
+const FONT_WHITE  = { argb: "FFFFFFFF" };
+
 function buildPmcDailyRegisterWorkbook({ stationName, reportDateLabel, rows, generatedBy, generatedAtLabel }) {
   const workbook = new ExcelJS.Workbook();
   workbook.creator = "Water Tanker Supply Management System";
@@ -24,27 +31,32 @@ function buildPmcDailyRegisterWorkbook({ stationName, reportDateLabel, rows, gen
   const colCount = COLUMNS.length;
   sheet.columns = COLUMNS.map((col) => ({ width: Math.max(10, Math.round(col.width / 6)) }));
 
-  const mergeAndCenterTitle = (rowIndex, text, bold, size) => {
+  const mergeAndCenterTitle = (rowIndex, text, { fill, fontColor = FONT_BLACK, size = 12 } = {}) => {
     sheet.mergeCells(rowIndex, 1, rowIndex, colCount);
+    const row = sheet.getRow(rowIndex);
+    row.height = 22;
     const cell = sheet.getCell(rowIndex, 1);
     cell.value = text;
-    cell.font = { name: "Noto Sans Devanagari", bold, size };
+    cell.font = { name: "Noto Sans Devanagari", bold: true, size, color: fontColor };
     cell.alignment = { horizontal: "center", vertical: "middle" };
+    cell.fill = fill;
+    cell.border = THIN_BORDER;
   };
 
-  mergeAndCenterTitle(1, "पुणे महानगरपालिका", true, 14);
-  mergeAndCenterTitle(2, "टँकरने होणाऱ्या दैनंदिन पाणीपुरवठा कामाची माहिती", true, 12);
-  mergeAndCenterTitle(3, stationName, true, 11);
-  mergeAndCenterTitle(4, `दिनांक : ${reportDateLabel}`, false, 10);
+  mergeAndCenterTitle(1, "पुणे महानगरपालिका", { fill: FILL_RED, size: 14 });
+  mergeAndCenterTitle(2, "टँकरने होणाऱ्या दैनंदिन पाणीपुरवठा कामाची माहिती", { fill: FILL_GREEN });
+  mergeAndCenterTitle(3, stationName, { fill: FILL_BLUE, fontColor: FONT_WHITE });
+  mergeAndCenterTitle(4, `दिनांक : ${reportDateLabel}`, { fill: FILL_YELLOW, size: 11 });
 
   const headerRowIndex = 6;
   const headerRow = sheet.getRow(headerRowIndex);
   COLUMNS.forEach((col, i) => {
     const cell = headerRow.getCell(i + 1);
     cell.value = col.header;
-    cell.font = { name: "Noto Sans Devanagari", bold: true, size: 10 };
+    cell.font = { name: "Noto Sans Devanagari", bold: true, size: 10, color: FONT_BLACK };
     cell.alignment = { horizontal: "center", vertical: "middle", wrapText: true };
     cell.border = THIN_BORDER;
+    cell.fill = FILL_BLUE;
   });
   headerRow.height = 28;
 

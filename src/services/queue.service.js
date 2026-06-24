@@ -416,7 +416,7 @@ const getDailyTankerRegister = async ({ date }) => {
 
     if (!groups.has(key)) {
       groups.set(key, {
-        wardNo:          "-",
+        wardNo:          "38",
         societyName:     r.societyName,
         address:         r.address,
         mobileNo:        r.mobileNumber,

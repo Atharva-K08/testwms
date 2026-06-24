@@ -7,8 +7,22 @@ const { AppError } = require("../middlewares/error.middleware");
 const { streamPmcDailyRegisterPdf } = require("../utils/pmcDailyRegisterPdf");
 const { streamPmcDailyRegisterExcel } = require("../utils/pmcDailyRegisterExcel");
 
-const formatDateLabel = (date) =>
-  [String(date.getDate()).padStart(2, "0"), String(date.getMonth() + 1).padStart(2, "0"), date.getFullYear()].join("/");
+// `date` arrives as a YYYY-MM-DD string, parsed as UTC midnight (same as the
+// $gte/$lte day-boundary query in queueService.getDailyTankerRegister), so the
+// label must use UTC getters too — local getters would shift the printed date
+// by a day on any server not running in the UTC timezone.
+const formatReportDateLabel = (date) =>
+  [String(date.getUTCDate()).padStart(2, "0"), String(date.getUTCMonth() + 1).padStart(2, "0"), date.getUTCFullYear()].join("/");
+
+const formatGeneratedAtLabel = (date) => {
+  const datePart = new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit", month: "2-digit", year: "numeric", timeZone: "Asia/Kolkata",
+  }).format(date);
+  const timePart = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "Asia/Kolkata",
+  }).format(date);
+  return `${datePart} ${timePart}`;
+};
 
 const buildDailyRegisterParams = async (req) => {
   const { date, stationName } = req.query;
@@ -19,9 +33,9 @@ const buildDailyRegisterParams = async (req) => {
     rows,
     reportDate,
     stationName,
-    reportDateLabel:  formatDateLabel(reportDate),
-    generatedBy:      req.user?.profile?.name || req.user?.username || req.user?.mobileNumber || "-",
-    generatedAtLabel: `${formatDateLabel(new Date())} ${new Date().toLocaleTimeString("en-IN", { hour12: false })}`,
+    reportDateLabel:  formatReportDateLabel(reportDate),
+    generatedBy:      req.user?.username || req.user?.mobileNumber || "-",
+    generatedAtLabel: formatGeneratedAtLabel(new Date()),
   };
 };
 
@@ -129,6 +143,18 @@ const getManagerReport = async (req, res) => {
   });
 };
 
+// If generation fails after some bytes are already flushed (headers sent),
+// the shared error middleware's res.json() would throw ERR_HTTP_HEADERS_SENT
+// on top of the original error — destroy the connection instead in that case
+// and only let the global handler render a JSON error when nothing was sent yet.
+const handleStreamingError = (res, err) => {
+  if (res.headersSent) {
+    res.destroy(err);
+    return;
+  }
+  throw err;
+};
+
 const getDailyTankerRegisterPdf = async (req, res) => {
   const params = await buildDailyRegisterParams(req);
   const filenameDate = params.reportDateLabel.replace(/\//g, "-");
@@ -136,7 +162,11 @@ const getDailyTankerRegisterPdf = async (req, res) => {
   res.setHeader("Content-Type", "application/pdf");
   res.setHeader("Content-Disposition", `attachment; filename="daily_tanker_register_${filenameDate}.pdf"`);
 
-  streamPmcDailyRegisterPdf(res, params);
+  try {
+    streamPmcDailyRegisterPdf(res, params);
+  } catch (err) {
+    handleStreamingError(res, err);
+  }
 };
 
 const getDailyTankerRegisterExcel = async (req, res) => {
@@ -146,7 +176,11 @@ const getDailyTankerRegisterExcel = async (req, res) => {
   res.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
   res.setHeader("Content-Disposition", `attachment; filename="daily_tanker_register_${filenameDate}.xlsx"`);
 
-  await streamPmcDailyRegisterExcel(res, params);
+  try {
+    await streamPmcDailyRegisterExcel(res, params);
+  } catch (err) {
+    handleStreamingError(res, err);
+  }
 };
 
 module.exports = {

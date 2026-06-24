@@ -28,29 +28,57 @@ const HEADER_FONT_SIZE = 9;
 const BODY_FONT_SIZE   = 9;
 const MIN_ROW_HEIGHT   = 20;
 
+const BANNER_LEFT_WIDTH = 180;
+const BANNER_BAND_HEIGHT = 26;
+const BANNER_HEIGHT = BANNER_BAND_HEIGHT * 3;
+
+const COLOR_RED    = "#FF0000";
+const COLOR_GREEN  = "#00CC00";
+const COLOR_BLUE   = "#0000FF";
+const COLOR_YELLOW = "#FFFF00";
+const COLOR_BLACK  = "#000000";
+const COLOR_WHITE  = "#FFFFFF";
+
 function registerFonts(doc) {
   doc.registerFont("Marathi", FONT_REGULAR);
   doc.registerFont("Marathi-Bold", FONT_BOLD);
 }
 
-function drawCenteredTitleBlock(doc, { stationName, reportDateLabel }) {
+function drawHeaderBanner(doc, { stationName, reportDateLabel }) {
   const top = PAGE_MARGIN;
-  doc.font("Marathi-Bold").fontSize(14)
-    .text("पुणे महानगरपालिका", PAGE_MARGIN, top, { width: TABLE_WIDTH, align: "center" });
+  const rightX = PAGE_MARGIN + BANNER_LEFT_WIDTH;
+  const rightWidth = TABLE_WIDTH - BANNER_LEFT_WIDTH;
 
-  doc.font("Marathi-Bold").fontSize(12)
-    .text("टँकरने होणाऱ्या दैनंदिन पाणीपुरवठा कामाची माहिती", PAGE_MARGIN, doc.y + 2, {
-      width: TABLE_WIDTH,
+  // Left block — PMC name (logo placeholder reserved but not drawn)
+  doc.rect(PAGE_MARGIN, top, BANNER_LEFT_WIDTH, BANNER_HEIGHT).fillAndStroke(COLOR_RED, COLOR_BLACK);
+  doc.fillColor(COLOR_BLACK).font("Marathi-Bold").fontSize(16)
+    .text("पुणे महानगरपालिका", PAGE_MARGIN + 6, top + BANNER_HEIGHT / 2 - 12, {
+      width: BANNER_LEFT_WIDTH - 12,
       align: "center",
     });
 
-  doc.font("Marathi-Bold").fontSize(11)
-    .text(stationName, PAGE_MARGIN, doc.y + 4, { width: TABLE_WIDTH, align: "center" });
+  // Right band 1 — report title (green)
+  doc.rect(rightX, top, rightWidth, BANNER_BAND_HEIGHT).fillAndStroke(COLOR_GREEN, COLOR_BLACK);
+  doc.fillColor(COLOR_BLACK).font("Marathi-Bold").fontSize(12)
+    .text("टँकरने होणाऱ्या दैनंदिन पाणीपुरवठा कामाची माहिती", rightX, top + 7, {
+      width: rightWidth,
+      align: "center",
+    });
 
-  doc.font("Marathi").fontSize(10)
-    .text(`दिनांक : ${reportDateLabel}`, PAGE_MARGIN, doc.y + 4, { width: TABLE_WIDTH, align: "center" });
+  // Right band 2 — station name (blue)
+  const band2Top = top + BANNER_BAND_HEIGHT;
+  doc.rect(rightX, band2Top, rightWidth, BANNER_BAND_HEIGHT).fillAndStroke(COLOR_BLUE, COLOR_BLACK);
+  doc.fillColor(COLOR_WHITE).font("Marathi-Bold").fontSize(12)
+    .text(stationName, rightX, band2Top + 7, { width: rightWidth, align: "center" });
 
-  return doc.y + 8;
+  // Right band 3 — date (yellow)
+  const band3Top = top + BANNER_BAND_HEIGHT * 2;
+  doc.rect(rightX, band3Top, rightWidth, BANNER_BAND_HEIGHT).fillAndStroke(COLOR_YELLOW, COLOR_BLACK);
+  doc.fillColor(COLOR_BLACK).font("Marathi-Bold").fontSize(11)
+    .text(`दिनांक : ${reportDateLabel}`, rightX, band3Top + 7, { width: rightWidth, align: "center" });
+
+  doc.fillColor(COLOR_BLACK);
+  return top + BANNER_HEIGHT + 6;
 }
 
 function columnX(index) {
@@ -69,13 +97,15 @@ function drawTableHeader(doc, startY) {
 
   COLUMNS.forEach((col, i) => {
     const x = columnX(i);
-    doc.rect(x, startY, col.width, rowHeight).stroke();
+    doc.rect(x, startY, col.width, rowHeight).fillAndStroke(COLOR_BLUE, COLOR_BLACK);
+    doc.fillColor(COLOR_BLACK).font("Marathi-Bold").fontSize(HEADER_FONT_SIZE);
     doc.text(col.header, x + CELL_PADDING_X, startY + CELL_PADDING_Y, {
       width: col.width - CELL_PADDING_X * 2,
       align: "center",
     });
   });
 
+  doc.fillColor(COLOR_BLACK);
   return startY + rowHeight;
 }
 
@@ -138,11 +168,15 @@ function streamPmcDailyRegisterPdf(res, { stationName, reportDateLabel, rows, ge
   });
 
   registerFonts(doc);
+  // Without this, an 'error' event from the readable PDF stream (e.g. the
+  // client aborting mid-download) is an unhandled EventEmitter error and
+  // crashes the whole Node process.
+  doc.on("error", (err) => res.destroy(err));
   doc.pipe(res);
 
   const bottomLimit = doc.page.height - PAGE_MARGIN - 20;
 
-  let y = drawCenteredTitleBlock(doc, { stationName, reportDateLabel });
+  let y = drawHeaderBanner(doc, { stationName, reportDateLabel });
   y = drawTableHeader(doc, y);
 
   rows.forEach((row, index) => {
@@ -150,7 +184,7 @@ function streamPmcDailyRegisterPdf(res, { stationName, reportDateLabel, rows, ge
 
     if (y + height > bottomLimit) {
       doc.addPage();
-      y = drawCenteredTitleBlock(doc, { stationName, reportDateLabel });
+      y = drawHeaderBanner(doc, { stationName, reportDateLabel });
       y = drawTableHeader(doc, y);
     }
 
